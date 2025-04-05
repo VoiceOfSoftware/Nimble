@@ -71,6 +71,9 @@ importers:
       three:
         specifier: ^0.175.0
         version: 0.175.0
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^4.0.0

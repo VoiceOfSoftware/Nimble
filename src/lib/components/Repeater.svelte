@@ -15,7 +15,7 @@
 
 <div class={theClass} draggable={layoutStructure.draggable}>
 	{#each pageContext.data[layoutStructure.dataSource] as row}
-		{#each layoutStructure.children as child, index}
+		{#each layoutStructure.children as child, index (child)}
 			<Layout layoutStructure={child} dataValues={row} />
 		{/each}
 	{/each}

@@ -25,7 +25,7 @@
 </script>
 
 <ul class={theClass}>
-	{#each rowData as row, index}
+	{#each rowData as row, index (row)}
 		<li>
 			<div class="timeline-middle">
 				<DynamicIcon

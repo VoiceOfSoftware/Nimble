@@ -25,13 +25,13 @@ export const oneOfEachPageData = {
 	class: '',
 	draggable: false,
 	children: [
-		{
-			type: '3D',
-			props: {
-				assetURL: 'https://corsproxy.io/?url=https://www.hulbertfamily.com/gltf/MaterialsVariantsShoe.glb',
-				scale: 30
-			}
-		},
+		// {
+		// 	type: '3D',
+		// 	props: {
+		// 		assetURL: 'https://corsproxy.io/?url=https://www.hulbertfamily.com/gltf/MaterialsVariantsShoe.glb',
+		// 		scale: 30
+		// 	}
+		// },
 		{
 			type: 'button',
 			class: 'btn btn-sm btn-info',

@@ -328,9 +328,7 @@
 	let reactiveOneOfEachRepeaterData = $state(oneOfEachRepeaterData);
 
 	async function sampleFetch() {
-		const r = await fetch(
-			"https://dummyjson.com/recipes",
-		);
+		const r = await fetch("https://dummyjson.com/recipes");
 		const j = await r.json();
 		console.log(j);
 		pageContext.data.recipes = j.recipes;
@@ -347,37 +345,53 @@
 	{#if pageContext.editMode}
 		<TPPane title={pageContext.selectedLayout.type}>
 			<TPFolder title="Common Properties">
-				{#if pageContext.selectedLayout.id}
+				{(pageContext.selectedLayout.id =
+					pageContext.selectedLayout.id || "")}
+				{#if pageContext.selectedLayout.id != undefined}
 					<TPText
 						bind:value={pageContext.selectedLayout.id}
 						label="id"
 					/>
 				{/if}
-				{#if pageContext.selectedLayout.class}
+				{(pageContext.selectedLayout.class =
+					pageContext.selectedLayout.class || "")}
+				{#if pageContext.selectedLayout.class != undefined}
 					<TPTextarea
 						bind:value={pageContext.selectedLayout.class}
 						label="Class"
 					/>
 				{/if}
-				{#if pageContext.selectedLayout.background}
+				{(pageContext.selectedLayout.background =
+					pageContext.selectedLayout.background || "")}
+				{#if pageContext.selectedLayout.background != undefined}
 					<TPTextarea
 						bind:value={pageContext.selectedLayout.background}
 						label="Background Image"
 					/>
 				{/if}
-				{#if pageContext.selectedLayout.draggable}
+				{(pageContext.selectedLayout.draggable =
+					pageContext.selectedLayout.draggable || false)}
+				{#if pageContext.selectedLayout.draggable != undefined}
 					<TPCheckbox
 						bind:value={pageContext.selectedLayout.draggable}
 						label="Draggable"
 					/>
 				{/if}
-				{#if pageContext.selectedLayout.dataSource}
+				{#if pageContext.selectedLayout.dataSource != undefined}
 					<TPText
 						bind:value={pageContext.selectedLayout.dataSource}
 						label="Data Source"
 					/>
 				{/if}
-				{#if pageContext.selectedLayout.onchange}
+				{(pageContext.selectedLayout.tooltip =
+					pageContext.selectedLayout.tooltip || "")}
+				{#if pageContext.selectedLayout.tooltip != undefined}
+					<TPText
+						bind:value={pageContext.selectedLayout.tooltip}
+						label="Tooltip"
+					/>
+				{/if}
+				{#if pageContext.selectedLayout.onchange != undefined}
 					<TPFolder title="OnChange Action">
 						<TPText
 							bind:value={
@@ -394,16 +408,16 @@
 						<TPText
 							bind:value={
 								pageContext.selectedLayout.onchange.options
-									.content
+									.scale
 							}
-							label="Value"
+							label="Target's Scale Property"
 						/>
 					</TPFolder>
 				{/if}
 			</TPFolder>
 			<TPFolder title="Custom Properties">
 				{#if pageContext.selectedLayout.props}
-					{#each Object.keys(pageContext.selectedLayout.props) as key}
+					{#each Object.keys(pageContext.selectedLayout.props) as key (key)}
 						{#if pageContext.selectedLayout.props[key].length > 30}
 							<TPTextarea
 								bind:value={
@@ -436,6 +450,7 @@
 	>
 
 	<hr />
+
 	<PaneGroup direction="horizontal" class="w-full" autoSaveId="mainLayout">
 		<Pane defaultSize={10} class="mt-2 ml-2">
 			<EditorRegion editMode={false}>

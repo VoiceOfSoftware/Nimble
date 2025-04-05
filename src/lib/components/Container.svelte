@@ -20,7 +20,7 @@
 </script>
 
 <div class={theClass} draggable={layoutStructure.draggable}>
-	{#each layoutStructure.children as child, index}
+	{#each layoutStructure.children as child, index (child)}
 		{#if pageContext.editMode}
 			<InsertionTarget
 				{index}
@@ -29,7 +29,7 @@
 					insertSiblingAbove(newObject, index)}
 			/>
 		{/if}
-		<Layout layoutStructure={child} {dataValues} />
+		<Layout layoutStructure={child} {dataValues} parent={layoutStructure} {index} />
 	{/each}
 	{#if pageContext.editMode}
 		<InsertionTarget

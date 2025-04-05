@@ -1,6 +1,8 @@
 <script>
 	import { getContext } from "svelte";
 	import { macroReplace, performAction } from "./dataPillMacros.js";
+	import { tooltip } from "./Tippy";
+
 	let { layoutStructure, dataValues, myself } = $props();
 
 	const pageContext = getContext("pageContext");
@@ -31,6 +33,9 @@
 </script>
 
 <button
+	use:tooltip={{
+		content: macroReplace(layoutStructure.tooltip, dataValues, false),
+	}}
 	onclick={() =>
 		performAction(
 			layoutStructure.onclick,

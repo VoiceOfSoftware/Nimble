@@ -5,7 +5,7 @@
 
 	import Icon from "@iconify/svelte";
 
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, parent, index } = $props();
 
 	const pageContext = getContext("pageContext");
 	let myself = $state();
@@ -15,6 +15,10 @@
 	function editComponent() {
 		pageContext.selectedLayout = layoutStructure;
 		pageContext.selectedComponent = myself;
+	}
+
+	function deleteComponent() {
+		parent.children.splice(index, 1);
 	}
 
 	$effect(() => {
@@ -50,9 +54,21 @@
 					<Icon
 						onclick={() => editComponent()}
 						icon="mdi:gear"
-						class="text-primary bg-white bg-opacity-75 rounded-full p-1 w-6 h-6 shadow-md hover:text-accent hover:scale-110 transition-transform"
+						width="24"
+						class="text-primary bg-white rounded-full p-1 shadow-md hover:text-accent hover:scale-150 transition-transform"
 					/>
 				</span>
+				<div
+					class="absolute -left-1 top-0 z-10 rounded bg-white"
+					onclick={() => deleteComponent(index)}
+				>
+					<Icon
+						icon="lucide:trash-2"
+						width="24"
+						class="text-primary bg-white rounded-full p-1 shadow-md hover:text-error hover:scale-150 transition-transform"
+					/>
+				</div>
+
 				<DynamicComponent
 					bind:this={myself}
 					{layoutStructure}

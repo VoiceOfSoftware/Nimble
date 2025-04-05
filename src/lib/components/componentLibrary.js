@@ -210,7 +210,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "repeater",
 			class: "flex flex-wrap",
-			dataSource: "Dummy JSON",
+			dataSource: "names",
 			children: [
 				{
 					type: "text",
@@ -247,6 +247,13 @@ export const listOfComponents = [
 		Definition: {
 			type: "slider",
 			class: "range",
+			onchange: {
+				"action": "setProperty",
+				"target": "3d",
+				"options": {
+					"scale": "{self.props.value}"
+				}
+			},
 			props: {
 				min: 1,
 				max: 100,
