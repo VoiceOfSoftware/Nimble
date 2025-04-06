@@ -71,7 +71,6 @@
 								)}
 								dataValues={marker}
 								dataSources={[]}
-								{namedLayouts}
 							/>
 						</div>
 					</Popup>

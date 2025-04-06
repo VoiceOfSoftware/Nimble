@@ -25,6 +25,35 @@ export const oneOfEachPageData = {
 	class: '',
 	draggable: false,
 	children: [
+		{
+			type: 'container',
+			class: 'mockup-phone scale-90',
+			children: [
+				{
+					type: 'container',
+					class: 'camera',
+				},
+				{
+					type: 'container',
+					class: 'display w-[440px] h-[844px] bg-white',
+					children: [
+						{
+							type: 'text',
+							class: 'pt-2 pl-3 text-gray-100',
+							props: {
+								content: 'safe area'
+							}
+						},
+						{
+							type:'container',
+							class:'flex flex-wrap',
+							children:[]
+						}
+					]
+				}
+
+			]
+		},
 		// {
 		// 	type: '3D',
 		// 	props: {
@@ -160,9 +189,8 @@ export const oneOfEachPageData = {
 			dataSource: 'mapMarkers',
 			props: {
 				zoom: 2,
-				tileLayer:
-					'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 				center: [-117.165975, 33.088782],
 				markerIcon: 'mdi:location',
 				markerColor: 'blue',

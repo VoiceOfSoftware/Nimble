@@ -12,7 +12,7 @@ export const componentLibraryLayout = {
 			children: [
 				{
 					type: "container",
-					class: "flex flex-row p-2 mt-1 ml-2 mr-2 mb-1 bg-white rounded-md items-center",
+					class: "flex flex-row p-2 mt-1 ml-2 mr-2 mb-1 bg-white rounded-md items-center cursor-move",
 					children: [
 						{
 							type: "icon",
@@ -70,7 +70,7 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:calendar-days',
 		Definition: {
 			type: "calendar",
-			class: 'w-1/2',
+			class: '',
 			props: {
 				startTimeField: "startDateTime",
 				endTimeField: "endDateTime",
@@ -84,7 +84,7 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:chart-no-axes-combined',
 		Definition: {
 			type: "chart",
-			dataSource: "Publication breakdown",
+			dataSource: "chartData",
 			props: {
 				title: "This is an ApexChart",
 				color: "#009999",
@@ -100,11 +100,14 @@ export const listOfComponents = [
 		Definition: {
 			type: "choice",
 			props: {
-				optionValueField: "Name",
-				optionTitleField: "Name"
+				optionValueField: "name",
+				optionTitleField: "name"
 			},
-			dataSource: "Component Library",
-			onChange: "alert('selected '+selectedOption);"
+			dataSource: "names",
+			onchange: {
+				"action": "clientScript",
+				"value": "alert('choice changed {self.value}')"
+			},
 		}
 	},
 	{
@@ -122,7 +125,7 @@ export const listOfComponents = [
 		IconifyIcon: 'carbon:container-image',
 		Definition: {
 			type: "container",
-			class: "flex flex-wrap",
+			class: "",
 			children: [
 			],
 		}
@@ -143,10 +146,10 @@ export const listOfComponents = [
 		Name: 'iFrame',
 		IconifyIcon: 'tdesign:component-layout',
 		Definition: {
-			type: "iframe",
-			class: "w-full",
+			type: 'iframe',
+			class: 'w-full',
 			props: {
-				url: "https:\/\/www.hulbertfamily.com"
+				url: 'https://nc-photo.org'
 			},
 		}
 	},
@@ -193,15 +196,49 @@ export const listOfComponents = [
 		IconifyIcon: 'uiw:map',
 		Definition: {
 			type: "map",
-			dataSource: "Map Markers",
+			dataSource: "mapMarkers",
 			props: {
+				zoom: 2,
 				rasterLayer: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
-				zoom: "15",
-				center: "[-117.165975, 33.088782]",
-				markerIcon: "",
+				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+				center: [-117.165975, 33.088782],
+				markerIcon: "mdi:location",
 				popup: "{\"componentType\":\"text\",\"type\":\"component\",\"id\":\"\",\"props\":{\"content\":\"{lngLat}: {label}\"},\"class\":\"text-base-content\"}",
 				baseMap: "https:\/\/basemaps.cartocdn.com\/gl\/positron-gl-style\/style.json"
 			},
+		}
+	},
+	{
+		Name: 'Phone',
+		IconifyIcon: 'material-symbols:smartphone',
+		Definition: {
+			type: 'container',
+			class: 'mockup-phone scale-90',
+			children: [
+				{
+					type: 'container',
+					class: 'camera',
+				},
+				{
+					type: 'container',
+					class: 'display w-[440px] h-[844px] bg-white',
+					children: [
+						{
+							type: 'text',
+							class: 'pt-2 pl-3 text-gray-100',
+							props: {
+								content: 'safe area'
+							}
+						},
+						{
+							type: 'container',
+							class: 'flex flex-wrap',
+							children: []
+						}
+					]
+				}
+
+			]
 		}
 	},
 	{
@@ -266,7 +303,7 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:table',
 		Definition: {
 			type: "table",
-			dataSource: "Dummy JSON",
+			dataSource: "calendarEvents",
 			props: {
 				editable: true
 			},
@@ -288,12 +325,12 @@ export const listOfComponents = [
 		IconifyIcon: 'mingcute:timeline-fill',
 		Definition: {
 			type: "timeline",
-			dataSource: "Calendar",
+			dataSource: "calendarEvents",
+			class: 'timeline timeline-snap-icon timeline-vertical max-md:timeline-compact h-96 overflow-y-auto',
 			props: {
 				nodeWidth: 64,
-				itemLayout: "{\"type\":\"namedComponent\",\"componentType\":\"Paneurhythmy\"}",
-				orientation: "vertical",
-				icon: "material-symbols:check-circle-outline"
+				itemLayout: '{"type":"button","class":"btn btn-xs","props":{"label":"{data.shortdescription:hideEmpty}"}}',
+				icon: "mdi:{data.icon}"
 			},
 		}
 	}

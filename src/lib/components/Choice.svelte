@@ -1,16 +1,18 @@
 <script>
 	import { getContext } from "svelte";
+	import { performAction } from "./dataPillMacros.js";
 
 	const pageContext = getContext("pageContext");
 
-	let { layoutStructure } = $props();
+	let { layoutStructure, dataValues, myself } = $props();
 
 	let selectedOption = $state();
 	function handleChoice() {
-		//	If we have a link to a single other object, send it a 'standard' data change message
-		if (layoutStructure.link) {
-			console.log("layoutStructure.link: " + layoutStructure.link);
-		}
+		performAction(
+			layoutStructure.onchange,
+			{ page: pageContext, data: pageContext.data, self: myself },
+			dataValues,
+		);
 	}
 </script>
 

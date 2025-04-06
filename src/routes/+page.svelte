@@ -475,7 +475,7 @@
 			</div>
 		</PaneResizer>
 		<Pane defaultSize={50}>
-			One of each (page data):<Layout
+			One of each component type:<Layout
 				layoutStructure={reactiveOneOfEachPageData}
 			/>
 		</Pane>

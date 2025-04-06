@@ -50,7 +50,7 @@
 	{#if DynamicComponent}
 		{#if pageContext?.editMode}
 			<div class="relative border border-dashed border-gray-400 p-2 m-1">
-				<span class="absolute -top-1 -right-1">
+				<span class="absolute -top-2 -right-2 opacity-60">
 					<Icon
 						onclick={() => editComponent()}
 						icon="mdi:gear"
@@ -59,7 +59,7 @@
 					/>
 				</span>
 				<div
-					class="absolute -left-1 top-0 z-10 rounded bg-white"
+					class="absolute -left-2 -top-2 z-10 rounded bg-white opacity-60"
 					onclick={() => deleteComponent(index)}
 				>
 					<Icon
