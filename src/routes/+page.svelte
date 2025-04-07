@@ -3,6 +3,8 @@
 	import { setContext } from "svelte";
 	import { registerComponent } from "$lib/components/componentRegistry.js";
 	import { PaneGroup, Pane, PaneResizer } from "paneforge";
+	import Sidebar from "$lib/components/Sidebar.svelte";
+	import TweakPanel from "$lib/components/TweakPanel.svelte";
 	import {
 		listOfComponents,
 		componentLibraryLayout,
@@ -30,18 +32,6 @@
 	import Slider from "$lib/components/Slider.svelte";
 	import NimbleTipTap from "$lib/components/NimbleTipTap.svelte";
 	import ThrelteCanvas from "$lib/components/Threlte/ThrelteCanvas.svelte";
-
-	import {
-		Button as TPButton,
-		Slider as TPSlider,
-		Pane as TPPane,
-		Monitor as TPMonitor,
-		Folder as TPFolder,
-		Text as TPText,
-		Textarea as TPTextarea,
-		Color as TPColor,
-		Checkbox as TPCheckbox,
-	} from "svelte-tweakpane-ui";
 
 	import {
 		headerLayout,
@@ -78,7 +68,8 @@
 
 	let pageContext = $state({
 		editMode: false,
-		selectedLayout: { props: {} },
+		floatingPanel: false,
+		selectedLayout: null,
 		selectedComponent: {},
 		namedPageObjects: {},
 		data: {
@@ -342,107 +333,18 @@
 <svelte:window onkeydown={handleKeyDown} onkeyup={handleKeyUp} />
 
 <div>
-	{#if pageContext.editMode}
-		<TPPane title={pageContext.selectedLayout.type}>
-			<TPFolder title="Common Properties">
-				{(pageContext.selectedLayout.id =
-					pageContext.selectedLayout.id || "")}
-				{#if pageContext.selectedLayout.id != undefined}
-					<TPText
-						bind:value={pageContext.selectedLayout.id}
-						label="id"
-					/>
-				{/if}
-				{(pageContext.selectedLayout.class =
-					pageContext.selectedLayout.class || "")}
-				{#if pageContext.selectedLayout.class != undefined}
-					<TPTextarea
-						bind:value={pageContext.selectedLayout.class}
-						label="Class"
-					/>
-				{/if}
-				{(pageContext.selectedLayout.background =
-					pageContext.selectedLayout.background || "")}
-				{#if pageContext.selectedLayout.background != undefined}
-					<TPTextarea
-						bind:value={pageContext.selectedLayout.background}
-						label="Background Image"
-					/>
-				{/if}
-				{(pageContext.selectedLayout.draggable =
-					pageContext.selectedLayout.draggable || false)}
-				{#if pageContext.selectedLayout.draggable != undefined}
-					<TPCheckbox
-						bind:value={pageContext.selectedLayout.draggable}
-						label="Draggable"
-					/>
-				{/if}
-				{#if pageContext.selectedLayout.dataSource != undefined}
-					<TPText
-						bind:value={pageContext.selectedLayout.dataSource}
-						label="Data Source"
-					/>
-				{/if}
-				{(pageContext.selectedLayout.tooltip =
-					pageContext.selectedLayout.tooltip || "")}
-				{#if pageContext.selectedLayout.tooltip != undefined}
-					<TPText
-						bind:value={pageContext.selectedLayout.tooltip}
-						label="Tooltip"
-					/>
-				{/if}
-				{#if pageContext.selectedLayout.onchange != undefined}
-					<TPFolder title="OnChange Action">
-						<TPText
-							bind:value={
-								pageContext.selectedLayout.onchange.action
-							}
-							label="Action"
-						/>
-						<TPText
-							bind:value={
-								pageContext.selectedLayout.onchange.target
-							}
-							label="Target"
-						/>
-						<TPText
-							bind:value={
-								pageContext.selectedLayout.onchange.options
-									.scale
-							}
-							label="Target's Scale Property"
-						/>
-					</TPFolder>
-				{/if}
-			</TPFolder>
-			<TPFolder title="Custom Properties">
-				{#if pageContext.selectedLayout.props}
-					{#each Object.keys(pageContext.selectedLayout.props) as key (key)}
-						{#if pageContext.selectedLayout.props[key].length > 30}
-							<TPTextarea
-								bind:value={
-									pageContext.selectedLayout.props[key]
-								}
-								label={key}
-							/>
-						{:else}
-							<TPText
-								bind:value={
-									pageContext.selectedLayout.props[key]
-								}
-								label={key}
-							/>
-						{/if}
-					{/each}
-				{/if}
-			</TPFolder>
-		</TPPane>
+	{#if pageContext.floatingPanel}
+		<TweakPanel />
 	{/if}
 	<label>
 		<input type="checkbox" bind:checked={pageContext.editMode} />
 		Edit Mode
 	</label>
-	<button class="btn btn-sm" onclick={() => sampleFetch()}
+	<label class="ml-2">
+		<input type="checkbox" bind:checked={pageContext.floatingPanel} />
+		Floating Property Panel
+	</label>
+	<button class="btn btn-sm ml-2" onclick={() => sampleFetch()}
 		>Fetch Example Data</button
 	>
 	<button class="btn btn-sm" onclick={() => sampleClear()}
@@ -453,9 +355,11 @@
 
 	<PaneGroup direction="horizontal" class="w-full" autoSaveId="mainLayout">
 		<Pane defaultSize={10} class="mt-2 ml-2">
-			<EditorRegion editMode={false}>
-				<Layout layoutStructure={componentLibraryLayout} />
-			</EditorRegion>
+			<div class="h-screen overflow-y-auto">
+				<EditorRegion editMode={false}>
+					<Layout layoutStructure={componentLibraryLayout} />
+				</EditorRegion>
+			</div>
 		</Pane>
 		<PaneResizer
 			class="bg-background relative flex w-2 items-center justify-center"
@@ -475,9 +379,33 @@
 			</div>
 		</PaneResizer>
 		<Pane defaultSize={50}>
-			One of each component type:<Layout
-				layoutStructure={reactiveOneOfEachPageData}
-			/>
+			<div class="h-screen overflow-y-auto">
+				One of each component type:<Layout
+					layoutStructure={reactiveOneOfEachPageData}
+				/>
+			</div>
+		</Pane>
+		<PaneResizer
+			class="bg-background relative flex w-2 items-center justify-center"
+		>
+			<div
+				class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
+			>
+				<DynamicIcon
+					layoutStructure={{
+						type: "icon",
+						props: {
+							icon: "mdi-light:dots-vertical",
+							size: 30,
+						},
+					}}
+				/>
+			</div>
+		</PaneResizer>
+		<Pane defaultSize={10}>
+			<div class="h-screen overflow-y-auto">
+				<Sidebar />
+			</div>
 		</Pane>
 	</PaneGroup>
 
