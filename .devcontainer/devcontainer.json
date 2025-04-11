@@ -6,5 +6,5 @@
       "version": "23"
     }
   },
-  "postCreateCommand": "bash -c 'npm install --global pnpm && pnpm install && echo now run: npm run preview'"
+  "postCreateCommand": "bash -c 'npm install --global pnpm && pnpm install"
 }
