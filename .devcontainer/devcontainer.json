@@ -6,5 +6,5 @@
       "version": "23"
     }
   },
-  "postCreateCommand": "bash -c 'npm install --global pnpm && pnpm install"
+  "postCreateCommand": "bash -c 'npm install --global pnpm && pnpm install'"
 }
