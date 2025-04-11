@@ -1,0 +1,10 @@
+{
+  "name": "Svelte Starter",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "23"
+    }
+  },
+  "postCreateCommand": "bash -c 'npm install --global pnpm && pnpm install && echo now run: npm run preview'"
+}
