@@ -45,9 +45,9 @@ export const oneOfEachPageData = {
 							}
 						},
 						{
-							type:'container',
-							class:'flex flex-wrap',
-							children:[]
+							type: 'container',
+							class: 'flex flex-wrap',
+							children: []
 						}
 					]
 				}
@@ -64,11 +64,24 @@ export const oneOfEachPageData = {
 		{
 			type: 'button',
 			class: 'btn btn-sm btn-info',
-			onclick: {
-				"action": "clientScript",
-				"value": "alert('button clicked')"
+			actions: {
+				onclick: {
+					"type": "clientScript",
+					"script": "document.documentElement.setAttribute('data-theme','dark')"
+				}
 			},
-			props: { label: '{page.exampleButton.label}' }
+			props: { label: '🌙 Dark Mode' }
+		},
+		{
+			type: 'button',
+			class: 'btn btn-sm btn-info',
+			actions: {
+				onclick: {
+					"type": "clientScript",
+					"script": "document.documentElement.setAttribute('data-theme','light')"
+				}
+			},
+			props: { label: '☀️ Light Mode' }
 		},
 		{
 			type: 'calendar',
@@ -237,13 +250,16 @@ export const oneOfEachPageData = {
 						max: '{page.exampleSlider.max}',
 						value: 7
 					},
-					onchange: {
-						"action": "setProperty",
-						"target": "sliderValue",
-						"options": {
-							"content": "{self.props.value}"
+					actions: {
+						onchange: {
+							"type": "setProperty",
+							"target": "sliderValue",
+							"options": {
+								"content": "{self.props.value}"
+							}
 						}
-					},
+					}
+					,
 				},
 				{
 					type: 'text',
@@ -390,16 +406,16 @@ export const repeater = {
 		{
 			type: 'button',
 			class: 'btn btn-sm {data.color}',
-			onclick: {
-				"action": "navigate",
-				"target": "{data.navigate}",
-				"options": {
+			actions: {
+				onclick: {
+					"type": "navigate",
+					"target": "{data.navigate}",
 					"newTab": true
-				}
-			},
-			onclick2: {
-				"action": "clientScript",
-				"value": "alert(self.getContent()); page.namedPageObjects['theButton'].getLayout()['class']='btn btn-accent'; alert(JSON.stringify(page.namedPageObjects['theButton'].getLayout()['class']));"
+				},
+				onclick2: {
+					"type": "clientScript",
+					"value": "alert(self.getContent()); page.namedPageObjects['theButton'].getLayout()['class']='btn btn-accent'; alert(JSON.stringify(page.namedPageObjects['theButton'].getLayout()['class']));"
+				},
 			},
 			props: { label: 'Button{data.name:formatSuffix}' },
 		},

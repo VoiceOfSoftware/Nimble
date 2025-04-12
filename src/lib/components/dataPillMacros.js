@@ -9,15 +9,13 @@
 //     }
 // NAVIGATE TO PAGE
 // "action": {
-//   "action": "navigate",
+//   "type": "navigate",
 //   "target": "/home",
-//   "options": {
 //     "newTab": false
-//   }
 // }
 // SHOW/HIDE element
 // "action": {
-// 	"action": "toggleVisibility",
+// 	"type": "toggleVisibility",
 // 	"target": "sidebar_001",
 // 	"options": {
 // 		"initialState": "hidden"
@@ -25,7 +23,7 @@
 // }
 // SUBMIT A FORM
 // "action": {
-// 	"action": "submitForm",
+// 	"type": "submitForm",
 // 	"target": "form_001",
 // 	"options": {
 // 		"endpoint": "/api/submit"
@@ -33,17 +31,17 @@
 // }
 // RUN JAVASCRIPT
 // "action": {
-// 	"action": "clientScript",
+// 	"type": "clientScript",
 // 	"value": "alert('Button clicked!');"
 // }
 // OPEN A MODAL
 // "action": {
-// 	"action": "openModal",
+// 	"type": "openModal",
 // 	"target": "modal_001"
 // }
 // SET PROPERTY
 // "action": {
-// 	"action": "setProperty",
+// 	"type": "setProperty",
 // 	"target": "named_slider_id",
 // 	"options": {
 // 		"max": 100
@@ -51,7 +49,7 @@
 // }
 // TOGGLE STATE
 // "action": {
-// 	"action": "toggleState",
+// 	"type": "toggleState",
 // 	"target": "theme",
 // 	"options": {
 // 		"states": ["light", "dark"]
@@ -59,7 +57,7 @@
 // }
 // COPY TO CLIPBOARD
 // "action": {
-// 	"action": "copyToClipboard",
+// 	"type": "copyToClipboard",
 // 	"value": "https://example.com"
 // }
 export function evalWithContext(code, context) {
@@ -68,19 +66,15 @@ export function evalWithContext(code, context) {
 }
 
 export function performAction(actionDefinition, context, dataValues) {
-	switch (actionDefinition?.action) {
+	switch (actionDefinition?.type) {
 		case 'navigate':
-			window.open(macroReplace(actionDefinition.target, context, dataValues, false), actionDefinition.options?.newTab ? '_blank' : '_self');
+			window.open(macroReplace(actionDefinition.URL, context, dataValues, false), actionDefinition.newTab ? '_blank' : '_self');
 			break;
 		case 'clientScript':
-			evalWithContext(actionDefinition.value, context)
+			evalWithContext(actionDefinition.script, context)
 			break;
 		case 'setProperty':
-			Object.keys(actionDefinition.options).forEach((key) => {
-				console.log(JSON.stringify(context.self.getLayout()['props']['value']))
-				console.log(actionDefinition.options[key])
-				context.page.namedPageObjects[actionDefinition.target].getLayout()['props'][key] = macroReplace(actionDefinition.options[key], context, dataValues, false);
-			});
+			context.page.namedPageObjects[actionDefinition.objectName].getLayout()['props'][actionDefinition.property] = macroReplace(actionDefinition.value, context, dataValues, false);
 			break;
 	}
 }
