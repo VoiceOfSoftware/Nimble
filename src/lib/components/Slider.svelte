@@ -20,7 +20,7 @@
 	class={theClass}
 	oninput={() =>
 		performAction(
-			layoutStructure.onchange,
+			layoutStructure.actions?.onchange,
 			{ page: pageContext, data: pageContext.data, self: myself },
 			dataValues,
 		)}

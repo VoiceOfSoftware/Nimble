@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import DynamicIcon from "./DynamicIcon.svelte";
+	import Icon from "@iconify/svelte";
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
 
@@ -28,14 +28,15 @@
 	{#each rowData as row, index (row)}
 		<li>
 			<div class="timeline-middle">
-				<DynamicIcon
-					layoutStructure={{
-						props: {
-							color: layoutStructure.props?.iconColor || "blue",
-							icon: macroReplace(layoutStructure.props?.icon, pageContext, row, false) || "mdi:location",
-							size: layoutStructure.props?.iconSize || 36,
-						},
-					}}
+				<Icon
+					color={layoutStructure.props?.iconColor || "blue"}
+					icon={macroReplace(
+						layoutStructure.props?.icon,
+						pageContext,
+						row,
+						false,
+					) || "mdi:location"}
+					width={layoutStructure.props?.iconSize || 36}
 				/>
 			</div>
 			<div

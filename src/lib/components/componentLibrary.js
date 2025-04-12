@@ -56,9 +56,11 @@ export const listOfComponents = [
 			type: "button",
 			class: "btn btn-sm btn-primary",
 			tooltip: "Show this when user hovers",
-			onclick: {
-				"action": "clientScript",
-				"value": "alert('button clicked')"
+			actions: {
+				onclick: {
+					"type": "clientScript",
+					"value": "alert('button clicked')"
+				}
 			},
 			props: {
 				label: "Button",
@@ -104,9 +106,11 @@ export const listOfComponents = [
 				optionTitleField: "name"
 			},
 			dataSource: "names",
-			onchange: {
-				"action": "clientScript",
-				"value": "alert('choice changed {self.value}')"
+			actions: {
+				onchange: {
+					"type": "clientScript",
+					"script": "alert('choice changed {self.value}')"
+				}
 			},
 		}
 	},

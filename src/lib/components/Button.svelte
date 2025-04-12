@@ -30,18 +30,47 @@
 			false,
 		),
 	);
+
+	function createEventHandlers(actions = {}, context, dataValues) {
+		const handlers = {};
+		const supportedEvents = [
+			"onclick",
+			"oncontextmenu",
+			"ondblclick",
+			"onmousedown",
+			"onmouseenter",
+			"onmouseleave",
+			"onmousemove",
+			"onmouseout",
+			"onmouseover",
+			"onmouseup",
+			"onkeydown",
+			"onkeyup",
+		];
+
+		supportedEvents.forEach((event) => {
+			const action = actions[event];
+			if (action) {
+				const eventName = event;
+				handlers[eventName] = () => {
+					performAction(action, context, dataValues);
+				};
+			}
+		});
+
+		return handlers;
+	}
 </script>
 
 <button
 	use:tooltip={{
 		content: macroReplace(layoutStructure.tooltip, dataValues, false),
 	}}
-	onclick={() =>
-		performAction(
-			layoutStructure.onclick,
-			{ page: pageContext, data: pageContext.data, self: myself },
-			dataValues,
-		)}
+	{...createEventHandlers(
+		layoutStructure.actions,
+		{ page: pageContext, data: pageContext.data, self: myself },
+		dataValues,
+	)}
 	class={theClass}
 	draggable={layoutStructure.draggable}>{content}</button
 >

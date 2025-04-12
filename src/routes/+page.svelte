@@ -2,6 +2,7 @@
 	import "../style.css";
 	import { setContext } from "svelte";
 	import { registerComponent } from "$lib/components/componentRegistry.js";
+	import Icon from "@iconify/svelte";
 	import { PaneGroup, Pane, PaneResizer } from "paneforge";
 	import Sidebar from "$lib/components/Sidebar.svelte";
 	import TweakPanel from "$lib/components/TweakPanel.svelte";
@@ -367,15 +368,7 @@
 			<div
 				class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
 			>
-				<DynamicIcon
-					layoutStructure={{
-						type: "icon",
-						props: {
-							icon: "mdi-light:dots-vertical",
-							size: 30,
-						},
-					}}
-				/>
+				<Icon icon="mdi-light:dots-vertical" width={30} height={30} />
 			</div>
 		</PaneResizer>
 		<Pane defaultSize={50}>
@@ -391,15 +384,7 @@
 			<div
 				class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
 			>
-				<DynamicIcon
-					layoutStructure={{
-						type: "icon",
-						props: {
-							icon: "mdi-light:dots-vertical",
-							size: 30,
-						},
-					}}
-				/>
+				<Icon icon="mdi-light:dots-vertical" height="30" />
 			</div>
 		</PaneResizer>
 		<Pane defaultSize={10}>

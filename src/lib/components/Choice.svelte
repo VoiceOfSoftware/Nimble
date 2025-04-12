@@ -9,7 +9,7 @@
 	let selectedOption = $state();
 	function handleChoice() {
 		performAction(
-			layoutStructure.onchange,
+			layoutStructure.actions?.onchange,
 			{ page: pageContext, data: pageContext.data, self: myself },
 			dataValues,
 		);
