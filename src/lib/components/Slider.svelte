@@ -1,5 +1,6 @@
 <script>
 	import { getContext } from "svelte";
+	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace, performAction } from "./dataPillMacros.js";
 	let { layoutStructure, dataValues, myself } = $props();
 
@@ -18,6 +19,11 @@
 
 <input
 	class={theClass}
+	{...createEventHandlers(
+		layoutStructure.actions,
+		{ page: pageContext.data, data: dataValues, self: myself },
+		dataValues,
+	)}
 	oninput={() =>
 		performAction(
 			layoutStructure.actions?.onchange,

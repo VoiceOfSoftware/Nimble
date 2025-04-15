@@ -111,7 +111,6 @@
 			// If HEAD request doesn't work, fall back to GET
 			if (!contentType) {
 				const getResponse = await fetch(url);
-				console.log(getResponse);
 				const contentType = getResponse.headers.get("content-type");
 
 				// For JSON and XML, try to validate and get more specific info

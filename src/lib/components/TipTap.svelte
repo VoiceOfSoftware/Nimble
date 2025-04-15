@@ -107,7 +107,7 @@
 	</button>
 {/if}
 
-<div bind:this={element} />
+<div bind:this={element}></div>
 
 <style>
 	:global(.ProseMirror p:first-child) {

@@ -105,6 +105,7 @@ export const listOfComponents = [
 				optionValueField: "name",
 				optionTitleField: "name"
 			},
+			class: "border border-gray-300 rounded",
 			dataSource: "names",
 			actions: {
 				onchange: {
@@ -290,7 +291,7 @@ export const listOfComponents = [
 			class: "range",
 			onchange: {
 				"action": "setProperty",
-				"target": "3d",
+				"objectName": "3d",
 				"options": {
 					"scale": "{self.props.value}"
 				}

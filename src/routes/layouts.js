@@ -77,8 +77,8 @@ export const oneOfEachPageData = {
 			class: 'btn btn-sm btn-info',
 			actions: {
 				onclick: {
-					"type": "clientScript",
-					"script": "document.documentElement.setAttribute('data-theme','light')"
+					type: "clientScript",
+					script: "document.documentElement.setAttribute('data-theme','light')"
 				}
 			},
 			props: { label: '☀️ Light Mode' }
@@ -107,10 +107,21 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'choice',
+			class: 'border border-gray-300 rounded',
 			dataSource: 'names',
 			props: {
 				optionValueField: 'name',
 				optionTitleField: 'name'
+			},
+			actions: {
+				onchange: {
+					type: 'clientScript',
+					script: 'alert("onchange "+self.value)'
+				},
+				oninput: {
+					type: 'clientScript',
+					script: 'alert("oninput "+self.value)'
+				}
 			}
 		},
 		{
@@ -189,7 +200,17 @@ export const oneOfEachPageData = {
 		{
 			type: 'input',
 			class: 'input input-sm input-bordered w-64',
-			props: { placeholder: '{page.exampleInput.placeholder}', content: '' }
+			props: { placeholder: '{page.exampleInput.placeholder}', content: '' },
+			actions: {
+				onchange: {
+					type: 'clientScript',
+					script: 'alert("onchange "+self.value)'
+				},
+				oninput: {
+					type: 'clientScript',
+					script: 'alert("oninput "+self.value)'
+				},
+			}
 		},
 		// {
 		// 	type: 'pdf',
@@ -252,11 +273,10 @@ export const oneOfEachPageData = {
 					},
 					actions: {
 						onchange: {
-							"type": "setProperty",
-							"target": "sliderValue",
-							"options": {
-								"content": "{self.props.value}"
-							}
+							type: "setProperty",
+							objectName: "sliderValue",
+							property: 'content',
+							value: "{self.props.value}"
 						}
 					}
 					,
@@ -409,7 +429,7 @@ export const repeater = {
 			actions: {
 				onclick: {
 					"type": "navigate",
-					"target": "{data.navigate}",
+					"URL": "{data.navigate}",
 					"newTab": true
 				},
 				onclick2: {

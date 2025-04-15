@@ -1,6 +1,7 @@
 <script>
 	import { getContext } from "svelte";
-	import { macroReplace, performAction } from "./dataPillMacros.js";
+	import { createEventHandlers } from "./eventHandlers.js";
+	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
 
 	let { layoutStructure, dataValues, myself } = $props();
@@ -30,36 +31,6 @@
 			false,
 		),
 	);
-
-	function createEventHandlers(actions = {}, context, dataValues) {
-		const handlers = {};
-		const supportedEvents = [
-			"onclick",
-			"oncontextmenu",
-			"ondblclick",
-			"onmousedown",
-			"onmouseenter",
-			"onmouseleave",
-			"onmousemove",
-			"onmouseout",
-			"onmouseover",
-			"onmouseup",
-			"onkeydown",
-			"onkeyup",
-		];
-
-		supportedEvents.forEach((event) => {
-			const action = actions[event];
-			if (action) {
-				const eventName = event;
-				handlers[eventName] = () => {
-					performAction(action, context, dataValues);
-				};
-			}
-		});
-
-		return handlers;
-	}
 </script>
 
 <button
@@ -68,7 +39,7 @@
 	}}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext, data: pageContext.data, self: myself },
+		{ page: pageContext.data, data: dataValues, self: myself },
 		dataValues,
 	)}
 	class={theClass}

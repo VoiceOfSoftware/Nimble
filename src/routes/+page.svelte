@@ -48,21 +48,21 @@
 	registerComponent("named", Named);
 
 	registerComponent("3D", ThrelteCanvas);
-	registerComponent("button", Button);
+	registerComponent("button", Button, ["onclick"]);
 	registerComponent("calendar", Calendar);
 	registerComponent("chart", Chart);
-	registerComponent("choice", Choice);
+	registerComponent("choice", Choice, ["oninput", "onchange"]);
 	registerComponent("container", Container);
-	registerComponent("icon", DynamicIcon);
+	registerComponent("icon", DynamicIcon, ["onclick"]);
 	registerComponent("iframe", IFrame);
-	registerComponent("image", Image);
-	registerComponent("input", Input);
+	registerComponent("image", Image, ["onclick"]);
+	registerComponent("input", Input, ["oninput", "onchange"]);
 	registerComponent("map", MapLibre);
 	registerComponent("pdf", PDFViewer);
 	registerComponent("repeater", Repeater);
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", Script);
-	registerComponent("slider", Slider);
+	registerComponent("slider", Slider, ["onchange"]);
 	registerComponent("table", AGGrid2);
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);
@@ -322,7 +322,6 @@
 	async function sampleFetch() {
 		const r = await fetch("https://dummyjson.com/recipes");
 		const j = await r.json();
-		console.log(j);
 		pageContext.data.recipes = j.recipes;
 	}
 

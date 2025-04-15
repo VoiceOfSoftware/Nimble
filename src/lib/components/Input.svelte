@@ -1,7 +1,9 @@
 <script>
 	import { getContext } from "svelte";
+	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
-	let { layoutStructure, dataValues } = $props();
+
+	let { layoutStructure, dataValues, myself } = $props();
 	let content = $state(layoutStructure.props.content); // Local reactive variable
 
 	const pageContext = getContext("pageContext");
@@ -31,6 +33,11 @@
 
 <input
 	class={theClass}
+	{...createEventHandlers(
+		layoutStructure.actions,
+		{ page: pageContext.data, data: dataValues, self: myself },
+		dataValues,
+	)}
 	draggable={layoutStructure.draggable}
 	disabled={layoutStructure.disabled}
 	type="text"
