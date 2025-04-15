@@ -33,6 +33,16 @@
 			placeholder: "URL of background image",
 		},
 	];
+
+	function setComponentID(id) {
+		//	If component already has an id, rename it by first removing from the global list of named objects
+		if (pageContext.selectedLayout.id) {
+			delete pageContext.namedPageObjects[pageContext.selectedLayout.id];
+		}
+		if (id) {
+			pageContext.selectedLayout.id = id;
+		}
+	}
 </script>
 
 <b class="mt-2">Common Properties:</b>
@@ -41,11 +51,20 @@
 	{#if !commonProp.components || commonProp.components.find((type) => type == pageContext.selectedLayout.type)}
 		{#if commonProp.type === "string"}
 			<div class="text-xs">{commonProp.attr}</div>
-			<input
-				class="mb-1 border w-full"
-				bind:value={pageContext.selectedLayout[commonProp.attr]}
-				placeholder={commonProp.placeholder}
-			/>
+			{#if commonProp.attr == "id"}
+				<input
+					class="mb-1 border w-full"
+					value={pageContext.selectedLayout.id}
+					onblur={(event) => setComponentID(event.target.value)}
+					placeholder={commonProp.placeholder}
+				/>
+			{:else}
+				<input
+					class="mb-1 border w-full"
+					bind:value={pageContext.selectedLayout[commonProp.attr]}
+					placeholder={commonProp.placeholder}
+				/>
+			{/if}
 		{/if}
 		{#if commonProp.type === "boolean"}
 			<div class="mb-1 flex items-baseline text-xs">

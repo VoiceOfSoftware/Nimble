@@ -22,6 +22,8 @@
 	}
 
 	$effect(() => {
+		//	Whenever the user gives a component an id, capture it into the list of named objects.
+		//	This allows us to access page objects by name (well, id, I guess!) from script
 		if (layoutStructure.id && myself) {
 			pageContext.namedPageObjects[layoutStructure.id] = myself;
 		}

@@ -1,7 +1,9 @@
 <script>
 	import { getContext } from "svelte";
+	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
-	let { layoutStructure, dataValues } = $props();
+
+	let { layoutStructure, dataValues, myself } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -25,6 +27,14 @@
 	);
 </script>
 
-<p class={theClass} draggable={layoutStructure.draggable}>
+<p
+	class={theClass}
+	draggable={layoutStructure.draggable}
+	{...createEventHandlers(
+		layoutStructure.actions,
+		{ page: pageContext.data, data: dataValues, self: myself },
+		dataValues,
+	)}
+>
 	{@html content}
 </p>

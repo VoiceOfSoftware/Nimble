@@ -64,14 +64,14 @@
 					label="Action"
 				/>
 				<Text
-					bind:value={pageContext.selectedLayout.onchange.target}
-					label="Target"
+					bind:value={pageContext.selectedLayout.onchange.objectName}
+					label="Object Name"
 				/>
 				<Text
 					bind:value={
 						pageContext.selectedLayout.onchange.options.scale
 					}
-					label="Target's Scale Property"
+					label="Object Name's Scale Property"
 				/>
 			</Folder>
 		{/if}
