@@ -19,7 +19,7 @@
 </script>
 
 {#if pageContext.editMode}
-	<div class={theClass}>
+	<div class={theClass + " repeater-section"}>
 		{#each layoutStructure.children as child, index (child)}
 			<InsertionTarget
 				{index}
@@ -45,3 +45,42 @@
 		{/each}
 	</div>
 {/if}
+
+<style>
+	.repeater-section {
+		/* Ensure relative positioning so pseudo-elements can be positioned */
+		position: relative;
+
+		/* Add padding to avoid content overlapping the bracket */
+		padding-left: 20px;
+
+		/* Add margin to separate each repeated section */
+		margin-bottom: 15px;
+	}
+
+	.repeater-section::before,
+	.repeater-section::after {
+		/* Position the pseudo-elements absolutely on the left side */
+		content: "";
+		position: absolute;
+		left: 0;
+		width: 10px; /* Width of the bracket's top/bottom caps */
+		height: 2px; /* Thickness of the caps */
+		background-color: #606dbc; /* Red to match your drawing */
+	}
+
+	.repeater-section::before {
+		/* Top cap of the bracket */
+		top: 0;
+	}
+
+	.repeater-section::after {
+		/* Bottom cap of the bracket */
+		bottom: 0;
+	}
+
+	.repeater-section {
+		/* Vertical line for the bracket's main body */
+		border-left: 5px solid #606dbc; /* Red vertical line */
+	}
+</style>

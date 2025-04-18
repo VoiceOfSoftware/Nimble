@@ -34,22 +34,33 @@ export const oneOfEachPageData = {
 					class: 'camera',
 				},
 				{
-					type: 'container',
-					class: 'display w-[440px] h-[844px] bg-white',
-					children: [
+					"type": "container",
+					"class": "display w-[440px] h-[844px] bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500",
+					"children": [
+						{ "type": "text", "class": "pt-2 pl-3 text-gray-100", "props": { "value": "safe area" } },
 						{
-							type: 'text',
-							class: 'pt-2 pl-3 text-gray-100',
-							props: {
-								value: 'safe area'
-							}
+							"type": "container", "class": "flex flex-wrap place-content-center gap-2",
+							"children": [
+								{
+									"type": "button", "class": "btn btn-sm btn-primary",
+									"tooltip": "Fetch recipes from API",
+									"actions": { "onclick": { "type": "clientScript", "script": "fetch(\"https://dummyjson.com/recipes\")\n  .then(response => response.json())\n  .then(j => {\n    page.data.recipes = j.recipes;\n  });" } }, "props": { "label": "Get Recipes" }, "draggable": false
+								}, {
+									"type": "button", "class": "btn btn-sm btn-error",
+									"tooltip": "Clear recipe data", "actions": { "onclick": { "type": "clientScript", "script": "page.data.recipes=[];" } },
+									"props": { "label": "Clear Recipes" }, "draggable": false
+								}]
 						},
 						{
-							type: 'container',
-							class: 'flex flex-wrap',
-							children: []
-						}
-					]
+							"type": "repeater", "class": "grid grid-cols-3 p-3", "dataSource": "recipes",
+							"children": [
+								{ "type": "text", "props": { "value": "" } },
+								{
+									"type": "container", "class": "",
+									"children": [
+										{ "type": "text", "class": "text-base-content text-center", "props": { "value": "{data.name}" } }, { "type": "image", "props": { "src": "{data.image}", "alt": "" }, "class": "rounded-full" }]
+								}]
+						}]
 				}
 
 			]
@@ -273,10 +284,10 @@ export const oneOfEachPageData = {
 						value: 7
 					},
 					actions: {
-						onchange: {
+						oninput: {
 							type: "setProperty",
 							objectName: "sliderValue",
-							property: 'content',
+							property: 'value',
 							value: "{self.props.value}"
 						}
 					}

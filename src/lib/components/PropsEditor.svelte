@@ -14,7 +14,7 @@
 		},
 		{
 			attr: "dataSource",
-			type: "string",
+			type: "dataSource",
 			components: [
 				"calendar",
 				"chart",
@@ -81,6 +81,20 @@
 				/>
 				<label for="draggable">{commonProp.attr}</label>
 			</div>
+		{/if}
+		{#if commonProp.type == "dataSource"}
+			<div class="text-xs">{commonProp.attr}</div>
+			<select
+				class="border border-gray-300 rounded"
+				bind:value={pageContext.selectedLayout[commonProp.attr]}
+			>
+				<option value="__none__">-None-</option>
+				{#each Object.keys(pageContext.data) as dataSource}
+					{#if Array.isArray(pageContext.data[dataSource])}
+						<option value={dataSource}>{dataSource}</option>
+					{/if}
+				{/each}
+			</select>
 		{/if}
 	{/if}
 {/each}

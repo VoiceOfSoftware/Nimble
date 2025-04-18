@@ -1,6 +1,5 @@
 <script>
 	import { getContext } from "svelte";
-	import { performAction } from "./dataPillMacros";
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
