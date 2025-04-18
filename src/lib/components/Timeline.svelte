@@ -8,6 +8,16 @@
 
 	const pageContext = getContext("pageContext");
 
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return ["icon", "iconColor", "nodeWidth", "timeField", "itemLayout"];
+	}
+
 	let nodeWidth = $derived(layoutStructure.props?.nodeWidth || 64);
 	let widthClass = $derived(nodeWidth ? "w-" + nodeWidth : "");
 	const theClass = $derived(
@@ -18,10 +28,6 @@
 	);
 
 	let rowData = $derived(pageContext.data[layoutStructure.dataSource]);
-
-	export function setDefaultProp(value) {
-		timeField = value;
-	}
 </script>
 
 <ul class={theClass}>

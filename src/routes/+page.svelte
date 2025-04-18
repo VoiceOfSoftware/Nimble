@@ -6,6 +6,7 @@
 	import { PaneGroup, Pane, PaneResizer } from "paneforge";
 	import Sidebar from "$lib/components/Sidebar.svelte";
 	import TweakPanel from "$lib/components/TweakPanel.svelte";
+	import { tooltip } from "$lib/components/Tippy";
 	import {
 		listOfComponents,
 		componentLibraryLayout,
@@ -25,7 +26,7 @@
 	import Image from "$lib/components/Image.svelte";
 	import Input from "$lib/components/Input.svelte";
 	import PDFViewer from "$lib/components/PDFViewer.svelte";
-	import Script from "$lib/components/Script.svelte";
+	import ScriptEditor from "$lib/components/ScriptEditor.svelte";
 	import Text from "$lib/components/Text.svelte";
 	import Timeline from "$lib/components/Timeline.svelte";
 	import Named from "$lib/components/Named.svelte";
@@ -60,7 +61,7 @@
 	registerComponent("pdf", PDFViewer);
 	registerComponent("repeater", Repeater);
 	registerComponent("richtext", NimbleTipTap);
-	registerComponent("script", Script);
+	registerComponent("script", ScriptEditor);
 	registerComponent("slider", Slider);
 	registerComponent("table", AGGrid2);
 	registerComponent("text", Text);
@@ -317,16 +318,6 @@
 	let reactiveRepeater = $state(repeater);
 	let reactiveOneOfEachPageData = $state(oneOfEachPageData);
 	let reactiveOneOfEachRepeaterData = $state(oneOfEachRepeaterData);
-
-	async function sampleFetch() {
-		const r = await fetch("https://dummyjson.com/recipes");
-		const j = await r.json();
-		pageContext.data.recipes = j.recipes;
-	}
-
-	async function sampleClear() {
-		pageContext.data.ncpsEvents = [];
-	}
 </script>
 
 <svelte:window onkeydown={handleKeyDown} onkeyup={handleKeyUp} />
@@ -335,7 +326,11 @@
 	{#if pageContext.floatingPanel}
 		<TweakPanel />
 	{/if}
-	<label>
+	<label
+		use:tooltip={{
+			content: "Press Option or Alt key to toggle",
+		}}
+	>
 		<input type="checkbox" bind:checked={pageContext.editMode} />
 		Edit Mode
 	</label>
@@ -343,12 +338,6 @@
 		<input type="checkbox" bind:checked={pageContext.floatingPanel} />
 		Floating Property Panel
 	</label>
-	<button class="btn btn-sm ml-2" onclick={() => sampleFetch()}
-		>Fetch Example Data</button
-	>
-	<button class="btn btn-sm" onclick={() => sampleClear()}
-		>Clear Example Data</button
-	>
 
 	<hr />
 

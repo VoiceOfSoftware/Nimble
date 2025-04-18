@@ -14,10 +14,6 @@
 	export function getProps() {
 		return ["assetURL","rotation","scale"];
 	}
-
-	export function setDefaultProp(value) {
-		layoutStructure.props.scale = value;
-	}
 </script>
 
 <div class={layoutStructure?.props?.class}>

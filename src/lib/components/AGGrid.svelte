@@ -18,12 +18,6 @@
 
 	const pageContext = getContext("pageContext");
 
-	export function setDefaultProp(value) {}
-
-	export function setProp(name, value) {
-		rowData = [{ name: "value" }, { name: "value2" }];
-	}
-
 	let gridContainer;
 	let gridApi;
 	let columnApi;
