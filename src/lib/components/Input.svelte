@@ -4,25 +4,19 @@
 	import { macroReplace } from "./dataPillMacros.js";
 
 	let { layoutStructure, dataValues, myself } = $props();
-	let content = $state(layoutStructure.props.content); // Local reactive variable
 
 	const pageContext = getContext("pageContext");
 
 	export function getLayout() {
 		return layoutStructure;
 	}
-	// Sync changes between content and layoutStructure.props.content
-	$effect(() => {
-		layoutStructure.props.content = content; // Update the prop when content changes
-		return () => {
-			// Optional cleanup (if needed)
-		};
-	});
+	export function getEvents() {
+		return ["oninput", "onchange"];
+	}
+	export function getProps() {
+		return ["value"];
+	}
 
-	// Update local content when the prop changes externally
-	$effect(() => {
-		content = layoutStructure.props.content; // Update local content when prop changes
-	});
 	const theClass = $derived(
 		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
 			(layoutStructure.background
@@ -35,7 +29,7 @@
 	class={theClass}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext.data, data: dataValues, self: myself },
+		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
 	draggable={layoutStructure.draggable}
@@ -47,5 +41,5 @@
 		dataValues,
 		false,
 	)}
-	bind:value={content}
+	bind:value={layoutStructure.props.value}
 />

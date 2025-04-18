@@ -18,6 +18,10 @@
 	}
 
 	function deleteComponent() {
+		//	If we're deleting a named object, remove that from it global list
+		if (parent.children[index].id) {
+			delete pageContext.namedPageObjects[parent.children[index].id];
+		}
 		parent.children.splice(index, 1);
 	}
 

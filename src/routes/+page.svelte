@@ -46,23 +46,22 @@
 	import EditorRegion from "$lib/components/EditorRegion.svelte";
 
 	registerComponent("named", Named);
-
 	registerComponent("3D", ThrelteCanvas);
-	registerComponent("button", Button, ["onclick"]);
+	registerComponent("button", Button);
 	registerComponent("calendar", Calendar);
 	registerComponent("chart", Chart);
-	registerComponent("choice", Choice, ["oninput", "onchange"]);
+	registerComponent("choice", Choice);
 	registerComponent("container", Container);
-	registerComponent("icon", DynamicIcon, ["onclick"]);
+	registerComponent("icon", DynamicIcon);
 	registerComponent("iframe", IFrame);
-	registerComponent("image", Image, ["onclick"]);
-	registerComponent("input", Input, ["oninput", "onchange"]);
+	registerComponent("image", Image);
+	registerComponent("input", Input);
 	registerComponent("map", MapLibre);
 	registerComponent("pdf", PDFViewer);
 	registerComponent("repeater", Repeater);
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", Script);
-	registerComponent("slider", Slider, ["onchange"]);
+	registerComponent("slider", Slider);
 	registerComponent("table", AGGrid2);
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);
@@ -254,7 +253,7 @@
 				{ name: "Gilligan", color: "btn-error" },
 				{ name: "Professor", color: "btn-error", navigate: "/blog" },
 				{
-					name: "Maryanne",
+					name: "Mary Ann",
 					color: "btn-accent",
 					navigate: "/tutorial/svelte/welcome-to-svelte",
 				},

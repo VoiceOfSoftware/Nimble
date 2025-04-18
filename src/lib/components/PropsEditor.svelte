@@ -8,6 +8,11 @@
 		{ attr: "class", type: "string", placeholder: "" },
 		{ attr: "draggable", type: "boolean" },
 		{
+			attr: "dragData",
+			type: "string",
+			placeholder: "Text to be sent when you drop this item",
+		},
+		{
 			attr: "dataSource",
 			type: "string",
 			components: [

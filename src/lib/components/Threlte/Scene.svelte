@@ -1,19 +1,19 @@
 <script>
-	import { T, useTask } from '@threlte/core';
-	import { interactivity } from '@threlte/extras';
-	import { Spring } from 'svelte/motion';
-	import { useGltf } from '@threlte/extras';
-	import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-	import { XR, Controller, Hand } from '@threlte/xr';
+	import { T, useTask } from "@threlte/core";
+	import { interactivity } from "@threlte/extras";
+	import { Spring } from "svelte/motion";
+	import { useGltf } from "@threlte/extras";
+	import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+	import { XR, Controller, Hand } from "@threlte/xr";
 
 	export let gltfURL,
-		scale = 30;
+		scale = 30,
+		rotation = 0;
 
 	interactivity();
 
 	const springScale = new Spring(1);
 
-	let rotation = 0;
 	useTask((delta) => {
 		// rotation += delta;
 	});

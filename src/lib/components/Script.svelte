@@ -7,14 +7,6 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
-	const content = $derived(
-		macroReplace(
-			layoutStructure.props?.content,
-			pageContext,
-			dataValues,
-			false,
-		),
-	);
 </script>
 
 <CodeMirror

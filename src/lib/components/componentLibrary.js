@@ -25,11 +25,11 @@ export const componentLibraryLayout = {
 							type: "text",
 							class: "text-base-content ml-1 text-sm",
 							props: {
-								content: "{data.Name}"
+								value: "{data.Name}"
 							},
 						}
 					],
-					dragData: "{data.Definition}",
+					dragData: "{data.DefinitionAsString}",
 					draggable: true,
 				}
 			],
@@ -47,7 +47,8 @@ export const listOfComponents = [
 				assetURL: "https:\/\/corsproxy.io\/?url=https:\/\/www.hulbertfamily.com\/gltf\/MaterialsVariantsShoe.glb",
 				scale: 30
 			},
-		}
+		},
+		Props: ['scale']
 	},
 	{
 		Name: 'Button',
@@ -59,13 +60,13 @@ export const listOfComponents = [
 			actions: {
 				onclick: {
 					"type": "clientScript",
-					"value": "alert('button clicked')"
+					"script": "alert('button clicked')"
 				}
 			},
 			props: {
 				label: "Button",
 			}
-		}
+		},
 	},
 	{
 		Name: 'Calendar',
@@ -100,17 +101,18 @@ export const listOfComponents = [
 		Name: 'Choice',
 		IconifyIcon: 'lucide:list',
 		Definition: {
-			type: "choice",
+			type: 'choice',
 			props: {
-				optionValueField: "name",
-				optionTitleField: "name"
+				optionValueField: 'name',
+				optionTitleField: 'name',
+				value: 'Mary Ann'
 			},
-			class: "border border-gray-300 rounded",
+			class: 'border border-gray-300 rounded',
 			dataSource: "names",
 			actions: {
 				onchange: {
-					"type": "clientScript",
-					"script": "alert('choice changed {self.value}')"
+					type: 'clientScript',
+					script: 'alert("choice changed {self.props.value}")'
 				}
 			},
 		}
@@ -145,7 +147,7 @@ export const listOfComponents = [
 				color: "black",
 				icon: "lucide:image"
 			}
-		}
+		},
 	},
 	{
 		Name: 'iFrame',
@@ -156,7 +158,8 @@ export const listOfComponents = [
 			props: {
 				url: 'https://nc-photo.org'
 			},
-		}
+		},
+		Props: ['url']
 	},
 	{
 		Name: 'Image',
@@ -167,7 +170,7 @@ export const listOfComponents = [
 				src: "https:\/\/fastly.picsum.photos\/id\/456\/200\/200.jpg?hmac=Nu8ETZuaEwOyl13MjrpOo92an166yAu4I2emrU09uxg",
 				alt: "{SpeakerFullName}"
 			}
-		}
+		},
 	},
 	{
 		Name: 'Input',
@@ -176,7 +179,7 @@ export const listOfComponents = [
 			type: "input",
 			class: "input input-bordered mb-2",
 			props: {
-				content: "Sample plain text",
+				value: "Sample plain text",
 				placeholder: ""
 			},
 		}
@@ -232,7 +235,7 @@ export const listOfComponents = [
 							type: 'text',
 							class: 'pt-2 pl-3 text-gray-100',
 							props: {
-								content: 'safe area'
+								value: 'safe area'
 							}
 						},
 						{
@@ -257,7 +260,7 @@ export const listOfComponents = [
 				{
 					type: "text",
 					props: {
-						content: "Sample <b>rich<\/b> text"
+						value: "Sample <b>rich<\/b> text"
 					},
 				}
 			],
@@ -269,7 +272,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "richtext",
 			props: {
-				content: ""
+				value: ""
 			}
 		}
 	},
@@ -321,7 +324,7 @@ export const listOfComponents = [
 			type: "text",
 			class: "text-base-content",
 			props: {
-				content: "Sample <b>rich<\/b> text"
+				value: "Sample <b>rich<\/b> text"
 			},
 		}
 	},
@@ -335,7 +338,8 @@ export const listOfComponents = [
 			props: {
 				nodeWidth: 64,
 				itemLayout: '{"type":"button","class":"btn btn-xs","props":{"label":"{data.shortdescription:hideEmpty}"}}',
-				icon: "mdi:{data.icon}"
+				icon: "mdi:{data.icon}",
+				iconColor: "blue"
 			},
 		}
 	}
@@ -344,5 +348,5 @@ export const listOfComponents = [
 //	To simulate how a database retrieves Definitions, convert native JSON to stringified text.
 //	This helps when we drag components from the library
 listOfComponents.forEach((item) => {
-	item.Definition = JSON.stringify(item.Definition)
+	item.DefinitionAsString = JSON.stringify(item.Definition)
 })

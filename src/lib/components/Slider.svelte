@@ -9,6 +9,13 @@
 	export function getLayout() {
 		return layoutStructure;
 	}
+	export function getEvents() {
+		return ["onchange","oninput"];
+	}
+	export function getProps() {
+		return ["value"];
+	}
+
 	const theClass = $derived(
 		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
 			(layoutStructure.background
@@ -21,15 +28,9 @@
 	class={theClass}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext.data, data: dataValues, self: myself },
+		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
-	oninput={() =>
-		performAction(
-			layoutStructure.actions?.onchange,
-			{ page: pageContext, data: pageContext.data, self: myself },
-			dataValues,
-		)}
 	type="range"
 	min={macroReplace(
 		layoutStructure.props?.min + "",
