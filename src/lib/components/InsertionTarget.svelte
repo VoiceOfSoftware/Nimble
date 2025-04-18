@@ -27,12 +27,11 @@
 				if (result.type == "image") {
 					alert("It's an image! " + urlList);
 					notifyDropped(index, {
-						type: "component",
+						type: "image",
 						props: {
 							src: urlList,
 						},
 						class: "w-64",
-						componentType: "image",
 					});
 				}
 				if (result.type == "json") {
@@ -75,7 +74,7 @@
 						componentType: "text",
 						class: "",
 						props: {
-							content: plainText,
+							value: plainText,
 						},
 					});
 				}

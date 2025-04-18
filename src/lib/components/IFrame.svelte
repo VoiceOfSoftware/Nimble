@@ -4,15 +4,16 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+
 	const theClass = $derived(
 		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
 			(layoutStructure.background
 				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
-	const content = $derived(
+	const url = $derived(
 		macroReplace(
-			layoutStructure.props?.content,
+			layoutStructure.props?.url,
 			pageContext,
 			dataValues,
 			false,
@@ -20,4 +21,4 @@
 	);
 </script>
 
-<iframe class={theClass} src={layoutStructure.props?.src} />
+<iframe class={theClass} src={url} />

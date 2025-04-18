@@ -10,6 +10,12 @@
 	export function getLayout() {
 		return layoutStructure;
 	}
+	export function getEvents() {
+		return ["oninput", "onchange"];
+	}
+	export function getProps() {
+		return ["value"];
+	}
 
 	const theClass = $derived(
 		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
@@ -19,7 +25,7 @@
 	);
 	const content = $derived(
 		macroReplace(
-			layoutStructure.props?.content,
+			layoutStructure.props?.value,
 			pageContext,
 			dataValues,
 			false,
@@ -32,7 +38,7 @@
 	draggable={layoutStructure.draggable}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext.data, data: dataValues, self: myself },
+		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
 >

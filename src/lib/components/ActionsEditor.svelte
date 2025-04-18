@@ -1,6 +1,5 @@
 <script>
 	import { getContext } from "svelte";
-	import { getComponent } from "./componentRegistry.js";
 	import CodeMirror from "svelte-codemirror-editor";
 	import { javascript } from "@codemirror/lang-javascript";
 	import { autocompletion } from "@codemirror/autocomplete";
@@ -120,89 +119,107 @@
 	];
 </script>
 
-{#each getComponent(pageContext.selectedLayout?.type)?.eventNames as event}
-	{#if pageContext.selectedLayout.actions?.[event]}
-		<div class="flex flex-row items-baseline">
-			{event}:
-			<select
-				class="border border-gray-300 rounded"
-				bind:value={pageContext.selectedLayout.actions[event].type}
-				onchange={(domEvent) => handleTypeChange(domEvent, event)}
-			>
-				<option value="disabled">Disabled</option>
-				<option value="clientScript">Script</option>
-				<option value="navigate">Navigate</option>
-				<option value="setProperty">Set Property</option>
-			</select>
-			{#if pageContext.selectedLayout.actions[event].type === "clientScript"}
-				<button
-					class="btn btn-xs btn-neutral-content ml-2"
-					onclick={() => editScript(event)}>Edit Script</button
-				>
-			{/if}
-		</div>
-		<div class="ml-3">
-			{#if pageContext.selectedLayout.actions[event].type === "navigate"}
-				<div class="text-xs">URL</div>
-				<input
-					class="mb-1 border w-full"
-					bind:value={pageContext.selectedLayout.actions[event].URL}
-				/>
-				<label>
-					<input
-						type="checkbox"
-						bind:checked={
-							pageContext.selectedLayout.actions[event].newTab
-						}
-					/>
-					<span class="text-xs">New Tab</span>
-				</label>
-			{/if}
-			{#if pageContext.selectedLayout.actions[event].type === "setProperty"}
-				<div class="text-xs">named object</div>
+{#if pageContext.selectedComponent.getEvents}
+	{#each pageContext.selectedComponent.getEvents() as event}
+		{#if pageContext.selectedLayout.actions?.[event]}
+			<div class="flex flex-row items-baseline">
+				{event}:
 				<select
 					class="border border-gray-300 rounded"
-					bind:value={
-						pageContext.selectedLayout.actions[event].objectName
-					}
+					bind:value={pageContext.selectedLayout.actions[event].type}
+					onchange={(domEvent) => handleTypeChange(domEvent, event)}
 				>
-					{#each Object.keys(pageContext.namedPageObjects) as objectName}
-						<option
-							selected={pageContext.selectedLayout.actions[event]
-								.objectName == objectName}
-							value={objectName}>{objectName}</option
-						>
-					{/each}
+					<option value="disabled">Disabled</option>
+					<option value="clientScript">Script</option>
+					<option value="navigate">Navigate</option>
+					<option value="setProperty">Set Property</option>
 				</select>
-				<div class="text-xs">property</div>
-				<input
-					class="mb-1 border w-full"
-					bind:value={
-						pageContext.selectedLayout.actions[event].property
-					}
-				/>
-				<div class="text-xs">value</div>
-				<input
-					class="mb-1 border w-full"
-					bind:value={pageContext.selectedLayout.actions[event].value}
-				/>
-			{/if}
-		</div>
-	{:else}
-		<div class="flex flex-row items-baseline">
-			{event}:
-			<select
-				class="border border-gray-300 rounded"
-				onchange={(domEvent) => handleTypeChange(domEvent, event)}
-			>
-				<option value="disabled">Disabled</option>
-				<option value="clientScript">Script</option>
-				<option value="navigate">Navigate</option>
-				<option value="setProperty">Set Property</option>
-			</select>
-		</div>
-	{/if}
-{/each}
+				{#if pageContext.selectedLayout.actions[event].type === "clientScript"}
+					<button
+						class="btn btn-xs btn-neutral-content ml-2"
+						onclick={() => editScript(event)}>Edit Script</button
+					>
+				{/if}
+			</div>
+			<div class="ml-3">
+				{#if pageContext.selectedLayout.actions[event].type === "navigate"}
+					<div class="text-xs">URL</div>
+					<input
+						class="mb-1 border w-full"
+						bind:value={
+							pageContext.selectedLayout.actions[event].URL
+						}
+					/>
+					<label>
+						<input
+							type="checkbox"
+							bind:checked={
+								pageContext.selectedLayout.actions[event].newTab
+							}
+						/>
+						<span class="text-xs">New Tab</span>
+					</label>
+				{/if}
+				{#if pageContext.selectedLayout.actions[event].type === "setProperty"}
+					<div class="text-xs">named object</div>
+					<select
+						class="border border-gray-300 rounded"
+						bind:value={
+							pageContext.selectedLayout.actions[event].objectName
+						}
+					>
+						{#each Object.keys(pageContext.namedPageObjects) as objectName}
+							<option
+								selected={pageContext.selectedLayout.actions[
+									event
+								].objectName == objectName}
+								value={objectName}>{objectName}</option
+							>
+						{/each}
+					</select>
+					{#if pageContext.namedPageObjects[pageContext.selectedLayout.actions[event].objectName]?.getProps}
+						<div class="text-xs">property</div>
+						<select
+							class="border border-gray-300 rounded"
+							bind:value={
+								pageContext.selectedLayout.actions[event]
+									.property
+							}
+						>
+							{#each pageContext.namedPageObjects[pageContext.selectedLayout.actions[event].objectName].getProps() as propName}
+								<option
+									selected={pageContext.selectedLayout
+										.actions[event].property == propName}
+									value={propName}>{propName}</option
+								>
+							{/each}
+						</select>
+					{/if}
+					<div class="text-xs">value</div>
+					<input
+						class="mb-1 border w-full"
+						bind:value={
+							pageContext.selectedLayout.actions[event].value
+						}
+					/>
+				{/if}
+			</div>
+		{:else}
+			<div class="flex flex-row items-baseline">
+				{event}:
+				<select
+					class="border border-gray-300 rounded"
+					onchange={(domEvent) => handleTypeChange(domEvent, event)}
+				>
+					<option value="disabled">Do Nothing</option>
+					<option value="clientScript">Script</option>
+					<option value="navigate">Navigate</option>
+					<option value="setProperty">Set Property</option>
+				</select>
+			</div>
+		{/if}
+	{/each}
+{/if}
 
 {#if showModal}
 	<Modal bind:showModal>

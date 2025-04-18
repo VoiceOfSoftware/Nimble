@@ -8,6 +8,12 @@
 	export function getLayout() {
 		return layoutStructure;
 	}
+	// export function getEvents() {
+	// 	return ["onchange","oninput"];
+	// }
+	export function getProps() {
+		return ["assetURL","rotation","scale"];
+	}
 
 	export function setDefaultProp(value) {
 		layoutStructure.props.scale = value;
@@ -19,6 +25,7 @@
 		<Scene
 			gltfURL={layoutStructure.props?.assetURL}
 			scale={layoutStructure.props?.scale}
+			rotation={layoutStructure.props?.rotation}
 		/>
 	</Canvas>
 </div>

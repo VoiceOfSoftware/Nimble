@@ -13,7 +13,7 @@
 	);
 	const content = $derived(
 		macroReplace(
-			layoutStructure.props.content,
+			layoutStructure.props.value,
 			pageContext,
 			dataValues,
 			false,

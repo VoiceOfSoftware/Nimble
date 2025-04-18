@@ -1,5 +1,6 @@
 <script>
 	import { getContext } from "svelte";
+	import { performAction } from "./dataPillMacros";
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
@@ -8,12 +9,16 @@
 
 	const pageContext = getContext("pageContext");
 
-	export function getID() {
-		return layoutStructure.id;
-	}
 	export function getLayout() {
 		return layoutStructure;
 	}
+	export function getEvents() {
+		return ["onclick"];
+	}
+	export function getProps() {
+		return ["label"];
+	}
+
 	export function getContent() {
 		return content;
 	}
@@ -31,6 +36,13 @@
 			false,
 		),
 	);
+	// onclick={() =>
+	// 	performAction(
+	// 		layoutStructure.actions?.onclick,
+	// 		{ page: pageContext, data: pageContext.data, self: myself },
+	// 		dataValues,
+	// 	)}
+
 </script>
 
 <button
@@ -39,7 +51,7 @@
 	}}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext.data, data: dataValues, self: myself },
+		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
 	class={theClass}

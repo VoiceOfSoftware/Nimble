@@ -4,6 +4,17 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return ["onclick"];
+	}
+	export function getProps() {
+		return ["src"];
+	}
+
 	const theClass = $derived(
 		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
 			(layoutStructure.background

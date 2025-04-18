@@ -41,7 +41,7 @@ export const oneOfEachPageData = {
 							type: 'text',
 							class: 'pt-2 pl-3 text-gray-100',
 							props: {
-								content: 'safe area'
+								value: 'safe area'
 							}
 						},
 						{
@@ -111,16 +111,17 @@ export const oneOfEachPageData = {
 			dataSource: 'names',
 			props: {
 				optionValueField: 'name',
-				optionTitleField: 'name'
+				optionTitleField: 'name',
+				value: 'Mary Ann'
 			},
 			actions: {
 				onchange: {
 					type: 'clientScript',
-					script: 'alert("onchange "+self.value)'
+					script: 'alert("onchange "+self.props.value)'
 				},
 				oninput: {
 					type: 'clientScript',
-					script: 'alert("oninput "+self.value)'
+					script: 'alert("oninput "+self.props.value)'
 				}
 			}
 		},
@@ -132,21 +133,21 @@ export const oneOfEachPageData = {
 					type: 'text',
 					class: 'border p-1 m-1 shadow-xl',
 					props: {
-						content: 'left'
+						value: 'left'
 					},
 				},
 				{
 					type: 'text',
 					class: 'border p-1 m-1 shadow-xl',
 					props: {
-						content: 'middle'
+						value: 'middle'
 					},
 				},
 				{
 					type: 'text',
 					class: 'border p-1 m-1 shadow-xl',
 					props: {
-						content: 'right'
+						value: 'right'
 					},
 				},
 			]
@@ -159,21 +160,21 @@ export const oneOfEachPageData = {
 					type: 'text',
 					class: 'border p-1 m-1 shadow',
 					props: {
-						content: 'top'
+						value: 'top'
 					},
 				},
 				{
 					type: 'text',
 					class: 'border p-1 m-1 shadow',
 					props: {
-						content: 'center'
+						value: 'center'
 					},
 				},
 				{
 					type: 'text',
 					class: 'border p-1 m-1 shadow',
 					props: {
-						content: 'bottom'
+						value: 'bottom'
 					},
 				},
 			]
@@ -186,7 +187,7 @@ export const oneOfEachPageData = {
 			type: 'iframe',
 			class: 'w-full',
 			props: {
-				src: 'https://nc-photo.org',
+				url: 'https://nc-photo.org',
 			}
 		},
 		{
@@ -200,7 +201,7 @@ export const oneOfEachPageData = {
 		{
 			type: 'input',
 			class: 'input input-sm input-bordered w-64',
-			props: { placeholder: '{page.exampleInput.placeholder}', content: '' },
+			props: { placeholder: '{page.exampleInput.placeholder}', value: '' },
 			actions: {
 				onchange: {
 					type: 'clientScript',
@@ -240,7 +241,7 @@ export const oneOfEachPageData = {
 					type: 'text',
 					class: 'bg-accent text-xl p-1',
 					props: {
-						content: '{data.name}'
+						value: '{data.name}'
 					}
 				},
 			]
@@ -249,7 +250,7 @@ export const oneOfEachPageData = {
 			type: 'richtext',
 			class: 'w-1/3',
 			props: {
-				content: 'This is <b>rich</b> editable text'
+				value: 'This is <b>rich</b> editable text'
 			}
 		},
 		{
@@ -286,7 +287,7 @@ export const oneOfEachPageData = {
 					id: 'sliderValue',
 					class: 'ml-2',
 					props: {
-						content: 'Move the slider!'
+						value: 'Move the slider!'
 					}
 				}
 			]
@@ -301,7 +302,7 @@ export const oneOfEachPageData = {
 			type: 'text',
 			class: 'text-3xl font-thin font-sans',
 			props: {
-				content: 'This is <i>some</i> text, {page.f1Driver1}'
+				value: 'This is <i>some</i> text, {page.f1Driver1}'
 			}
 		},
 		{
@@ -310,6 +311,7 @@ export const oneOfEachPageData = {
 			dataSource: 'calendarEvents',
 			props: {
 				icon: 'mdi:{data.icon}',
+				iconColor: 'blue',
 				nodeWidth: "64",
 				timeField: 'start',
 				itemLayout: '{"type":"button","class":"btn btn-xs","props":{"label":"hello {page.f1Driver1}"}}',
@@ -350,7 +352,7 @@ export const oneOfEachRepeaterData = {
 		{
 			type: 'text',
 			class: 'w-10',
-			props: { content: '<b>{data.text}</b>' }
+			props: { value: '<b>{data.text}</b>' }
 		},
 		{
 			type: 'slider',
@@ -381,19 +383,19 @@ export const horizontalIcons = {
 				{
 					type: 'text',
 					class: 'text-base-content text-xl font-bold font-serif',
-					props: { content: '{page.f1Driver1}' },
+					props: { value: '{page.f1Driver1}' },
 					draggable: true,
 				},
 				{
 					type: 'text',
 					class: 'text-base-content text-xl font-thin italic',
-					props: { content: 'Team Ferrari Driver 1' },
+					props: { value: 'Team Ferrari Driver 1' },
 					draggable: true,
 				},
 				{
 					type: 'text',
 					class: 'text-base-content text-xl font-black',
-					props: { content: 'Team Ferrari Driver 1' },
+					props: { value: 'Team Ferrari Driver 1' },
 					draggable: true,
 				},
 				{
@@ -406,7 +408,7 @@ export const horizontalIcons = {
 		{
 			type: 'richtext',
 			class: '',
-			props: { content: '<p>Hi {page.f1Driver1} <layout-component></layout-component> <input-component></input-component> <counter-component></counter-component></p>' },
+			props: { value: '<p>Hi {page.f1Driver1} <layout-component></layout-component> <input-component></input-component> <counter-component></counter-component></p>' },
 		},
 		{
 			type: 'button',
@@ -472,13 +474,13 @@ export const f1 = {
 		{
 			type: 'text',
 			class: 'text-base-content text-xl mx-auto',
-			props: { content: 'Team Ferrari {data.name}' },
+			props: { value: 'Team Ferrari {data.name}' },
 			draggable: true,
 		},
 		{
 			type: 'input',
 			class: 'input input-bordered mx-auto',
-			props: { content: 'Ivanka/ivy', placeholder: "Ivanka's Friend's Name" },
+			props: { value: 'Ivanka/ivy', placeholder: "Ivanka's Friend's Name" },
 			disabled: false,
 			draggable: true,
 		},
