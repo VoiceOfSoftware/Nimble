@@ -176,7 +176,6 @@ export const listOfComponents = [
 			type: "image",
 			props: {
 				src: "https:\/\/fastly.picsum.photos\/id\/456\/200\/200.jpg?hmac=Nu8ETZuaEwOyl13MjrpOo92an166yAu4I2emrU09uxg",
-				alt: "{SpeakerFullName}"
 			}
 		},
 	},
