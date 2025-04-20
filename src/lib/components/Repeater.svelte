@@ -6,10 +6,25 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return ["onclick"];
+	}
+	export function getProps() {
+		return [{ name: "dataSource", type: "dataSource" }];
+	}
+
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 
@@ -37,8 +52,8 @@
 		/>
 	</div>
 {:else}
-	<div class={theClass} draggable={layoutStructure.draggable}>
-		{#each pageContext.data[layoutStructure.dataSource] as row}
+	<div class={theClass} draggable={layoutStructure.props?.draggable}>
+		{#each pageContext.data[layoutStructure.props?.dataSource] as row}
 			{#each layoutStructure.children as child, index (child)}
 				<Layout layoutStructure={child} dataValues={row} />
 			{/each}

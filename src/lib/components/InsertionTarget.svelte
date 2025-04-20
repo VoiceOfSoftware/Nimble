@@ -29,9 +29,9 @@
 					notifyDropped(index, {
 						type: "image",
 						props: {
+							class: "w-64",
 							src: urlList,
 						},
-						class: "w-64",
 					});
 				}
 				if (result.type == "json") {
@@ -58,21 +58,17 @@
 						"You dropped a URL. I'll built an image component for you.",
 					);
 					notifyDropped(index, {
-						type: "component",
+						type: "image",
 						props: {
 							src: plainText,
 						},
-						class: "",
-						componentType: "image",
 					});
 				} else {
 					alert(
 						"You dropped plaintext. I'll built a text component for you.",
 					);
 					notifyDropped(index, {
-						type: "component",
-						componentType: "text",
-						class: "",
+						type: "text",
 						props: {
 							value: plainText,
 						},

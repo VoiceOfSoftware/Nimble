@@ -4,15 +4,24 @@
 
 export const componentLibraryLayout = {
 	type: "container",
-	class: "bg-neutral-content rounded-xl pt-1 pb-1",
+	props: {
+		class: "bg-neutral-content rounded-xl pt-1 pb-1",
+	},
 	children: [
 		{
 			type: "repeater",
-			dataSource: "componentLibrary",
+			props: {
+				dataSource: "componentLibrary",
+			},
 			children: [
 				{
 					type: "container",
-					class: "flex flex-row p-2 mt-1 ml-2 mr-2 mb-1 bg-white rounded-md items-center cursor-move",
+					props:
+					{
+						class: "flex flex-row p-2 mt-1 ml-2 mr-2 mb-1 bg-white rounded-md items-center cursor-move",
+						draggable: true,
+						dragData: "{data.DefinitionAsString}",
+					},
 					children: [
 						{
 							type: "icon",
@@ -23,14 +32,12 @@ export const componentLibraryLayout = {
 						},
 						{
 							type: "text",
-							class: "text-base-content ml-1 text-sm",
 							props: {
+								class: "text-base-content ml-1 text-sm",
 								value: "{data.Name}"
 							},
 						}
 					],
-					dragData: "{data.DefinitionAsString}",
-					draggable: true,
 				}
 			],
 		},
@@ -48,24 +55,23 @@ export const listOfComponents = [
 				scale: 30
 			},
 		},
-		Props: ['scale']
 	},
 	{
 		Name: 'Button',
 		IconifyIcon: 'teenyicons:button-outline',
 		Definition: {
 			type: "button",
-			class: "btn btn-sm btn-primary",
-			tooltip: "Show this when user hovers",
+			props: {
+				class: "btn btn-sm btn-primary",
+				tooltip: "Show this when user hovers",
+				label: "Button",
+			},
 			actions: {
 				onclick: {
 					"type": "clientScript",
 					"script": "alert('button clicked')"
 				}
 			},
-			props: {
-				label: "Button",
-			}
 		},
 	},
 	{
@@ -73,7 +79,6 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:calendar-days',
 		Definition: {
 			type: "calendar",
-			class: '',
 			props: {
 				startTimeField: "startDateTime",
 				endTimeField: "endDateTime",
@@ -87,8 +92,8 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:chart-no-axes-combined',
 		Definition: {
 			type: "chart",
-			dataSource: "chartData",
 			props: {
+				dataSource: "chartData",
 				title: "This is an ApexChart",
 				color: "#009999",
 				yColumn: "y",
@@ -105,10 +110,10 @@ export const listOfComponents = [
 			props: {
 				optionValueField: 'name',
 				optionTitleField: 'name',
-				value: 'Mary Ann'
+				value: 'Mary Ann',
+				class: 'border border-gray-300 rounded',
+				dataSource: "names",
 			},
-			class: 'border border-gray-300 rounded',
-			dataSource: "names",
 			actions: {
 				onchange: {
 					type: 'clientScript',
@@ -122,7 +127,9 @@ export const listOfComponents = [
 		IconifyIcon: 'clarity:container-line',
 		Definition: {
 			type: "container",
-			class: "flex flex-wrap",
+			props: {
+				class: "flex flex-wrap",
+			},
 			children: [
 			],
 		}
@@ -132,7 +139,9 @@ export const listOfComponents = [
 		IconifyIcon: 'carbon:container-image',
 		Definition: {
 			type: "container",
-			class: "",
+			props: {
+				class: ''
+			},
 			children: [
 			],
 		}
@@ -154,12 +163,11 @@ export const listOfComponents = [
 		IconifyIcon: 'tdesign:component-layout',
 		Definition: {
 			type: 'iframe',
-			class: 'w-full',
 			props: {
+				class: 'w-full',
 				url: 'https://nc-photo.org'
 			},
 		},
-		Props: ['url']
 	},
 	{
 		Name: 'Image',
@@ -177,8 +185,8 @@ export const listOfComponents = [
 		IconifyIcon: 'mdi:form-textbox',
 		Definition: {
 			type: "input",
-			class: "input input-bordered mb-2",
 			props: {
+				class: "input input-bordered mb-2",
 				value: "Sample plain text",
 				placeholder: ""
 			},
@@ -189,8 +197,8 @@ export const listOfComponents = [
 		IconifyIcon: 'material-symbols:view-kanban-outline',
 		Definition: {
 			type: "kanban",
-			dataSource: "Calendar_offline",
 			props: {
+				dataSource: "Calendar_offline",
 				idField: "",
 				titleField: "",
 				columnField: "Type",
@@ -204,8 +212,8 @@ export const listOfComponents = [
 		IconifyIcon: 'uiw:map',
 		Definition: {
 			type: "map",
-			dataSource: "mapMarkers",
 			props: {
+				dataSource: "mapMarkers",
 				zoom: 2,
 				rasterLayer: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
 				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
@@ -221,26 +229,34 @@ export const listOfComponents = [
 		IconifyIcon: 'material-symbols:smartphone',
 		Definition: {
 			type: 'container',
-			class: 'mockup-phone scale-90',
+			props: {
+				class: 'mockup-phone scale-90',
+			},
 			children: [
 				{
 					type: 'container',
-					class: 'camera',
+					props: {
+						class: 'camera',
+					}
 				},
 				{
 					type: 'container',
-					class: 'display w-[440px] h-[844px] bg-white',
+					props: {
+						class: 'display w-[440px] h-[844px] bg-white',
+					},
 					children: [
 						{
 							type: 'text',
-							class: 'pt-2 pl-3 text-gray-100',
 							props: {
+								class: 'pt-2 pl-3 text-gray-100',
 								value: 'safe area'
 							}
 						},
 						{
 							type: 'container',
-							class: 'flex flex-wrap',
+							props: {
+								class: 'flex flex-wrap',
+							},
 							children: []
 						}
 					]
@@ -254,8 +270,10 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:repeat',
 		Definition: {
 			type: "repeater",
-			class: "flex flex-wrap",
-			dataSource: "names",
+			props: {
+				class: "flex flex-wrap",
+				dataSource: "names",
+			},
 			children: [
 				{
 					type: "text",
@@ -291,7 +309,6 @@ export const listOfComponents = [
 		IconifyIcon: 'radix-icons:slider',
 		Definition: {
 			type: "slider",
-			class: "range",
 			onchange: {
 				"action": "setProperty",
 				"objectName": "3d",
@@ -300,6 +317,7 @@ export const listOfComponents = [
 				}
 			},
 			props: {
+				class: "range",
 				min: 1,
 				max: 100,
 				value: 50
@@ -311,8 +329,8 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:table',
 		Definition: {
 			type: "table",
-			dataSource: "calendarEvents",
 			props: {
+				dataSource: "calendarEvents",
 				editable: true
 			},
 		}
@@ -322,8 +340,8 @@ export const listOfComponents = [
 		IconifyIcon: 'lucide:type',
 		Definition: {
 			type: "text",
-			class: "text-base-content",
 			props: {
+				class: "text-base-content",
 				value: "Sample <b>rich<\/b> text"
 			},
 		}
@@ -333,9 +351,9 @@ export const listOfComponents = [
 		IconifyIcon: 'mingcute:timeline-fill',
 		Definition: {
 			type: "timeline",
-			dataSource: "calendarEvents",
-			class: 'timeline timeline-snap-icon timeline-vertical max-md:timeline-compact h-96 overflow-y-auto',
 			props: {
+				dataSource: "calendarEvents",
+				class: 'timeline timeline-snap-icon timeline-vertical max-md:timeline-compact h-96 overflow-y-auto',
 				nodeWidth: 64,
 				itemLayout: '{"type":"button","class":"btn btn-xs","props":{"label":"{data.shortdescription:hideEmpty}"}}',
 				icon: "mdi:{data.icon}",

@@ -14,13 +14,21 @@
 		return ["oninput", "onchange"];
 	}
 	export function getProps() {
-		return ["value"];
+		return [
+			{ name: "disabled", type: "boolean" },
+			{ name: "value", type: "string" },
+		];
 	}
 
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 </script>
@@ -32,8 +40,8 @@
 		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
-	draggable={layoutStructure.draggable}
-	disabled={layoutStructure.disabled}
+	draggable={layoutStructure.props?.draggable}
+	disabled={layoutStructure.props?.disabled}
 	type="text"
 	placeholder={macroReplace(
 		layoutStructure.props?.placeholder,

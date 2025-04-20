@@ -12,13 +12,18 @@
 		["onclick"];
 	}
 	export function getProps() {
-		return ["icon"];
+		return [{ name: "icon", type: "string" }];
 	}
 
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 	const content = $derived(
@@ -31,7 +36,7 @@
 	);
 </script>
 
-<span class={theClass} draggable={layoutStructure.draggable}>
+<span class={theClass} draggable={layoutStructure.props?.draggable}>
 	<Icon
 		color={macroReplace(
 			layoutStructure.props?.color,

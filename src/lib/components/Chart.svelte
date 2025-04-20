@@ -3,6 +3,15 @@
 	import { getContext } from "svelte";
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return [{ name: "dataSource", type: "dataSource" }];
+	}
 
 	export let layoutStructure;
 
@@ -22,12 +31,12 @@
 			colors: [layoutStructure.props?.color],
 			series: [
 				{
-					data: pageContext.data[layoutStructure.dataSource].map(
-						(item) => ({
-							x: item[layoutStructure.props?.xColumn],
-							y: item[layoutStructure.props?.yColumn],
-						}),
-					),
+					data: pageContext.data[
+						layoutStructure.props?.dataSource
+					].map((item) => ({
+						x: item[layoutStructure.props?.xColumn],
+						y: item[layoutStructure.props?.yColumn],
+					})),
 				},
 			],
 		};
@@ -52,12 +61,12 @@
 			colors: [layoutStructure.props?.color],
 			series: [
 				{
-					data: pageContext.data[layoutStructure.dataSource].map(
-						(item) => ({
-							x: item[layoutStructure.props?.xColumn],
-							y: item[layoutStructure.props?.yColumn],
-						}),
-					),
+					data: pageContext.data[
+						layoutStructure.props?.dataSource
+					].map((item) => ({
+						x: item[layoutStructure.props?.xColumn],
+						y: item[layoutStructure.props?.yColumn],
+					})),
 				},
 			],
 		});
@@ -65,5 +74,5 @@
 </script>
 
 {#if ApexCharts}
-	<div use:apexChart class={layoutStructure?.class} />
+	<div use:apexChart class={layoutStructure?.props?.class} />
 {/if}

@@ -35,14 +35,14 @@
 
 	function dragStart(event: DragEvent) {
 		event.stopPropagation();
-		if (!layoutStructure.draggable) {
+		if (!layoutStructure.props?.draggable) {
 			return;
 		}
-		if (layoutStructure.dragData) {
+		if (layoutStructure.props?.dragData) {
 			event.dataTransfer?.setData(
 				"text/plain",
 				macroReplace(
-					layoutStructure.dragData,
+					layoutStructure.props?.dragData,
 					pageContext,
 					dataValues,
 					false,

@@ -6,7 +6,6 @@ export function createEventHandlers(actions = {}, context, dataValues) {
 	Object.keys(actions).forEach((event) => {
 		const action = actions[event];
 		if (action) {
-			const eventName = event;
 			handlers[event] = () => {
 				performAction(action, context, dataValues);
 			};

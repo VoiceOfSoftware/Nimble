@@ -8,9 +8,9 @@
 
 	const pageContext = getContext("pageContext");
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(layoutStructure.props?.class, pageContext, dataValues, false) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 
@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div class={theClass} draggable={layoutStructure.draggable}>
+<div class={theClass} draggable={layoutStructure.props?.draggable}>
 	{#each layoutStructure.children as child, index (child)}
 		{#if pageContext.editMode}
 			<InsertionTarget

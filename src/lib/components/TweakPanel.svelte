@@ -19,43 +19,43 @@
 			{#if pageContext.selectedLayout.id != undefined}
 				<Text bind:value={pageContext.selectedLayout.id} label="id" />
 			{/if}
-			{(pageContext.selectedLayout.class =
-				pageContext.selectedLayout.class || "")}
-			{#if pageContext.selectedLayout.class != undefined}
+			{(pageContext.selectedLayout.props.class =
+				pageContext.selectedLayout.props.class || "")}
+			{#if pageContext.selectedLayout.props.class != undefined}
 				<Textarea
-					bind:value={pageContext.selectedLayout.class}
+					bind:value={pageContext.selectedLayout.props.class}
 					label="Class"
 					placeholder="Tailwind or DaisyUI classes"
 				/>
 			{/if}
-			{(pageContext.selectedLayout.background =
-				pageContext.selectedLayout.background || "")}
-			{#if pageContext.selectedLayout.background != undefined}
+			{(pageContext.selectedLayout.props.background =
+				pageContext.selectedLayout.props?.background || "")}
+			{#if pageContext.selectedLayout.props?.background != undefined}
 				<Textarea
-					bind:value={pageContext.selectedLayout.background}
+					bind:value={pageContext.selectedLayout.props.background}
 					label="Background Image"
 					placeholder="URL to image"
 				/>
 			{/if}
-			{(pageContext.selectedLayout.draggable =
-				pageContext.selectedLayout.draggable || false)}
-			{#if pageContext.selectedLayout.draggable != undefined}
+			{(pageContext.selectedLayout.props.draggable =
+				pageContext.selectedLayout.props.draggable || false)}
+			{#if pageContext.selectedLayout.props.draggable != undefined}
 				<Checkbox
-					bind:value={pageContext.selectedLayout.draggable}
+					bind:value={pageContext.selectedLayout.props.draggable}
 					label="Draggable"
 				/>
 			{/if}
-			{#if pageContext.selectedLayout.dataSource != undefined}
+			{#if pageContext.selectedLayout.props.dataSource != undefined}
 				<Text
-					bind:value={pageContext.selectedLayout.dataSource}
+					bind:value={pageContext.selectedLayout.props.dataSource}
 					label="Data Source"
 				/>
 			{/if}
-			{(pageContext.selectedLayout.tooltip =
-				pageContext.selectedLayout.tooltip || "")}
-			{#if pageContext.selectedLayout.tooltip != undefined}
+			{(pageContext.selectedLayout.props.tooltip =
+				pageContext.selectedLayout.props.tooltip || "")}
+			{#if pageContext.selectedLayout.props.tooltip != undefined}
 				<Text
-					bind:value={pageContext.selectedLayout.tooltip}
+					bind:value={pageContext.selectedLayout.props.tooltip}
 					label="Tooltip"
 				/>
 			{/if}
