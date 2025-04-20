@@ -12,6 +12,15 @@
 	let { layoutStructure, gridOptions } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return [{ name: "dataSource", type: "dataSource" }];
+	}
 
 	let gridApi;
 	let domNode;
@@ -39,7 +48,7 @@
 		}
 	});
 
-	let rowData = $derived(pageContext.data[layoutStructure.dataSource]);
+	let rowData = $derived(pageContext.data[layoutStructure.props?.dataSource]);
 
 	function autoSizeAll(skipHeader) {
 		const allColumnIds = [];

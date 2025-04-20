@@ -7,6 +7,15 @@
 	let { layoutStructure } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return ["onclick"];
+	}
+	export function getProps() {
+		return [{ name: "dataSource", type: "dataSource" }];
+	}
 
 	function eventClicked(info) {
 		alert(info.event.title + "\n\n" + info.event.titleHTML);
@@ -35,7 +44,9 @@
 		nowIndicator: true,
 		selectable: true,
 		editable: true,
-		events: transformEvents(pageContext.data[layoutStructure.dataSource]),
+		events: transformEvents(
+			pageContext.data[layoutStructure.props?.dataSource],
+		),
 	});
 
 	// Convert UTC datetime string to local timezone
@@ -116,12 +127,12 @@
 
 	$effect(() => {
 		options.events = transformEvents(
-			pageContext.data[layoutStructure.dataSource],
+			pageContext.data[layoutStructure.props?.dataSource],
 		);
 		$inspect(options.events);
 	});
 </script>
 
-<div class={layoutStructure.class}>
+<div class={layoutStructure.props?.class}>
 	<Calendar {plugins} {options} />
 </div>

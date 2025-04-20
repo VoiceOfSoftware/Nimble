@@ -4,6 +4,7 @@
 	import { javascript } from "@codemirror/lang-javascript";
 	import { autocompletion } from "@codemirror/autocomplete";
 	import Modal from "./Modal.svelte";
+	import { commonProperties } from "./componentRegistry";
 
 	const pageContext = getContext("pageContext");
 
@@ -15,7 +16,7 @@
 	}
 
 	function handleTypeChange(event, action) {
-		if (event.target.value == "disabled") {
+		if (event.target.value == "doNothing") {
 			delete pageContext.selectedLayout.actions[action];
 			return;
 		}
@@ -129,7 +130,7 @@
 					bind:value={pageContext.selectedLayout.actions[event].type}
 					onchange={(domEvent) => handleTypeChange(domEvent, event)}
 				>
-					<option value="disabled">Disabled</option>
+					<option value="doNothing">Do Nothing</option>
 					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
 					<option value="setProperty">Set Property</option>
@@ -186,11 +187,11 @@
 									.property
 							}
 						>
-							{#each pageContext.namedPageObjects[pageContext.selectedLayout.actions[event].objectName].getProps() as propName}
+							{#each [...commonProperties, ...pageContext.namedPageObjects[pageContext.selectedLayout.actions[event].objectName].getProps()] as prop}
 								<option
 									selected={pageContext.selectedLayout
-										.actions[event].property == propName}
-									value={propName}>{propName}</option
+										.actions[event].property == prop.name}
+									value={prop.name}>{prop.name}</option
 								>
 							{/each}
 						</select>
@@ -211,7 +212,7 @@
 					class="border border-gray-300 rounded"
 					onchange={(domEvent) => handleTypeChange(domEvent, event)}
 				>
-					<option value="disabled">Do Nothing</option>
+					<option value="doNothing">Do Nothing</option>
 					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
 					<option value="setProperty">Set Property</option>

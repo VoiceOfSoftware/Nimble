@@ -15,19 +15,31 @@
 		return [];
 	}
 	export function getProps() {
-		return ["icon", "iconColor", "nodeWidth", "timeField", "itemLayout"];
+		return [
+			{ name: "dataSource", type: "dataSource" },
+			{ name: "icon", type: "string" },
+			{ name: "iconColor", type: "string" },
+			{ name: "nodeWidth", type: "string" },
+			{ name: "timeField", type: "string" },
+			{ name: "itemLayout", type: "string" },
+		];
 	}
 
 	let nodeWidth = $derived(layoutStructure.props?.nodeWidth || 64);
 	let widthClass = $derived(nodeWidth ? "w-" + nodeWidth : "");
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 
-	let rowData = $derived(pageContext.data[layoutStructure.dataSource]);
+	let rowData = $derived(pageContext.data[layoutStructure.props?.dataSource]);
 </script>
 
 <ul class={theClass}>

@@ -6,8 +6,9 @@
 <NodeViewWrapper class="input" as="span">
 	<Input
 		layoutStructure={{
-			class: "input input-sm input-bordered w-16",
-			props: {},
+			props: {
+				class: "input input-sm input-bordered w-16",
+			},
 		}}
 	/>
 </NodeViewWrapper>

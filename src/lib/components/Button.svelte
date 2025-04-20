@@ -15,16 +15,24 @@
 		return ["onclick"];
 	}
 	export function getProps() {
-		return ["label"];
+		return [
+			{ name: "disabled", type: "boolean" },
+			{ name: "label", type: "string" },
+		];
 	}
 
 	export function getContent() {
 		return content;
 	}
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 	const content = $derived(
@@ -35,24 +43,22 @@
 			false,
 		),
 	);
-	// onclick={() =>
-	// 	performAction(
-	// 		layoutStructure.actions?.onclick,
-	// 		{ page: pageContext, data: pageContext.data, self: myself },
-	// 		dataValues,
-	// 	)}
-
 </script>
 
 <button
 	use:tooltip={{
-		content: macroReplace(layoutStructure.tooltip, dataValues, false),
+		content: macroReplace(
+			layoutStructure.props?.tooltip,
+			dataValues,
+			false,
+		),
 	}}
 	{...createEventHandlers(
 		layoutStructure.actions,
 		{ page: pageContext, data: dataValues, self: myself },
 		dataValues,
 	)}
+	disabled={layoutStructure.props?.disabled}
 	class={theClass}
-	draggable={layoutStructure.draggable}>{content}</button
+	draggable={layoutStructure.props?.draggable}>{content}</button
 >

@@ -12,7 +12,11 @@
 	// 	return ["onchange","oninput"];
 	// }
 	export function getProps() {
-		return ["assetURL","rotation","scale"];
+		return [
+			{ name: "assetURL", type: "string" },
+			{ name: "rotation", type: "string" },
+			{ name: "scale", type: "string" },
+		];
 	}
 </script>
 

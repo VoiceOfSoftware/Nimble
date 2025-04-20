@@ -1,7 +1,9 @@
 export const headerLayout =
 {
 	type: 'container',
-	class: 'sticky top-0 left-0 w-full bg-white text-white shadow-lg z-50 flex items-center',
+	props: {
+		class: 'sticky top-0 left-0 w-full bg-white text-white shadow-lg z-50 flex items-center',
+	},
 	children: [
 		{
 			type: 'icon',
@@ -9,58 +11,116 @@ export const headerLayout =
 		},
 		{
 			type: 'button',
-			class: 'btn btn-xs ml-auto',
-			props: { label: '{page.exampleButton.label}' }
+			props: {
+				class: 'btn btn-xs ml-auto',
+				label: '{page.exampleButton.label}'
+			}
 		},
 		{
 			type: 'icon',
-			class: 'ml-auto',
-			props: { color: 'red', icon: 'mdi:gear', size: '32' }
+			props: {
+				class: 'ml-auto',
+				color: 'red', icon: 'mdi:gear', size: '32'
+			}
 		},
 	]
 }
 
 export const oneOfEachPageData = {
 	type: 'container',
-	class: '',
-	draggable: false,
+	props: {},
 	children: [
 		{
 			type: 'container',
-			class: 'mockup-phone scale-90',
+			props: {
+				class: 'mockup-phone scale-90',
+			},
 			children: [
 				{
 					type: 'container',
-					class: 'camera',
+					props: {
+						class: 'camera',
+					}
 				},
 				{
-					"type": "container",
-					"class": "display w-[440px] h-[844px] bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500",
-					"children": [
-						{ "type": "text", "class": "pt-2 pl-3 text-gray-100", "props": { "value": "safe area" } },
+					type: "container",
+					props: {
+						class: "display w-[440px] h-[844px] bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500",
+					},
+					children: [
 						{
-							"type": "container", "class": "flex flex-wrap place-content-center gap-2",
-							"children": [
-								{
-									"type": "button", "class": "btn btn-sm btn-primary",
-									"tooltip": "Fetch recipes from API",
-									"actions": { "onclick": { "type": "clientScript", "script": "fetch(\"https://dummyjson.com/recipes\")\n  .then(response => response.json())\n  .then(j => {\n    page.data.recipes = j.recipes;\n  });" } }, "props": { "label": "Get Recipes" }, "draggable": false
-								}, {
-									"type": "button", "class": "btn btn-sm btn-error",
-									"tooltip": "Clear recipe data", "actions": { "onclick": { "type": "clientScript", "script": "page.data.recipes=[];" } },
-									"props": { "label": "Clear Recipes" }, "draggable": false
-								}]
+							type: "text",
+							props: {
+								class: "pt-2 pl-3 text-gray-100",
+								value: "safe area"
+							}
 						},
 						{
-							"type": "repeater", "class": "grid grid-cols-3 p-3", "dataSource": "recipes",
-							"children": [
-								{ "type": "text", "props": { "value": "" } },
+							type: "container",
+							props: {
+								class: "flex flex-wrap place-content-center gap-2",
+							},
+							children: [
 								{
-									"type": "container", "class": "",
-									"children": [
-										{ "type": "text", "class": "text-base-content text-center", "props": { "value": "{data.name}" } }, { "type": "image", "props": { "src": "{data.image}", "alt": "" }, "class": "rounded-full" }]
-								}]
-						}]
+									type: "button",
+									actions: {
+										onclick: {
+											"type": "clientScript",
+											"script": "fetch(\"https://dummyjson.com/recipes\")\n  .then(response => response.json())\n  .then(j => {\n    page.data.recipes = j.recipes;\n  });"
+										}
+									},
+									props: {
+										class: "btn btn-sm btn-primary",
+										tooltip: "Fetch recipes from API",
+										label: "Get Recipes",
+										draggable: false
+									},
+								},
+								{
+									type: "button",
+									actions: {
+										"onclick": { "type": "clientScript", "script": "page.data.recipes=[];" }
+									},
+									props: {
+										class: "btn btn-sm btn-error",
+										tooltip: "Clear recipe data",
+										label: "Clear Recipes",
+										draggable: false
+									},
+								}
+							]
+						},
+						{
+							type: "repeater",
+							props: {
+								class: "grid grid-cols-2 p-3 gap-3",
+								dataSource: "recipes",
+							},
+							children: [
+								{
+									type: "container",
+									props: {
+									},
+									children: [
+										{
+											type: "text",
+											props: {
+												class: "text-base-content text-center",
+												value: "{data.name}"
+											}
+										},
+										{
+											type: "image",
+											props: {
+												class: "rounded-full",
+												src: "{data.image}",
+											},
+										}
+									]
+								}
+							]
+						}
+					]
 				}
 
 			]
@@ -74,31 +134,34 @@ export const oneOfEachPageData = {
 		// },
 		{
 			type: 'button',
-			class: 'btn btn-sm btn-info',
+			props: {
+				class: 'btn btn-sm btn-info',
+				label: '🌙 Dark Mode'
+			},
 			actions: {
 				onclick: {
 					"type": "clientScript",
 					"script": "document.documentElement.setAttribute('data-theme','dark')"
 				}
 			},
-			props: { label: '🌙 Dark Mode' }
 		},
 		{
 			type: 'button',
-			class: 'btn btn-sm btn-info',
+			props: {
+				class: 'btn btn-sm btn-info',
+				label: '☀️ Light Mode'
+			},
 			actions: {
 				onclick: {
 					type: "clientScript",
 					script: "document.documentElement.setAttribute('data-theme','light')"
 				}
 			},
-			props: { label: '☀️ Light Mode' }
 		},
 		{
 			type: 'calendar',
-			class: '',
-			dataSource: 'calendarEvents',
 			props: {
+				dataSource: 'calendarEvents',
 				startTimeField: "start",
 				endTimeField: "end",
 				titleField: "shortdescription",
@@ -107,8 +170,8 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'chart',
-			dataSource: 'chartData',
 			props: {
+				dataSource: 'chartData',
 				title: 'Chart Title',
 				xColumn: 'x',
 				yColumn: 'y',
@@ -118,9 +181,9 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'choice',
-			class: 'border border-gray-300 rounded',
-			dataSource: 'names',
 			props: {
+				class: 'border border-gray-300 rounded',
+				dataSource: 'names',
 				optionValueField: 'name',
 				optionTitleField: 'name',
 				value: 'Mary Ann'
@@ -138,26 +201,28 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'container',
-			class: 'flex gap-2',
+			props: {
+				class: 'flex gap-2',
+			},
 			children: [
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow-xl',
 					props: {
+						class: 'border p-1 m-1 shadow-xl',
 						value: 'left'
 					},
 				},
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow-xl',
 					props: {
+						class: 'border p-1 m-1 shadow-xl',
 						value: 'middle'
 					},
 				},
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow-xl',
 					props: {
+						class: 'border p-1 m-1 shadow-xl',
 						value: 'right'
 					},
 				},
@@ -165,26 +230,28 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'container',
-			class: 'flex flex-col gap-2',
+			props: {
+				class: 'flex flex-col gap-2',
+			},
 			children: [
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow',
 					props: {
+						class: 'border p-1 m-1 shadow',
 						value: 'top'
 					},
 				},
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow',
 					props: {
+						class: 'border p-1 m-1 shadow',
 						value: 'center'
 					},
 				},
 				{
 					type: 'text',
-					class: 'border p-1 m-1 shadow',
 					props: {
+						class: 'border p-1 m-1 shadow',
 						value: 'bottom'
 					},
 				},
@@ -196,23 +263,25 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'iframe',
-			class: 'w-full',
 			props: {
+				class: 'w-full',
 				url: 'https://nc-photo.org',
 			}
 		},
 		{
 			type: 'image',
-			class: 'w-96',
-			background: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/united-kingdom-flag.png',
 			props: {
+				class: 'w-96',
+				background: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/united-kingdom-flag.png',
 				src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
 			}
 		},
 		{
 			type: 'input',
-			class: 'input input-sm input-bordered w-64',
-			props: { placeholder: '{page.exampleInput.placeholder}', value: '' },
+			props: {
+				class: 'input input-sm input-bordered w-64',
+				placeholder: '{page.exampleInput.placeholder}', value: ''
+			},
 			actions: {
 				onchange: {
 					type: 'clientScript',
@@ -232,8 +301,8 @@ export const oneOfEachPageData = {
 		// },
 		{
 			type: 'map',
-			dataSource: 'mapMarkers',
 			props: {
+				dataSource: 'mapMarkers',
 				zoom: 2,
 				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
@@ -245,13 +314,15 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'repeater',
-			class: 'flex gap-2',
-			dataSource: 'names',
+			props: {
+				class: 'flex gap-2',
+				dataSource: 'names',
+			},
 			children: [
 				{
 					type: 'text',
-					class: 'bg-accent text-xl p-1',
 					props: {
+						class: 'bg-accent text-xl p-1',
 						value: '{data.name}'
 					}
 				},
@@ -259,26 +330,28 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'richtext',
-			class: 'w-1/3',
 			props: {
+				class: 'w-1/3',
 				value: 'This is <b>rich</b> editable text'
 			}
 		},
 		{
 			type: 'script',
-			class: 'border w-full',
 			props: {
+				class: 'border w-full',
 				script: "// This is a syntax-aware Javascript editor\n\nlet a='hello';"
 			}
 		},
 		{
 			type: 'container',
-			class: 'flex w-full',
+			props: {
+				class: 'flex w-full',
+			},
 			children: [
 				{
 					type: 'slider',
-					class: 'w-96 range range-info',
 					props: {
+						class: 'w-96 range range-info',
 						min: '{page.exampleSlider.min}',
 						max: '{page.exampleSlider.max}',
 						value: 7
@@ -296,8 +369,8 @@ export const oneOfEachPageData = {
 				{
 					type: 'text',
 					id: 'sliderValue',
-					class: 'ml-2',
 					props: {
+						class: 'ml-2',
 						value: 'Move the slider!'
 					}
 				}
@@ -305,22 +378,23 @@ export const oneOfEachPageData = {
 		},
 		{
 			type: 'table',
-			class: 'w-full',
-			dataSource: 'calendarEvents',
-			props: {}
+			props: {
+				class: 'w-full',
+				dataSource: 'calendarEvents',
+			}
 		},
 		{
 			type: 'text',
-			class: 'text-3xl font-thin font-sans',
 			props: {
+				class: 'text-3xl font-thin font-sans',
 				value: 'This is <i>some</i> text, {page.f1Driver1}'
 			}
 		},
 		{
 			type: 'timeline',
-			class: 'timeline timeline-snap-icon timeline-vertical max-md:timeline-compact h-96 overflow-y-auto',
-			dataSource: 'calendarEvents',
 			props: {
+				class: 'timeline timeline-snap-icon timeline-vertical max-md:timeline-compact h-96 overflow-y-auto',
+				dataSource: 'calendarEvents',
 				icon: 'mdi:{data.icon}',
 				iconColor: 'blue',
 				nodeWidth: "64",
@@ -333,13 +407,17 @@ export const oneOfEachPageData = {
 
 export const oneOfEachRepeaterData = {
 	type: 'repeater',
-	class: 'flex gap-2',
-	dataSource: 'examples',
+	props: {
+		class: 'flex gap-2',
+		dataSource: 'examples',
+	},
 	children: [
 		{
 			type: 'container',
-			class: 'border w-16',
-			childred: []
+			props: {
+				class: 'border w-16',
+			},
+			children: []
 		},
 		{
 			type: 'icon',
@@ -347,41 +425,55 @@ export const oneOfEachRepeaterData = {
 		},
 		{
 			type: 'button',
-			class: 'btn btn-sm',
-			props: { label: '{data.buttonLabel}' }
+			props: {
+				class: 'btn btn-sm',
+				label: '{data.buttonLabel}'
+			}
 		},
 		{
 			type: 'image',
-			class: 'w-16',
-			props: { src: '{data.exampleImage}' }
+			props: {
+				class: 'w-16',
+				src: '{data.exampleImage}'
+			}
 		},
 		{
 			type: 'input',
-			class: 'input input-sm input-bordered w-16',
-			props: { placeholder: '{data.hint}' }
+			props: {
+				class: 'input input-sm input-bordered w-16',
+				placeholder: '{data.hint}'
+			}
 		},
 		{
 			type: 'text',
-			class: 'w-10',
-			props: { value: '<b>{data.text}</b>' }
+			props: {
+				class: 'w-10',
+				value: '<b>{data.text}</b>'
+			}
 		},
 		{
 			type: 'slider',
-			class: 'w-16 range range-info',
-			props: { min: 0, max: 10, value: 7 }
+			props: {
+				class: 'w-16 range range-info',
+				min: 0, max: 10, value: 7
+			}
 		},
 	]
 };
 
 export const horizontalIcons = {
 	type: 'container',
-	class: 'flex border shadow-2xl m-5 p-5',
-	draggable: false,
+	props: {
+		class: 'flex border shadow-2xl m-5 p-5',
+		draggable: false,
+	},
 	children: [
 		{
 			type: 'icon',
-			draggable: true,
-			props: { icon: 'lucide:image', size: '1.5em', color: 'blue' },
+			props: {
+				draggable: true,
+				icon: 'lucide:image', size: '1.5em', color: 'blue'
+			},
 		},
 		{
 			type: 'icon',
@@ -389,56 +481,72 @@ export const horizontalIcons = {
 		},
 		{
 			type: 'container',
-			class: 'flex flex-col',
+			props: {
+				class: 'flex flex-col',
+			},
 			children: [
 				{
 					type: 'text',
-					class: 'text-base-content text-xl font-bold font-serif',
-					props: { value: '{page.f1Driver1}' },
-					draggable: true,
+					props: {
+						class: 'text-base-content text-xl font-bold font-serif',
+						value: '{page.f1Driver1}',
+						draggable: true,
+					},
 				},
 				{
 					type: 'text',
-					class: 'text-base-content text-xl font-thin italic',
-					props: { value: 'Team Ferrari Driver 1' },
-					draggable: true,
+					props: {
+						class: 'text-base-content text-xl font-thin italic',
+						value: 'Team Ferrari Driver 1',
+						draggable: true,
+					},
 				},
 				{
 					type: 'text',
-					class: 'text-base-content text-xl font-black',
-					props: { value: 'Team Ferrari Driver 1' },
-					draggable: true,
+					props: {
+						class: 'text-base-content text-xl font-black',
+						value: 'Team Ferrari Driver 1',
+						draggable: true,
+					},
 				},
 				{
-					"type": "slider",
-					"class": "range range-info",
-					"props": { "value": 50, "max": 100, "min": 0 },
+					type: "slider",
+					props: {
+						class: "range range-info",
+						value: 50, "max": 100, "min": 0
+					},
 				},
 			]
 		},
 		{
 			type: 'richtext',
-			class: '',
 			props: { value: '<p>Hi {page.f1Driver1} <layout-component></layout-component> <input-component></input-component> <counter-component></counter-component></p>' },
 		},
 		{
 			type: 'button',
-			class: 'ml-auto btn btn-sm btn-accent',
-			props: { label: 'Button Title' },
-			draggable: true,
+			props: {
+				class: 'ml-auto btn btn-sm btn-accent',
+				label: 'Button Title',
+				draggable: true,
+			},
 		},
 	]
 };
 
 export const repeater = {
 	type: 'repeater',
-	dataSource: 'names',
-	class: 'flex gap-2',
-	draggable: true,
+	props: {
+		dataSource: 'names',
+		class: 'flex gap-2',
+		draggable: true,
+	},
 	children: [
 		{
 			type: 'button',
-			class: 'btn btn-sm {data.color}',
+			props: {
+				class: 'btn btn-sm {data.color}',
+				label: 'Button{data.name:formatSuffix}'
+			},
 			actions: {
 				onclick: {
 					"type": "navigate",
@@ -450,15 +558,16 @@ export const repeater = {
 					"value": "alert(self.getContent()); page.namedPageObjects['theButton'].getLayout()['class']='btn btn-accent'; alert(JSON.stringify(page.namedPageObjects['theButton'].getLayout()['class']));"
 				},
 			},
-			props: { label: 'Button{data.name:formatSuffix}' },
 		},
 	]
 };
 
 export const named = {
 	type: 'repeater',
-	class: 'grid sm:grid-cols-2 gap-5',
-	dataSource: 'names',
+	props: {
+		class: 'grid sm:grid-cols-2 gap-5',
+		dataSource: 'names',
+	},
 	children: [
 		{
 			type: 'named',
@@ -471,34 +580,41 @@ export const named = {
 export const f1 = {
 	type: 'container',
 	id: 'f1',
-	class: 'flex flex-col',
+	props: {
+		class: 'flex flex-col',
+	},
 	children: [
 		{
 			type: 'image',
-			class: 'w-64 mx-auto bg-accent rounded-full',
 			props: {
-				src: '{page.exampleNestedJSON.photo.inner}'
+				class: 'w-64 mx-auto bg-accent rounded-full',
+				src: '{page.exampleNestedJSON.photo.inner}',
+				background: 'https://hulbertfamily.com/gltf/grid.png',
+				draggable: true,
 			},
-			background: 'https://hulbertfamily.com/gltf/grid.png',
-			draggable: true,
 		},
 		{
 			type: 'text',
-			class: 'text-base-content text-xl mx-auto',
-			props: { value: 'Team Ferrari {data.name}' },
-			draggable: true,
+			props: {
+				class: 'text-base-content text-xl mx-auto',
+				value: 'Team Ferrari {data.name}',
+				draggable: true,
+			},
 		},
 		{
 			type: 'input',
-			class: 'input input-bordered mx-auto',
-			props: { value: 'Ivanka/ivy', placeholder: "Ivanka's Friend's Name" },
-			disabled: false,
-			draggable: true,
+			props: {
+				class: 'input input-bordered mx-auto',
+				value: 'Ivanka/ivy',
+				placeholder: "Ivanka's Friend's Name",
+				disabled: false,
+				draggable: true,
+			},
 		},
 		{
 			type: 'button',
-			class: 'btn btn-sm btn-error mx-auto',
 			props: {
+				class: 'btn btn-sm btn-error mx-auto',
 				label: 'Save Team Ferrari'
 			},
 		},

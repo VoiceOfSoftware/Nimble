@@ -16,15 +16,29 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return [{ name: "dataSource", type: "dataSource" }];
+	}
 
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 
-	const markers = pageContext.data[layoutStructure.dataSource];
+	const markers = pageContext.data[layoutStructure.props?.dataSource];
 </script>
 
 <div class={theClass}>
@@ -55,7 +69,7 @@
 							icon: layoutStructure.props?.markerIcon
 								? layoutStructure.props?.markerIcon
 								: "mdi:location",
-							size:  layoutStructure.props?.markerSize
+							size: layoutStructure.props?.markerSize
 								? layoutStructure.props?.markerSize
 								: 36,
 						},

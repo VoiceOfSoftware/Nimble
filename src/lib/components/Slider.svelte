@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import { createEventHandlers } from "./eventHandlers.js";
-	import { macroReplace, performAction } from "./dataPillMacros.js";
+	import { macroReplace } from "./dataPillMacros.js";
 	let { layoutStructure, dataValues, myself } = $props();
 
 	const pageContext = getContext("pageContext");
@@ -10,16 +10,21 @@
 		return layoutStructure;
 	}
 	export function getEvents() {
-		return ["onchange","oninput"];
+		return ["onchange", "oninput"];
 	}
 	export function getProps() {
-		return ["value"];
+		return [{ name: "value", type: "string" }];
 	}
 
 	const theClass = $derived(
-		macroReplace(layoutStructure.class, pageContext, dataValues, false) +
-			(layoutStructure.background
-				? ` bg-[url(${layoutStructure.background})] bg-no-repeat bg-cover bg-center`
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
+			(layoutStructure.props?.background
+				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
 	);
 </script>
