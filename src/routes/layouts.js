@@ -31,6 +31,49 @@ export const oneOfEachPageData = {
 	props: {},
 	children: [
 		{
+			type: "container",
+			props:
+				{ class: "flex flex-wrap gap-2" },
+			children: [
+				{
+					type: "imageupload",
+					props: {
+						class: "btn btn-sm btn-primary",
+						label: "Upload to Cloudinary",
+						cloudinaryFolder: "samples",
+						cloudinaryPreset: "Bleth_preset",
+					}
+				},
+				{
+					type: "button",
+					props: {
+						class: "btn btn-sm btn-primary",
+						tooltip: "Show this when user hovers",
+						label: "Query Cloudinary",
+						disabled: false
+					},
+					actions: {
+						onclick: {
+							type: "clientScript",
+							script: "// Construct the API URL\n const apiUrl = 'https://voiceofsoftware.com/hello.php';\n  \n  fetch(apiUrl, {\n    method: 'GET',\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  })\n    .then(response => {\n      if (!response.ok) {\n        throw new Error(`HTTP error! status: ${response.status}`);\n      }\n      return response.json();\n    })\n    .then(data => {\n      console.log(data);\n      data.resources.forEach((item)=>{item.url=('https://res.cloudinary.com/dzoumeu1e/image/upload/'+'q_auto,w_200/'+item.secure_url.split('https://res.cloudinary.com/dzoumeu1e/image/upload/')[1])});\n      page.data.cloudinary = data.resources;\n      return data;\n    })\n    .catch(error => {\n      console.error('Error fetching Cloudinary images:', error);\n      throw error;\n    });"
+						}
+					}
+				}
+			]
+		},
+		{
+			type: "repeater",
+			props: {
+				class: "flex flex-wrap",
+				dataSource: "cloudinary",
+				draggable: false
+			},
+			children: [{
+				type: "image",
+				props: { "src": "{data.url}", "class": "w-32" }
+			}]
+		},
+		{
 			type: 'container',
 			props: {
 				class: 'mockup-phone scale-90',
@@ -47,79 +90,77 @@ export const oneOfEachPageData = {
 					props: {
 						class: "display w-[440px] h-[844px] bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500",
 					},
-					children: [
-						{
-							type: "text",
-							props: {
-								class: "pt-2 pl-3 text-gray-100",
-								value: "safe area"
-							}
+					children: [{
+						type: "text",
+						props: {
+							class: "pt-2 pl-3 text-gray-100",
+							value: "safe area"
+						}
+					},
+					{
+						type: "container",
+						props: {
+							class: "flex flex-wrap place-content-center gap-2",
 						},
-						{
+						children: [
+							{
+								type: "button",
+								actions: {
+									onclick: {
+										"type": "clientScript",
+										"script": "fetch(\"https://dummyjson.com/recipes\")\n  .then(response => response.json())\n  .then(j => {\n    page.data.recipes = j.recipes;\n  });"
+									}
+								},
+								props: {
+									class: "btn btn-sm btn-primary",
+									tooltip: "Fetch recipes from API",
+									label: "Get Recipes",
+									draggable: false
+								},
+							},
+							{
+								type: "button",
+								actions: {
+									"onclick": { "type": "clientScript", "script": "page.data.recipes=[];" }
+								},
+								props: {
+									class: "btn btn-sm btn-error",
+									tooltip: "Clear recipe data",
+									label: "Clear Recipes",
+									draggable: false
+								},
+							}
+						]
+					},
+					{
+						type: "repeater",
+						props: {
+							class: "grid grid-cols-2 p-3 gap-3",
+							dataSource: "recipes",
+						},
+						children: [{
 							type: "container",
 							props: {
-								class: "flex flex-wrap place-content-center gap-2",
 							},
 							children: [
 								{
-									type: "button",
-									actions: {
-										onclick: {
-											"type": "clientScript",
-											"script": "fetch(\"https://dummyjson.com/recipes\")\n  .then(response => response.json())\n  .then(j => {\n    page.data.recipes = j.recipes;\n  });"
-										}
-									},
+									type: "text",
 									props: {
-										class: "btn btn-sm btn-primary",
-										tooltip: "Fetch recipes from API",
-										label: "Get Recipes",
-										draggable: false
-									},
+										class: "text-base-content text-center",
+										value: "{data.name}"
+									}
 								},
 								{
-									type: "button",
-									actions: {
-										"onclick": { "type": "clientScript", "script": "page.data.recipes=[];" }
-									},
+									type: "image",
 									props: {
-										class: "btn btn-sm btn-error",
-										tooltip: "Clear recipe data",
-										label: "Clear Recipes",
-										draggable: false
+										class: "rounded-full",
+										src: "{data.image}",
 									},
-								}
-							]
-						},
-						{
-							type: "repeater",
-							props: {
-								class: "grid grid-cols-2 p-3 gap-3",
-								dataSource: "recipes",
-							},
-							children: [
-								{
-									type: "container",
-									props: {
-									},
-									children: [
-										{
-											type: "text",
-											props: {
-												class: "text-base-content text-center",
-												value: "{data.name}"
-											}
-										},
-										{
-											type: "image",
-											props: {
-												class: "rounded-full",
-												src: "{data.image}",
-											},
-										}
-									]
 								}
 							]
 						}
+						]
+					}
 					]
 				}
 
@@ -204,28 +245,27 @@ export const oneOfEachPageData = {
 			props: {
 				class: 'flex gap-2',
 			},
-			children: [
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow-xl',
-						value: 'left'
-					},
+			children: [{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow-xl',
+					value: 'left'
 				},
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow-xl',
-						value: 'middle'
-					},
+			},
+			{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow-xl',
+					value: 'middle'
 				},
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow-xl',
-						value: 'right'
-					},
+			},
+			{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow-xl',
+					value: 'right'
 				},
+			},
 			]
 		},
 		{
@@ -233,28 +273,27 @@ export const oneOfEachPageData = {
 			props: {
 				class: 'flex flex-col gap-2',
 			},
-			children: [
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow',
-						value: 'top'
-					},
+			children: [{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow',
+					value: 'top'
 				},
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow',
-						value: 'center'
-					},
+			},
+			{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow',
+					value: 'center'
 				},
-				{
-					type: 'text',
-					props: {
-						class: 'border p-1 m-1 shadow',
-						value: 'bottom'
-					},
+			},
+			{
+				type: 'text',
+				props: {
+					class: 'border p-1 m-1 shadow',
+					value: 'bottom'
 				},
+			},
 			]
 		},
 		{
@@ -274,6 +313,15 @@ export const oneOfEachPageData = {
 				class: 'w-96',
 				background: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/united-kingdom-flag.png',
 				src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
+			}
+		},
+		{
+			type: 'imageupload',
+			props: {
+				class: 'btn btn-sm btn-primary',
+				label: 'Upload to Cloudinary',
+				cloudinaryFolder: 'test',
+				cloudinaryPreset: 'Bleth_preset'
 			}
 		},
 		{
@@ -302,6 +350,7 @@ export const oneOfEachPageData = {
 		{
 			type: 'map',
 			props: {
+				class: 'relative aspect-[9/16] max-h-[70vh] w-full sm:aspect-video sm:max-h-full',
 				dataSource: 'mapMarkers',
 				zoom: 2,
 				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -318,14 +367,13 @@ export const oneOfEachPageData = {
 				class: 'flex gap-2',
 				dataSource: 'names',
 			},
-			children: [
-				{
-					type: 'text',
-					props: {
-						class: 'bg-accent text-xl p-1',
-						value: '{data.name}'
-					}
-				},
+			children: [{
+				type: 'text',
+				props: {
+					class: 'bg-accent text-xl p-1',
+					value: '{data.name}'
+				}
+			},
 			]
 		},
 		{
@@ -347,33 +395,32 @@ export const oneOfEachPageData = {
 			props: {
 				class: 'flex w-full',
 			},
-			children: [
-				{
-					type: 'slider',
-					props: {
-						class: 'w-96 range range-info',
-						min: '{page.exampleSlider.min}',
-						max: '{page.exampleSlider.max}',
-						value: 7
-					},
-					actions: {
-						oninput: {
-							type: "setProperty",
-							objectName: "sliderValue",
-							property: 'value',
-							value: "{self.props.value}"
-						}
-					}
-					,
+			children: [{
+				type: 'slider',
+				props: {
+					class: 'w-96 range range-info',
+					min: '{page.exampleSlider.min}',
+					max: '{page.exampleSlider.max}',
+					value: 7
 				},
-				{
-					type: 'text',
-					id: 'sliderValue',
-					props: {
-						class: 'ml-2',
-						value: 'Move the slider!'
+				actions: {
+					oninput: {
+						type: "setProperty",
+						objectName: "sliderValue",
+						property: 'value',
+						value: "{self.props.value}"
 					}
 				}
+				,
+			},
+			{
+				type: 'text',
+				id: 'sliderValue',
+				props: {
+					class: 'ml-2',
+					value: 'Move the slider!'
+				}
+			}
 			]
 		},
 		{
@@ -555,7 +602,7 @@ export const repeater = {
 				},
 				onclick2: {
 					"type": "clientScript",
-					"value": "alert(self.getContent()); page.namedPageObjects['theButton'].getLayout()['class']='btn btn-accent'; alert(JSON.stringify(page.namedPageObjects['theButton'].getLayout()['class']));"
+					"value": "alert(self.props.content); page.namedPageObjects['theButton'].getLayout()['class']='btn btn-accent'; alert(JSON.stringify(page.namedPageObjects['theButton'].getLayout()['class']));"
 				},
 			},
 		},

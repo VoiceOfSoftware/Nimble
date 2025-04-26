@@ -308,18 +308,12 @@ export const listOfComponents = [
 		IconifyIcon: 'radix-icons:slider',
 		Definition: {
 			type: "slider",
-			onchange: {
-				"action": "setProperty",
-				"objectName": "3d",
-				"options": {
-					"scale": "{self.props.value}"
-				}
-			},
 			props: {
 				class: "range",
 				min: 1,
 				max: 100,
-				value: 50
+				value: 50,
+				step: 1
 			}
 		}
 	},
@@ -358,6 +352,19 @@ export const listOfComponents = [
 				icon: "mdi:{data.icon}",
 				iconColor: "blue"
 			},
+		}
+	},
+	{
+		Name: 'Upload Image',
+		IconifyIcon: 'material-symbols:cloud-upload',
+		Definition: {
+			type: 'imageupload',
+			props: {
+				class: 'btn btn-sm btn-primary',
+				label: 'Upload to Cloudinary',
+				cloudinaryFolder: 'test',
+				cloudinaryPreset: 'Bleth_preset'
+			}
 		}
 	}
 ]

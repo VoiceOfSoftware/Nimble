@@ -34,7 +34,7 @@
 </script>
 
 {#if pageContext.editMode}
-	<div class={theClass + " repeater-section"}>
+	<div class={theClass + " repeater-section"} draggable={layoutStructure.props?.draggable}>
 		{#each layoutStructure.children as child, index (child)}
 			<InsertionTarget
 				{index}
@@ -42,7 +42,7 @@
 				notifyDropped={(index, newObject) =>
 					insertSiblingAbove(newObject, index)}
 			/>
-			<Layout layoutStructure={child} dataValues={{}} />
+			<Layout layoutStructure={child} dataValues={{}} parent={layoutStructure} {index}/>
 		{/each}
 		<InsertionTarget
 			index={layoutStructure.children?.length}

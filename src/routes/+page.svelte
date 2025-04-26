@@ -20,6 +20,7 @@
 	import Chart from "$lib/components/Chart.svelte";
 	import Choice from "$lib/components/Choice.svelte";
 	import IFrame from "$lib/components/IFrame.svelte";
+	import ImageUpload from "$lib/components/ImageUpload.svelte";
 	import MapLibre from "$lib/components/MapLibre.svelte";
 	import Container from "$lib/components/Container.svelte";
 	import DynamicIcon from "$lib/components/DynamicIcon.svelte";
@@ -56,6 +57,7 @@
 	registerComponent("icon", DynamicIcon);
 	registerComponent("iframe", IFrame);
 	registerComponent("image", Image);
+	registerComponent("imageupload", ImageUpload);
 	registerComponent("input", Input);
 	registerComponent("map", MapLibre);
 	registerComponent("pdf", PDFViewer);

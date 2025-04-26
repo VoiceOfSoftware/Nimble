@@ -13,7 +13,12 @@
 		return ["onchange", "oninput"];
 	}
 	export function getProps() {
-		return [{ name: "value", type: "string" }];
+		return [
+			{ name: "min", type: "string" },
+			{ name: "max", type: "string" },
+			{ name: "value", type: "string" },
+			{ name: "step", type: "string" },
+		];
 	}
 
 	const theClass = $derived(
@@ -45,6 +50,12 @@
 	)}
 	max={macroReplace(
 		layoutStructure.props?.max + "",
+		pageContext,
+		dataValues,
+		false,
+	)}
+	step={macroReplace(
+		layoutStructure.props?.step + "",
 		pageContext,
 		dataValues,
 		false,
