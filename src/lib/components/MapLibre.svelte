@@ -23,7 +23,17 @@
 		return [];
 	}
 	export function getProps() {
-		return [{ name: "dataSource", type: "dataSource" }];
+		return [
+			{ name: "dataSource", type: "dataSource" },
+			{ name: "popup", type: "string" },
+			{ name: "tileLayer", type: "string" },
+			{ name: "rasterLayer", type: "string" },
+			{ name: "zoom", type: "string" },
+			{ name: "center", type: "string" },
+			{ name: "markerColor", type: "string" },
+			{ name: "markerIcon", type: "string" },
+			{ name: "markerSize", type: "string" },
+		];
 	}
 
 	const theClass = $derived(
@@ -44,10 +54,12 @@
 <div class={theClass}>
 	<MapLibre
 		style={layoutStructure.props?.tileLayer}
-		class="relative aspect-[9/16] max-h-[70vh] w-full sm:aspect-video sm:max-h-full"
+		class={theClass}
 		standardControls
 		zoom={layoutStructure.props?.zoom}
-		center={layoutStructure.props?.center}
+		center={Array.isArray(layoutStructure.props?.center)
+			? layoutStructure.props?.center
+			: JSON.parse(layoutStructure.props?.center)}
 	>
 		{#if layoutStructure.props?.rasterLayer}
 			<RasterTileSource

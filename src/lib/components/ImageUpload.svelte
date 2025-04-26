@@ -1,8 +1,8 @@
 <script>
+	import { CldUploadButton } from "svelte-cloudinary";
 	import { getContext } from "svelte";
-	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
-	import { tooltip } from "./Tippy";
+	import { performAction } from "./dataPillMacros";
 
 	let { layoutStructure, dataValues, myself } = $props();
 
@@ -12,12 +12,13 @@
 		return layoutStructure;
 	}
 	export function getEvents() {
-		return ["onclick"];
+		return ['onupload'];
 	}
 	export function getProps() {
 		return [
-			{ name: "disabled", type: "boolean" },
 			{ name: "label", type: "string" },
+			{ name: "cloudinaryPreset", type: "string" },
+			{ name: "cloudinaryFolder", type: "string" },
 		];
 	}
 
@@ -42,20 +43,26 @@
 	);
 </script>
 
-<button
-	use:tooltip={{
-		content: macroReplace(
-			layoutStructure.props?.tooltip,
+<CldUploadButton
+	class={theClass}
+	draggable={layoutStructure.props?.draggable}
+	uploadPreset={macroReplace(
+		layoutStructure.props?.cloudinaryPreset,
+		pageContext,
+		dataValues,
+		false,
+	)}
+	options={{
+		folder: macroReplace(
+			layoutStructure.props?.cloudinaryFolder,
+			pageContext,
 			dataValues,
 			false,
 		),
+		sources: ["local"],
+		multiple: true,
 	}}
-	{...createEventHandlers(
-		layoutStructure.actions,
-		{ page: pageContext, data: dataValues, self: myself },
-		dataValues,
-	)}
-	disabled={layoutStructure.props?.disabled}
-	class={theClass}
-	draggable={layoutStructure.props?.draggable}>{label}</button
+	onSuccess={(result) => performAction(layoutStructure.actions['onupload'], pageContext, dataValues)}
 >
+	{label}
+</CldUploadButton>
