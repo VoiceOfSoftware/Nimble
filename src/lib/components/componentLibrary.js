@@ -46,6 +46,16 @@ export const componentLibraryLayout = {
 
 export const listOfComponents = [
 	{
+		Name: 'Remote',
+		IconifyIcon: 'mdi:gear',
+		Definition: {
+			type: "remote",
+			props: {
+				class:'flex'
+			},
+		},
+	},
+	{
 		Name: '3D Object',
 		IconifyIcon: 'gis:cube-3d',
 		Definition: {

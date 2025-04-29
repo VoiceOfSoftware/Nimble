@@ -76,6 +76,9 @@ export function performAction(actionDefinition, context, dataValues) {
 		case 'setProperty':
 			context.page.namedPageObjects[actionDefinition.objectName].getLayout()['props'][actionDefinition.property] = macroReplace(actionDefinition.value, context, dataValues, false);
 			break;
+		case 'setGlobal':
+			context.page.data[actionDefinition.variableName] = macroReplace(actionDefinition.value, context, dataValues, false);
+			break;
 	}
 }
 

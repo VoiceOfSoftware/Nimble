@@ -30,7 +30,7 @@
 			{ name: "rasterLayer", type: "string" },
 			{ name: "zoom", type: "string" },
 			{ name: "center", type: "string" },
-			{ name: "markerColor", type: "string" },
+			{ name: "markerColor", type: "color" },
 			{ name: "markerIcon", type: "string" },
 			{ name: "markerSize", type: "string" },
 		];

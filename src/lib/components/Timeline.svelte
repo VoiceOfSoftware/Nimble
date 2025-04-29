@@ -18,7 +18,7 @@
 		return [
 			{ name: "dataSource", type: "dataSource" },
 			{ name: "icon", type: "string" },
-			{ name: "iconColor", type: "string" },
+			{ name: "iconColor", type: "color" },
 			{ name: "nodeWidth", type: "string" },
 			{ name: "timeField", type: "string" },
 			{ name: "itemLayout", type: "string" },

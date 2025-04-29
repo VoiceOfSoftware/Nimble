@@ -12,7 +12,10 @@
 		["onclick"];
 	}
 	export function getProps() {
-		return [{ name: "icon", type: "string" }];
+		return [
+			{ name: "icon", type: "string" },
+			{ name: "color", type: "color" }
+		];
 	}
 
 	const theClass = $derived(
