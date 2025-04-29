@@ -5,6 +5,7 @@
 	import { autocompletion } from "@codemirror/autocomplete";
 	import Modal from "./Modal.svelte";
 	import { commonProperties } from "./componentRegistry";
+	import { page } from "$app/state";
 
 	const pageContext = getContext("pageContext");
 
@@ -31,6 +32,11 @@
 				break;
 			case "setProperty":
 				newAction.objectName = "";
+				newAction.property = "";
+				newAction.value = "";
+				break;
+			case "setGlobal":
+				newAction.variableName = "";
 				newAction.property = "";
 				newAction.value = "";
 				break;
@@ -83,6 +89,7 @@
 		};
 	}
 
+	//	Experimental, for script auto-completion popup
 	const contextVariables = {
 		page: {
 			endpoint1: "/blog",
@@ -134,6 +141,7 @@
 					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
 					<option value="setProperty">Set Property</option>
+					<option value="setGlobal">Set Global</option>
 				</select>
 				{#if pageContext.selectedLayout.actions[event].type === "clientScript"}
 					<button
@@ -204,6 +212,31 @@
 						}
 					/>
 				{/if}
+				{#if pageContext.selectedLayout.actions[event].type === "setGlobal"}
+					<div class="text-xs">variable name</div>
+					<select
+						class="border border-gray-300 rounded"
+						bind:value={
+							pageContext.selectedLayout.actions[event].variableName
+						}
+					>
+						{#each Object.keys(pageContext.data).filter((key) => typeof pageContext.data[key] !== "object") as variableName}
+							<option
+								selected={pageContext.selectedLayout.actions[
+									event
+								].variableName == variableName}
+								value={variableName}>{variableName}</option
+							>
+						{/each}
+					</select>
+					<div class="text-xs">value</div>
+					<input
+						class="mb-1 border w-full"
+						bind:value={
+							pageContext.selectedLayout.actions[event].value
+						}
+					/>
+				{/if}
 			</div>
 		{:else}
 			<div class="flex flex-row items-baseline">
@@ -216,6 +249,7 @@
 					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
 					<option value="setProperty">Set Property</option>
+					<option value="setGlobal">Set Global</option>
 				</select>
 			</div>
 		{/if}

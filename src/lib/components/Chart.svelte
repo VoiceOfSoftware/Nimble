@@ -10,7 +10,14 @@
 		return [];
 	}
 	export function getProps() {
-		return [{ name: "dataSource", type: "dataSource" }];
+		return [
+			{ name: "dataSource", type: "string" },
+			{ name: "type", type: "string" },
+			{ name: "title", type: "string" },
+			{ name: "color", type: "color" },
+			{ name: "xColumn", type: "string" },
+			{ name: "yColumn", type: "string" },
+		];
 	}
 
 	export let layoutStructure;

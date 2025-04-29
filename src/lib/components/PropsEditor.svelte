@@ -1,6 +1,8 @@
 <script>
 	import { getContext } from "svelte";
 	import { commonProperties } from "./componentRegistry";
+	import ColorPicker from "svelte-awesome-color-picker";
+
 	const pageContext = getContext("pageContext");
 
 	function setComponentID(id) {
@@ -32,6 +34,21 @@
 			bind:value={pageContext.selectedLayout.props[prop.name]}
 			placeholder={prop.placeholder}
 		/>
+	{/if}
+	{#if prop.type === "color"}
+		<div class="text-xs">{prop.name}</div>
+		<div class="mb-1 flex items-baseline text-xs">
+			<ColorPicker
+				bind:hex={pageContext.selectedLayout.props[prop.name]}
+				label=''
+			/>
+			<input
+				ondrop={(event) => handleDrop(event, prop.name)}
+				class="mb-2 border w-full"
+				bind:value={pageContext.selectedLayout.props[prop.name]}
+				placeholder={prop.placeholder}
+			/>
+		</div>
 	{/if}
 	{#if prop.type === "boolean"}
 		<div class="mb-1 flex items-baseline text-xs">

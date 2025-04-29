@@ -79,7 +79,7 @@
 	});
 
 	onMount(() => {
-		fetch(`https://api.jsonbin.io/v3/qs/${layoutID}`)
+		fetch(`https://api.jsonbin.io/v3/b/${layoutID}`)
 			.then((response) => response.json())
 			.then((j) => {
 				reactiveOneOfEachPageData = j.record;

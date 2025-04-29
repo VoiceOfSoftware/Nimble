@@ -46,6 +46,7 @@
 		repeater,
 	} from "./layouts.js";
 	import EditorRegion from "$lib/components/EditorRegion.svelte";
+	import MyRemoteComponent from "$lib/components/MyRemoteComponent.svelte";
 
 	registerComponent("named", Named);
 	registerComponent("3D", ThrelteCanvas);
@@ -68,6 +69,7 @@
 	registerComponent("table", AGGrid2);
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);
+	registerComponent("remote", MyRemoteComponent);
 
 	let pageContext = $state({
 		editMode: false,
@@ -105,6 +107,7 @@
 					inner: "https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/ferrari.png",
 				},
 			},
+			primaryColorClass: "primary",
 			f1Driver1: 'Eugene\'s "F1"',
 			chartData: [
 				{ x: "hello", y: 12 },
