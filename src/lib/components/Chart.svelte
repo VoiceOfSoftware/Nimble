@@ -11,8 +11,8 @@
 	}
 	export function getProps() {
 		return [
-			{ name: "dataSource", type: "string" },
-			{ name: "type", type: "string" },
+			{ name: "dataSource", type: "dataSource" },
+			{ name: "type", type: "choice", choices: ["area", "bar", "bubble", "candlestick", "donut", "heatmap", "line", "pie", "scatter", "treemap"] },
 			{ name: "title", type: "string" },
 			{ name: "color", type: "color" },
 			{ name: "xColumn", type: "string" },

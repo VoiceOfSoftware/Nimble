@@ -22,4 +22,7 @@ export default defineConfig({
 			filename: "remoteEntry.js",
 		})
 	],
+	build: {
+		target: 'esnext'	//	for Module Federation's top-level await
+	}
 });
