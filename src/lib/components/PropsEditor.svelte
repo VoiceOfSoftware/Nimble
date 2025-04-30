@@ -35,12 +35,23 @@
 			placeholder={prop.placeholder}
 		/>
 	{/if}
+	{#if prop.type === "choice"}
+		<div class="text-xs">{prop.name}</div>
+		<select
+			class="border border-gray-300 rounded text-sm mb-2"
+			bind:value={pageContext.selectedLayout.props[prop.name]}
+		>
+			{#each prop.choices as choice}
+				<option value={choice}>{choice}</option>
+			{/each}
+		</select>
+	{/if}
 	{#if prop.type === "color"}
 		<div class="text-xs">{prop.name}</div>
 		<div class="mb-1 flex items-baseline text-xs">
 			<ColorPicker
 				bind:hex={pageContext.selectedLayout.props[prop.name]}
-				label=''
+				label=""
 			/>
 			<input
 				ondrop={(event) => handleDrop(event, prop.name)}
@@ -64,7 +75,7 @@
 	{#if prop.type == "dataSource"}
 		<div class="text-xs">{prop.name}</div>
 		<select
-			class="border border-gray-300 rounded"
+			class="border border-gray-300 rounded mb-2"
 			bind:value={pageContext.selectedLayout.props[prop.name]}
 		>
 			<option value="__none__">-None-</option>

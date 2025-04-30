@@ -108,6 +108,7 @@
 				},
 			},
 			primaryColorClass: "primary",
+			primaryColorHex:"11aaff",
 			f1Driver1: 'Eugene\'s "F1"',
 			chartData: [
 				{ x: "hello", y: 12 },

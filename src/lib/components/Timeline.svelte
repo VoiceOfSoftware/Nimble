@@ -47,7 +47,12 @@
 		<li>
 			<div class="timeline-middle">
 				<Icon
-					color={layoutStructure.props?.iconColor || "blue"}
+					color={macroReplace(
+						layoutStructure.props?.iconColor,
+						pageContext,
+						row,
+						false,
+					) || "blue"}
 					icon={macroReplace(
 						layoutStructure.props?.icon,
 						pageContext,

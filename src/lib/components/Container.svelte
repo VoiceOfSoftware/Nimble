@@ -7,8 +7,26 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return ["onclick"];
+	}
+	export function getProps() {
+		return [
+			{ name: "disabled", type: "boolean" },
+			{ name: "label", type: "string" },
+		];
+	}
+
 	const theClass = $derived(
-		macroReplace(layoutStructure.props?.class, pageContext, dataValues, false) +
+		macroReplace(
+			layoutStructure.props?.class,
+			pageContext,
+			dataValues,
+			false,
+		) +
 			(layoutStructure.props?.background
 				? ` bg-[url(${layoutStructure.props?.background})] bg-no-repeat bg-cover bg-center`
 				: ""),
@@ -29,7 +47,12 @@
 					insertSiblingAbove(newObject, index)}
 			/>
 		{/if}
-		<Layout layoutStructure={child} {dataValues} parent={layoutStructure} {index} />
+		<Layout
+			layoutStructure={child}
+			{dataValues}
+			parent={layoutStructure}
+			{index}
+		/>
 	{/each}
 	{#if pageContext.editMode}
 		<InsertionTarget
