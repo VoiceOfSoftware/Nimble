@@ -1,5 +1,5 @@
-import adapter from '@sveltejs/adapter-static';
-// import adapter from '@sveltejs/adapter-node';
+// import adapter from '@sveltejs/adapter-static';
+import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -22,12 +22,6 @@ const config = {
 		adapter: adapter({
 			fallback: 'index.html'
 		}),
-		paths: {
-			base: '/Nimble'
-		},
-		prerender: {
-			entries: ['/', '/page/681461798960c979a591ac3f'] // List all possible IDs
-		}
 	}
 };
 
