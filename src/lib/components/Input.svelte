@@ -37,7 +37,7 @@
 	class={theClass}
 	{...createEventHandlers(
 		layoutStructure.actions,
-		{ page: pageContext, data: dataValues, self: myself },
+		{ page: pageContext, data: dataValues, self: myself?.getLayout() },
 		dataValues,
 	)}
 	draggable={layoutStructure.props?.draggable}

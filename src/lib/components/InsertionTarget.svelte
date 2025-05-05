@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { getContext } from "svelte";
-	import DynamicIcon from "./DynamicIcon.svelte";
+	import Modal from "./Modal.svelte";
+	import AgGrid from "./AGGrid.svelte";
+	import {
+		analyzeJSON,
+		translateAnalyzedSchemaToNimbleSchema,
+	} from "./JSONAnalyzer.js";
 
 	let { index, notifyDropped } = $props();
 
@@ -36,7 +41,7 @@
 				}
 				if (result.type == "json") {
 					// alert("It's a JSON data source! " + urlList);
-					editLayout.previewRESTDataProvider(urlList);
+					previewRESTDataProvider(urlList);
 				}
 			});
 		} else if (plainText) {
@@ -83,7 +88,7 @@
 				JSON.parse(event.dataTransfer.getData("text/plain")),
 			);
 		} catch (err) {
-			alert(err);
+			// alert(err);
 		}
 	}
 
@@ -184,14 +189,77 @@
 	}
 
 	const editLayout = getContext("editLayout");
+	const pageContext = getContext("pageContext"); //	so we can save data to globals
 
-	// Example usage:
-	// const result = await getUrlContentType('https://example.com/api/data.json');
-	// const imageType = await getUrlContentType('https://example.com/image.jpg');
+	let dataProviderDefinition = $state();
+	let dataProviderName = $state("");
+	let dataProviderSchema = $state();
+	let mappedPath = $state();
+	function previewRESTDataProvider(dataProviderURL) {
+		dataProviderDefinition = dataProviderURL;
+		try {
+			fetch(dataProviderURL, {})
+				.then((r) => r.json())
+				.then((results) => {
+					let analysis = analyzeJSON(results);
+					dataProviderSchema = translateAnalyzedSchemaToNimbleSchema(
+						analysis?.meaningfulArray?.schema,
+					);
+					console.log(dataProviderSchema);
+
+					let dataRows;
+					if (analysis.meaningfulArray?.path) {
+						dataRows = results[analysis.meaningfulArray?.path];
+					} else {
+						dataRows = results;
+					}
+					mappedPath = analysis.meaningfulArray?.path;
+
+					columnDefs = createColumnsFromFirstRow(dataRows);
+					agGridRowData = dataRows;
+					showRESTDataProviderModal = true;
+				});
+		} catch (err) {
+			alert(err);
+		}
+	}
+
+	let showRESTDataProviderModal = $state(false);
+	let agGridRowData = $state([]);
+	let columnDefs = [];
+	function createColumnsFromFirstRow(rows) {
+		if (!rows) {
+			return [];
+		}
+		columnDefs = [];
+		Object.keys(rows[0]).forEach((element) => {
+			columnDefs.push({
+				field: element,
+				sortable: true,
+				resizable: true,
+			});
+		});
+		return columnDefs;
+	}
+
+	function saveData() {
+		pageContext.data[dataProviderName] = agGridRowData;
+		showRESTDataProviderModal = false;
+		notifyDropped(index, {
+			type: "table",
+			props: {
+				dataSource: dataProviderName,
+				editable: true,
+			},
+		});
+	}
 </script>
 
 <div
-	class={[dragEntered && "crasshatch min-w-5", "min-w-5 text-center text-xl font-bold"]}
+	class={[
+		dragEntered && "crasshatch min-w-5",
+		"min-w-5 text-center text-xl font-bold",
+	]}
 	bind:this={editorElement}
 	ondragleave={dragLeave}
 	ondragover={dragOver}
@@ -199,6 +267,53 @@
 >
 	+
 </div>
+
+{#if agGridRowData && showRESTDataProviderModal}
+	<Modal bind:showModal={showRESTDataProviderModal}>
+		{#snippet header()}
+			<h3 class="text-lg font-bold">
+				You dropped a URL for a data source; what would you like me to
+				do?
+			</h3>
+		{/snippet}
+
+		<p class="py-4">
+			Here's a preview of the data you dropped. If you like, I can
+			memorize it as a data provider, so you can use it as a source of
+			data for your layouts.
+		</p>
+
+		<AgGrid rowData={agGridRowData} />
+		<div class="modal-action w-full">
+			<input type="hidden" name="type" value="REST" />
+			<input
+				type="hidden"
+				name="definition"
+				value={dataProviderDefinition}
+			/>
+			<input
+				type="hidden"
+				name="schema"
+				value={JSON.stringify(dataProviderSchema)}
+			/>
+			<input
+				type="hidden"
+				name="map"
+				value={JSON.stringify({
+					childProps: {},
+					topLevelArrayProp: mappedPath,
+				})}
+			/>
+			Data source name:
+			<input class="border" name="name" bind:value={dataProviderName} />
+			<button
+				disabled={dataProviderName.length == 0}
+				class="btn btn-primary btn-sm"
+				onclick={() => saveData()}>Save</button
+			>
+		</div>
+	</Modal>
+{/if}
 
 <style>
 	.crasshatch {

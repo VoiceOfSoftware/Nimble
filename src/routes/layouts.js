@@ -30,6 +30,7 @@ export const oneOfEachPageData = {
 	type: 'container',
 	props: {},
 	children: [
+		{ "type": "repeater", "props": { "class": "grid grid-cols-3 gap-2", "dataSource": "NCPS galleries" }, "children": [{ "type": "container", "props": { "class": "mb-5", "disabled": false }, "children": [{ "type": "text", "props": { "class": "text-base-content text-xl text-center", "value": "{data.galleryName}" } }, { "type": "image", "props": { "src": "https://nc-photo.org/gallery/{data.firstName}%20{data.lastName}/{data.galleryName}/slides/{data.fileName}", "class": "rounded-xl shadow aspect-video object-cover" } }, { "type": "text", "props": { "class": "text-base-content", "value": "{data.galleryDesc:hideEmpty}" } }] }] },
 		{
 			type: "container",
 			props:

@@ -36,6 +36,7 @@
 		"@iconify/svelte": "^4.2.0",
 		"@module-federation/vite": "^1.2.7",
 		"@sveltejs/adapter-node": "^5.2.12",
+		"@sveltejs/adapter-static": "^3.0.8",
 		"@tailwindcss/vite": "^4.1.4",
 		"@threlte/core": "^8.0.1",
 		"@threlte/extras": "^9.1.0",
