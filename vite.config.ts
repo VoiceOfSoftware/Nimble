@@ -24,5 +24,5 @@ export default defineConfig({
 	],
 	build: {
 		target: 'esnext'	//	for Module Federation's top-level await
-	}
+	},
 });

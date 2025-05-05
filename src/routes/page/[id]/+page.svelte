@@ -6,7 +6,7 @@
 
 	import Layout from "$lib/components/Layout.svelte";
 	import Button from "$lib/components/Button.svelte";
-	import AGGrid2 from "$lib/components/AGGrid2.svelte";
+	import AGGridNimble from "$lib/components/AGGridNimble.svelte";
 	import Calendar from "$lib/components/Calendar.svelte";
 	import Chart from "$lib/components/Chart.svelte";
 	import Choice from "$lib/components/Choice.svelte";
@@ -47,7 +47,7 @@
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", ScriptEditor);
 	registerComponent("slider", Slider);
-	registerComponent("table", AGGrid2);
+	registerComponent("table", AGGridNimble);
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);
 

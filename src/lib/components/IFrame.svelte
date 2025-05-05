@@ -5,6 +5,18 @@
 
 	const pageContext = getContext("pageContext");
 
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return [
+			{ name: "url", type: "string" },
+		];
+	}
+
 	const theClass = $derived(
 		macroReplace(layoutStructure.props?.class, pageContext, dataValues, false) +
 			(layoutStructure.props?.background
