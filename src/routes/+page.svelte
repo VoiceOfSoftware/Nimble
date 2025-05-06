@@ -47,6 +47,7 @@
 	} from "./layouts.js";
 	import EditorRegion from "$lib/components/EditorRegion.svelte";
 	import MyRemoteComponent from "$lib/components/MyRemoteComponent.svelte";
+	import { page } from "$app/state";
 
 	registerComponent("named", Named);
 	registerComponent("3D", ThrelteCanvas);
@@ -324,74 +325,86 @@
 	let reactiveF1 = $state(f1);
 	let reactiveRepeater = $state(repeater);
 	let reactiveOneOfEachPageData = $state(oneOfEachPageData);
+	let renderPreview = false; //	To hide all editing panels, so you can preview the website, set to true
+	if (page.url.searchParams.get("appJSON")) {
+		reactiveOneOfEachPageData = JSON.parse(
+			page.url.searchParams.get("appJSON"),
+		);
+		renderPreview = true; //	Render website without showing any editor buttons or panels
+	}
 	let reactiveOneOfEachRepeaterData = $state(oneOfEachRepeaterData);
 </script>
 
 <svelte:window onkeydown={handleKeyDown} onkeyup={handleKeyUp} />
 
-<div>
-	{#if pageContext.floatingPanel}
-		<TweakPanel />
-	{/if}
-	<label
-		use:tooltip={{
-			content: "Press Option or Alt key to toggle",
-		}}
-	>
-		<input type="checkbox" bind:checked={pageContext.editMode} />
-		Edit Mode
-	</label>
-	<label class="ml-2">
-		<input type="checkbox" bind:checked={pageContext.floatingPanel} />
-		Floating Property Panel
-	</label>
-
-	<hr />
-
-	<PaneGroup direction="horizontal" class="w-full" autoSaveId="mainLayout">
-		<Pane defaultSize={10} class="mt-2 ml-2">
-			<div class="h-screen overflow-y-auto">
-				<EditorRegion editMode={false}>
-					<Layout layoutStructure={componentLibraryLayout} />
-				</EditorRegion>
-			</div>
-		</Pane>
-		<PaneResizer
-			class="bg-background relative flex w-2 items-center justify-center"
+{#if renderPreview}
+	<Layout layoutStructure={reactiveOneOfEachPageData} />
+{:else}
+	<div>
+		{#if pageContext.floatingPanel}
+			<TweakPanel />
+		{/if}
+		<label
+			use:tooltip={{
+				content: "Press Option or Alt key to toggle",
+			}}
 		>
-			<div
-				class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
-			>
-				<Icon icon="mdi-light:dots-vertical" width={30} height={30} />
-			</div>
-		</PaneResizer>
-		<Pane defaultSize={50}>
-			<div class="h-screen overflow-y-auto">
-				One of each component type:<Layout
-					layoutStructure={reactiveOneOfEachPageData}
-				/>
-			</div>
-		</Pane>
-		<PaneResizer
-			class="bg-background relative flex w-2 items-center justify-center"
-		>
-			<div
-				class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
-			>
-				<Icon icon="mdi-light:dots-vertical" height="30" />
-			</div>
-		</PaneResizer>
-		<Pane defaultSize={10}>
-			<div class="h-screen overflow-y-auto">
-				<Sidebar />
-			</div>
-		</Pane>
-	</PaneGroup>
+			<input type="checkbox" bind:checked={pageContext.editMode} />
+			Edit Mode
+		</label>
+		<label class="ml-2">
+			<input type="checkbox" bind:checked={pageContext.floatingPanel} />
+			Floating Property Panel
+		</label>
 
-	<!-- One of each (repeater data):<Layout
-		layoutStructure={reactiveOneOfEachRepeaterData}
-	/>
-	<Layout layoutStructure={reactiveHorizontalIcons} />
-	Repeater:<Layout layoutStructure={reactiveRepeater} />
-	Named:<Layout layoutStructure={reactiveNamed} /> -->
-</div>
+		<hr />
+
+		<PaneGroup
+			direction="horizontal"
+			class="w-full"
+			autoSaveId="mainLayout"
+		>
+			<Pane defaultSize={10} class="mt-2 ml-2">
+				<div class="h-screen overflow-y-auto">
+					<EditorRegion editMode={false}>
+						<Layout layoutStructure={componentLibraryLayout} />
+					</EditorRegion>
+				</div>
+			</Pane>
+			<PaneResizer
+				class="bg-background relative flex w-2 items-center justify-center"
+			>
+				<div
+					class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
+				>
+					<Icon
+						icon="mdi-light:dots-vertical"
+						width={30}
+						height={30}
+					/>
+				</div>
+			</PaneResizer>
+			<Pane defaultSize={50}>
+				<div class="h-screen overflow-y-auto">
+					One of each component type:<Layout
+						layoutStructure={reactiveOneOfEachPageData}
+					/>
+				</div>
+			</Pane>
+			<PaneResizer
+				class="bg-background relative flex w-2 items-center justify-center"
+			>
+				<div
+					class="bg-brand z-10 flex h-7 w-3 items-center justify-center rounded-sm border"
+				>
+					<Icon icon="mdi-light:dots-vertical" height="30" />
+				</div>
+			</PaneResizer>
+			<Pane defaultSize={10}>
+				<div class="h-screen overflow-y-auto">
+					<Sidebar />
+				</div>
+			</Pane>
+		</PaneGroup>
+	</div>
+{/if}

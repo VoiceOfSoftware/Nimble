@@ -43,6 +43,7 @@
 </script>
 
 <button
+class={theClass}
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,
@@ -56,6 +57,5 @@
 		dataValues,
 	)}
 	disabled={layoutStructure.props?.disabled}
-	class={theClass}
 	draggable={layoutStructure.props?.draggable}>{label}</button
 >
