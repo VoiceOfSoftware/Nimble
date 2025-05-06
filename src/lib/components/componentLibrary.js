@@ -51,7 +51,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "remote",
 			props: {
-				class:'flex'
+				class: 'flex'
 			},
 		},
 	},
@@ -222,14 +222,16 @@ export const listOfComponents = [
 		Definition: {
 			type: "map",
 			props: {
-				dataSource: "mapMarkers",
+				class: 'aspect-video w-96',
+				dataSource: 'mapMarkers',
 				zoom: 2,
-				rasterLayer: "https://a.tile.openstreetmap.org/{z}/{x}/{y}.png",
+				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
 				center: [-117.165975, 33.088782],
-				markerIcon: "mdi:location",
+				markerIcon: 'mdi:location',
+				markerColor: 'blue',
 				popup: "{\"componentType\":\"text\",\"type\":\"component\",\"id\":\"\",\"props\":{\"content\":\"{lngLat}: {label}\"},\"class\":\"text-base-content\"}",
-				baseMap: "https:\/\/basemaps.cartocdn.com\/gl\/positron-gl-style\/style.json"
+				baseMap: 'https:\/\/basemaps.cartocdn.com\/gl\/positron-gl-style\/style.json'
 			},
 		}
 	},
@@ -328,6 +330,66 @@ export const listOfComponents = [
 		}
 	},
 	{
+		Name: 'Tabs',
+		IconifyIcon: 'iconoir:window-tabs',
+		Definition: {
+			type: 'tabs',
+			props: {
+				selectedTab: 'tab1'
+			},
+			children: [
+				{
+					type: 'container',
+					id: 'tab1',
+					props: {
+						class: 'flex flex-wrap',
+					},
+					children: [
+						{
+							type: 'text',
+							props: {
+								class: 'text-base-content',
+								value: 'Contents of tab #1'
+							},
+						},
+					]
+				},
+				{
+					type: 'container',
+					id: 'tab2',
+					props: {
+						class: 'flex flex-wrap',
+					},
+					children: [
+						{
+							type: 'text',
+							props: {
+								class: 'text-base-content',
+								value: 'Contents of tab #2'
+							},
+						},
+					]
+				},
+				{
+					type: 'container',
+					id: 'tab three',
+					props: {
+						class: 'flex flex-wrap',
+					},
+					children: [
+						{
+							type: 'text',
+							props: {
+								class: 'text-base-content',
+								value: 'Contents of tab <b>three</b>'
+							},
+						},
+					]
+				},
+			]
+		}
+	},
+	{
 		Name: 'Table',
 		IconifyIcon: 'lucide:table',
 		Definition: {
@@ -342,10 +404,10 @@ export const listOfComponents = [
 		Name: 'Text',
 		IconifyIcon: 'lucide:type',
 		Definition: {
-			type: "text",
+			type: 'text',
 			props: {
-				class: "text-base-content",
-				value: "Sample <b>rich<\/b> text"
+				class: 'text-base-content',
+				value: 'Sample <b>rich<\/b> text'
 			},
 		}
 	},

@@ -27,6 +27,7 @@
 	import Input from "$lib/components/Input.svelte";
 	import PDFViewer from "$lib/components/PDFViewer.svelte";
 	import ScriptEditor from "$lib/components/ScriptEditor.svelte";
+	import TabGroup from "$lib/components/TabGroup.svelte";
 	import Text from "$lib/components/Text.svelte";
 	import Timeline from "$lib/components/Timeline.svelte";
 	import Named from "$lib/components/Named.svelte";
@@ -65,6 +66,7 @@
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", ScriptEditor);
 	registerComponent("slider", Slider);
+	registerComponent("tabs", TabGroup);
 	registerComponent("table", AGGridNimble);
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);

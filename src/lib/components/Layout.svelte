@@ -33,7 +33,8 @@
 		}
 	});
 
-	function dragStart(event: DragEvent) {
+	//	For dragging of user-defined <Layout> objects, using their dragData prop as the payload
+	function dragCustomLayout(event: DragEvent) {
 		event.stopPropagation();
 		if (!layoutStructure.props?.draggable) {
 			return;
@@ -50,29 +51,58 @@
 			);
 		}
 	}
+
+	//	For dragging in Edit Mode, using the JSON definition layoutStructure as the payload
+	function dragEditMode(event: DragEvent) {
+		event.stopPropagation();
+		event.dataTransfer?.setData(
+			"text/plain",
+			JSON.stringify(layoutStructure),
+		);
+	}
 </script>
 
 <svelte:boundary>
 	{#if DynamicComponent}
 		{#if pageContext?.editMode}
 			<div class="relative border border-dashed border-gray-400 p-2 m-1">
-				<span class="absolute -top-2 -right-2 opacity-60">
-					<Icon
-						onclick={() => editComponent()}
-						icon="mdi:gear"
-						width="24"
-						class="text-primary bg-white rounded-full p-1 shadow-md hover:text-accent hover:scale-150 transition-transform"
-					/>
-				</span>
 				<div
-					class="absolute -left-2 -top-2 z-10 rounded bg-white opacity-60"
-					onclick={() => deleteComponent(index)}
+					class="group absolute left-0 w-full -top-2 z-10 flex justify-center space-x-1"
 				>
-					<Icon
-						icon="lucide:trash-2"
-						width="24"
-						class="text-primary bg-white rounded-full p-1 shadow-md hover:text-error hover:scale-150 transition-transform"
-					/>
+					<span class="opacity-0 group-hover:opacity-60 text-xs text-white bg-primary rounded-t m-1 pl-1 pr-1"> {layoutStructure.type} </span>
+					<span
+						class="opacity-0 group-hover:opacity-60 shadow-md rounded bg-white"
+						onclick={() => deleteComponent(index)}
+					>
+						<Icon
+							icon="lucide:trash-2"
+							width="24"
+							class="text-primary hover:text-error hover:scale-150 p-1 transition-transform"
+						/>
+					</span>
+
+					<span
+						class="opacity-0 group-hover:opacity-60 shadow-md rounded bg-white"
+						draggable="true"
+						ondragstart={(e) => dragEditMode(e)}
+					>
+						<Icon
+							icon="material-symbols:drag-pan-rounded"
+							width="24"
+							class="text-primary hover:scale-150 p-1 transition-transform"
+						/>
+					</span>
+
+					<span
+						class="opacity-0 group-hover:opacity-60 shadow-md rounded bg-white"
+					>
+						<Icon
+							onclick={() => editComponent()}
+							icon="mdi:gear"
+							width="24"
+							class="text-primary hover:text-accent hover:scale-150 p-1 transition-transform"
+						/>
+					</span>
 				</div>
 
 				<DynamicComponent
@@ -83,7 +113,7 @@
 				/>
 			</div>
 		{:else}
-			<div ondragstart={(e) => dragStart(e)}>
+			<div ondragstart={(e) => dragCustomLayout(e)}>
 				<DynamicComponent
 					bind:this={myself}
 					{layoutStructure}
