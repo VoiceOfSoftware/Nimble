@@ -2,6 +2,7 @@
 	import { getContext } from "svelte";
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
+	import { tooltip } from "./Tippy";
 
 	let { layoutStructure, dataValues, myself } = $props();
 
@@ -35,6 +36,14 @@
 
 <input
 	class={theClass}
+	use:tooltip={{
+		content: macroReplace(
+			layoutStructure.props?.tooltip,
+			dataValues,
+			false,
+		),
+	}}
+
 	{...createEventHandlers(
 		layoutStructure.actions,
 		{ page: pageContext, data: dataValues, self: myself?.getLayout() },

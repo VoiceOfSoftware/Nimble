@@ -5,7 +5,6 @@
 	import { autocompletion } from "@codemirror/autocomplete";
 	import Modal from "./Modal.svelte";
 	import { commonProperties } from "./componentRegistry";
-	import { page } from "$app/state";
 
 	const pageContext = getContext("pageContext");
 
