@@ -336,10 +336,18 @@ export const listOfComponents = [
 			type: "switch",
 			blocks: {
 				editable: {
-					type: 'button'
+					type: 'button',
+					props: {
+						class: 'btn btn-xs btn-accent',
+						label: 'Button'
+					}
 				},
 				readOnly: {
-					type: 'image'
+					type: 'image',
+					props: {
+						class: 'w-32',
+						src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
+					}
 				}
 			},
 			props: {

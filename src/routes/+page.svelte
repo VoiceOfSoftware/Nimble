@@ -122,7 +122,7 @@
 			recipes: [],
 			switchExample: [
 				{ name: "item 1", type: "editable" },
-				{ named: "item 2", type: "readOnly" },
+				{ name: "item 2", type: "readOnly" },
 			],
 			calendarEvents: [
 				{
