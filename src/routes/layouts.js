@@ -418,8 +418,8 @@ export const oneOfEachPageData = {
 			},
 			children: [
 				{
-					type: 'switch',
-					blocks: {
+					type: 'alternates',
+					alternates: {
 						editable: {
 							type: 'button',
 							props: {
@@ -436,7 +436,7 @@ export const oneOfEachPageData = {
 						}
 					},
 					props: {
-						clauseProperty: 'type'
+						choiceProperty: 'type'
 					}
 				}
 			]
