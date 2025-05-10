@@ -16,7 +16,6 @@
 	export function getProps() {
 		return [
 			{ name: "disabled", type: "boolean" },
-			{ name: "label", type: "string" },
 		];
 	}
 

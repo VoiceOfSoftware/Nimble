@@ -127,7 +127,7 @@ export const listOfComponents = [
 			actions: {
 				onchange: {
 					type: 'clientScript',
-					script: 'alert("choice changed {self.props.value}")'
+					script: 'alert("choice changed: "+self.props.value})'
 				}
 			},
 		}
@@ -222,7 +222,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "map",
 			props: {
-				class: 'aspect-video w-96',
+				class: 'aspect-video',
 				dataSource: 'mapMarkers',
 				zoom: 2,
 				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -330,6 +330,24 @@ export const listOfComponents = [
 		}
 	},
 	{
+		Name: 'Switch',
+		IconifyIcon: 'mdi:arrow-decision',
+		Definition: {
+			type: "switch",
+			blocks: {
+				editable: {
+					type: 'button'
+				},
+				readOnly: {
+					type: 'image'
+				}
+			},
+			props: {
+				clauseProperty: 'type'
+			}
+		}
+	},
+	{
 		Name: 'Tabs',
 		IconifyIcon: 'iconoir:window-tabs',
 		Definition: {
@@ -395,7 +413,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "table",
 			props: {
-				dataSource: "calendarEvents",
+				dataSource: "{page.searchParams.dataSource}",
 				editable: true
 			},
 		}

@@ -14,7 +14,8 @@
 	export function getProps() {
 		return [
 			{ name: "icon", type: "string" },
-			{ name: "color", type: "color" }
+			{ name: "color", type: "color" },
+			{ name: "size", type: "string" }
 		];
 	}
 

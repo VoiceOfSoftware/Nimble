@@ -1,6 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import { performAction } from "./dataPillMacros";
+	import { macroReplace } from "./dataPillMacros.js";
 	import AgGrid from "./AGGrid.svelte";
 
 	let { layoutStructure, dataValues, myself } = $props();
@@ -19,7 +20,15 @@
 		];
 	}
 
-	let rowData = $derived(pageContext.data[layoutStructure.props?.dataSource]);
+	const dataSource = $derived(
+		macroReplace(
+			layoutStructure.props?.dataSource,
+			pageContext,
+			dataValues,
+			false,
+		),
+	);
+	let rowData = pageContext.data[dataSource];
 
 	function handleRowSelected(rowData) {
 		layoutStructure.props.value = rowData;

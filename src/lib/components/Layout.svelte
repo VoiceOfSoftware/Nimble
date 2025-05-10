@@ -44,7 +44,11 @@
 				"text/plain",
 				macroReplace(
 					layoutStructure.props?.dragData,
-					pageContext,
+					{
+						page: pageContext,
+						data: dataValues,
+						self: myself?.getLayout(),
+					},
 					dataValues,
 					false,
 				),
@@ -69,7 +73,6 @@
 				<div
 					class="group absolute left-0 w-full -top-2 z-10 flex justify-center space-x-1"
 				>
-					<span class="opacity-0 group-hover:opacity-60 text-xs text-white bg-primary rounded-t m-1 pl-1 pr-1"> {layoutStructure.type} </span>
 					<span
 						class="opacity-0 group-hover:opacity-60 shadow-md rounded bg-white"
 						onclick={() => deleteComponent(index)}
@@ -81,6 +84,11 @@
 						/>
 					</span>
 
+					<span
+						class="opacity-0 group-hover:opacity-60 text-xs text-white bg-primary rounded-t m-1 pl-1 pr-1"
+					>
+						{layoutStructure.type}
+					</span>
 					<span
 						class="opacity-0 group-hover:opacity-60 shadow-md rounded bg-white"
 						draggable="true"

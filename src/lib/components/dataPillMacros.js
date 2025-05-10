@@ -110,7 +110,7 @@ export function macroReplace(stringToExpand, context, dataValues, showStructure)
 						theDataValue = getNestedValue(context?.data, macroName.substring(5));
 						break;
 					case 'self.':
-						theDataValue = getNestedValue(context.self?.getLayout(), macroName.substring(5));
+						theDataValue = getNestedValue(context.self, macroName.substring(5));
 						break;
 				}
 
