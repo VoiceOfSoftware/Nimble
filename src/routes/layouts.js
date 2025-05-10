@@ -235,10 +235,6 @@ export const oneOfEachPageData = {
 					type: 'clientScript',
 					script: 'alert("onchange "+self.props.value)'
 				},
-				oninput: {
-					type: 'clientScript',
-					script: 'alert("oninput "+self.props.value)'
-				}
 			}
 		},
 		{
@@ -331,16 +327,6 @@ export const oneOfEachPageData = {
 				class: 'input input-sm input-bordered w-64',
 				placeholder: '{page.exampleInput.placeholder}', value: ''
 			},
-			actions: {
-				onchange: {
-					type: 'clientScript',
-					script: 'alert("onchange "+self.value)'
-				},
-				oninput: {
-					type: 'clientScript',
-					script: 'alert("oninput "+self.value)'
-				},
-			}
 		},
 		// {
 		// 	type: 'pdf',
@@ -422,6 +408,37 @@ export const oneOfEachPageData = {
 					value: 'Move the slider!'
 				}
 			}
+			]
+		},
+		{
+			type: 'repeater',
+			props: {
+				dataSource: 'switchExample',
+				class: 'flex gap-2',
+			},
+			children: [
+				{
+					type: 'switch',
+					blocks: {
+						editable: {
+							type: 'button',
+							props: {
+								class: 'btn btn-xs btn-accent',
+								label: 'Button'
+							}
+						},
+						readOnly: {
+							type: 'image',
+							props: {
+								class: 'w-32',
+								src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
+							}
+						}
+					},
+					props: {
+						clauseProperty: 'type'
+					}
+				}
 			]
 		},
 		{

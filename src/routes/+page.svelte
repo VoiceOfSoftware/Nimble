@@ -33,6 +33,7 @@
 	import Named from "$lib/components/Named.svelte";
 	import Repeater from "$lib/components/Repeater.svelte";
 	import Slider from "$lib/components/Slider.svelte";
+	import Switch from "$lib/components/Switch.svelte";
 	import NimbleTipTap from "$lib/components/NimbleTipTap.svelte";
 	import ThrelteCanvas from "$lib/components/Threlte/ThrelteCanvas.svelte";
 
@@ -67,6 +68,7 @@
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", ScriptEditor);
 	registerComponent("slider", Slider);
+	registerComponent("switch", Switch);
 	registerComponent("tabs", TabGroup);
 	registerComponent("table", AGGridNimble);
 	registerComponent("text", Text);
@@ -80,6 +82,7 @@
 		selectedComponent: {},
 		namedPageObjects: {},
 		data: {
+			searchParams: Object.fromEntries(page.url.searchParams),
 			endpoint1: "/blog",
 			endpoint2: "/tutorial/svelte/welcome-to-svelte",
 			exampleIcon: {
@@ -117,6 +120,10 @@
 				{ x: "there", y: 34 },
 			],
 			recipes: [],
+			switchExample: [
+				{ name: "item 1", type: "editable" },
+				{ named: "item 2", type: "readOnly" },
+			],
 			calendarEvents: [
 				{
 					start: "2025-04-20 19:00:00",
