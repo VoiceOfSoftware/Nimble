@@ -12,7 +12,7 @@
 		return [];
 	}
 	export function getProps() {
-		return [{ name: "clauseProperty", type: "string" }];
+		return [{ name: "choiceProperty", type: "string" }];
 	}
 
 	const theClass = $derived(
@@ -29,17 +29,17 @@
 </script>
 
 {#if pageContext.editMode}
-	{#each Object.keys(layoutStructure.blocks) as blockName}
+	{#each Object.keys(layoutStructure.alternates) as alternateName}
 		<Layout
 			{dataValues}
-			layoutStructure={layoutStructure.blocks[blockName]}
+			layoutStructure={layoutStructure.alternates[alternateName]}
 		/>
 	{/each}
 {:else}
 	<Layout
 		{dataValues}
-		layoutStructure={layoutStructure.blocks[
-			dataValues[layoutStructure.props.clauseProperty]
+		layoutStructure={layoutStructure.alternates[
+			dataValues[layoutStructure.props.choiceProperty]
 		]}
 	/>
 {/if}

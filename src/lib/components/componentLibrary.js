@@ -67,6 +67,32 @@ export const listOfComponents = [
 		},
 	},
 	{
+		Name: 'Alternates',
+		IconifyIcon: 'mdi:arrow-decision',
+		Definition: {
+			type: "alternates",
+			alternates: {
+				editable: {
+					type: 'button',
+					props: {
+						class: 'btn btn-xs btn-accent',
+						label: 'Button'
+					}
+				},
+				readOnly: {
+					type: 'image',
+					props: {
+						class: 'w-32',
+						src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
+					}
+				}
+			},
+			props: {
+				choiceProperty: 'type'
+			}
+		}
+	},
+	{
 		Name: 'Button',
 		IconifyIcon: 'teenyicons:button-outline',
 		Definition: {
@@ -326,32 +352,6 @@ export const listOfComponents = [
 				max: 100,
 				value: 50,
 				step: 1
-			}
-		}
-	},
-	{
-		Name: 'Switch',
-		IconifyIcon: 'mdi:arrow-decision',
-		Definition: {
-			type: "switch",
-			blocks: {
-				editable: {
-					type: 'button',
-					props: {
-						class: 'btn btn-xs btn-accent',
-						label: 'Button'
-					}
-				},
-				readOnly: {
-					type: 'image',
-					props: {
-						class: 'w-32',
-						src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
-					}
-				}
-			},
-			props: {
-				clauseProperty: 'type'
 			}
 		}
 	},

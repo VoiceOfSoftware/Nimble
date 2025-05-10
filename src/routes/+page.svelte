@@ -13,6 +13,7 @@
 	} from "$lib/components/componentLibrary";
 
 	import Layout from "$lib/components/Layout.svelte";
+	import Alternates from "$lib/components/Alternates.svelte";
 	import Button from "$lib/components/Button.svelte";
 	import AGGridNimble from "$lib/components/AGGridNimble.svelte";
 	import Calendar from "$lib/components/Calendar.svelte";
@@ -33,7 +34,6 @@
 	import Named from "$lib/components/Named.svelte";
 	import Repeater from "$lib/components/Repeater.svelte";
 	import Slider from "$lib/components/Slider.svelte";
-	import Switch from "$lib/components/Switch.svelte";
 	import NimbleTipTap from "$lib/components/NimbleTipTap.svelte";
 	import ThrelteCanvas from "$lib/components/Threlte/ThrelteCanvas.svelte";
 
@@ -68,7 +68,7 @@
 	registerComponent("richtext", NimbleTipTap);
 	registerComponent("script", ScriptEditor);
 	registerComponent("slider", Slider);
-	registerComponent("switch", Switch);
+	registerComponent("alternates", Alternates);
 	registerComponent("tabs", TabGroup);
 	registerComponent("table", AGGridNimble);
 	registerComponent("text", Text);
