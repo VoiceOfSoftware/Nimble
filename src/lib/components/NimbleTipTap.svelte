@@ -5,6 +5,16 @@
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
+	export function getLayout() {
+		return layoutStructure;
+	}
+	export function getEvents() {
+		return [];
+	}
+	export function getProps() {
+		return [{ name: "value", type: "string" }];
+	}
+
 	const theClass = $derived(
 		macroReplace(layoutStructure.props?.class, pageContext, dataValues, false) +
 			(layoutStructure.props?.background
@@ -22,5 +32,5 @@
 </script>
 
 <div class={theClass} draggable={layoutStructure.props?.draggable}>
-	<TipTap {content} editing={pageContext.editMode} />
+	<TipTap bind:content={layoutStructure.props.value} editing={pageContext.editMode} />
 </div>

@@ -11,7 +11,7 @@
 		return layoutStructure;
 	}
 	export function getEvents() {
-		return ["oninput", "onchange"];
+		return ["oninput", "onchange", "onclick"];
 	}
 	export function getProps() {
 		return [{ name: "value", type: "string" }];

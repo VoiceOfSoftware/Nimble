@@ -98,3 +98,7 @@
 		{@render propertyEditor(prop)}
 	{/each}
 {/if}
+
+{#if pageContext.selectedComponent?.getAlternates}
+	{@render pageContext.selectedComponent?.getAlternates()}
+{/if}
