@@ -1,7 +1,8 @@
-<script>
+<script lang="ts">
 	import { getContext } from "svelte";
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
+	import type { Snippet } from "svelte";
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
@@ -14,6 +15,7 @@
 	export function getProps() {
 		return [{ name: "choiceProperty", type: "string" }];
 	}
+	export { getAlternates };
 
 	const theClass = $derived(
 		macroReplace(
@@ -28,18 +30,35 @@
 	);
 </script>
 
+{#snippet getAlternates()}
+	<div class="text-xs underline">variants</div>
+	{#each Object.keys(layoutStructure.alternates) as alternateName}
+		{alternateName}:
+		<input
+			class="mb-2 border w-full"
+			bind:value={layoutStructure.alternates[alternateName]}
+		/>
+	{/each}
+{/snippet}
+
 {#if pageContext.editMode}
 	{#each Object.keys(layoutStructure.alternates) as alternateName}
-		<Layout
-			{dataValues}
-			layoutStructure={layoutStructure.alternates[alternateName]}
-		/>
+		{#if layoutStructure.alternates[alternateName]}
+			<Layout
+				{dataValues}
+				layoutStructure={JSON.parse(
+					layoutStructure.alternates[alternateName],
+				)}
+			/>
+		{/if}
 	{/each}
 {:else}
 	<Layout
 		{dataValues}
-		layoutStructure={layoutStructure.alternates[
-			dataValues[layoutStructure.props.choiceProperty]
-		]}
+		layoutStructure={JSON.parse(
+			layoutStructure.alternates[
+				dataValues[layoutStructure.props.choiceProperty]
+			],
+		)}
 	/>
 {/if}
