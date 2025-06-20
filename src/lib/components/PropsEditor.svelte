@@ -20,7 +20,7 @@
 
 <div class="text-xs">id</div>
 <input
-	class="mb-1 border w-full"
+	class="mb-1 border border-base-300 w-full"
 	value={pageContext.selectedLayout.id}
 	onblur={(event) => setComponentID(event.target.value)}
 />
@@ -30,7 +30,7 @@
 		<div class="text-xs">{prop.name}</div>
 		<input
 			ondrop={(event) => handleDrop(event, prop.name)}
-			class="mb-2 border w-full"
+			class="mb-2 border border-base-300 w-full"
 			bind:value={pageContext.selectedLayout.props[prop.name]}
 			placeholder={prop.placeholder}
 		/>
@@ -55,7 +55,7 @@
 			/>
 			<input
 				ondrop={(event) => handleDrop(event, prop.name)}
-				class="mb-2 border w-full"
+				class="mb-2 border border-base-300 w-full"
 				bind:value={pageContext.selectedLayout.props[prop.name]}
 				placeholder={prop.placeholder}
 			/>
@@ -75,7 +75,7 @@
 	{#if prop.type == "dataSource"}
 		<div class="text-xs">{prop.name}</div>
 		<select
-			class="border border-gray-300 rounded mb-2"
+			class="border border-base-300 rounded mb-2"
 			bind:value={pageContext.selectedLayout.props[prop.name]}
 		>
 			<option value="__none__">-None-</option>

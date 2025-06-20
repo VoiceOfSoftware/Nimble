@@ -8,11 +8,12 @@
 
 	const pageContext = getContext("pageContext");
 
-	let showModal = false;
+	let showModalScriptEditor = false;
 	let currentEvent = "";
+
 	function editScript(event) {
 		currentEvent = event;
-		showModal = true;
+		showModalScriptEditor = true;
 	}
 
 	function handleTypeChange(event, action) {
@@ -38,6 +39,12 @@
 				newAction.variableName = "";
 				newAction.property = "";
 				newAction.value = "";
+				break;
+			case "showDialog":
+				newAction.layout =
+					'{"type":"text","props":{"value":"Replace Me!"}}';
+				newAction.class =
+					"modal-box p-4 w-[90vw] max-w-[90%] max-h-[90vh] mx-auto fixed inset-0 rounded-md border-none animate-zoom";
 				break;
 		}
 		if (!pageContext.selectedLayout.actions) {
@@ -132,15 +139,16 @@
 			<div class="flex flex-row items-baseline">
 				{event}:
 				<select
-					class="border border-gray-300 rounded"
+					class="border border-base-300 rounded"
 					bind:value={pageContext.selectedLayout.actions[event].type}
 					onchange={(domEvent) => handleTypeChange(domEvent, event)}
 				>
 					<option value="doNothing">Do Nothing</option>
-					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
-					<option value="setProperty">Set Property</option>
+					<option value="clientScript">Script</option>
 					<option value="setGlobal">Set Global</option>
+					<option value="setProperty">Set Property</option>
+					<option value="showDialog">Show Dialog</option>
 				</select>
 				{#if pageContext.selectedLayout.actions[event].type === "clientScript"}
 					<button
@@ -168,10 +176,27 @@
 						<span class="text-xs">New Tab</span>
 					</label>
 				{/if}
+				{#if pageContext.selectedLayout.actions[event].type === "showDialog"}
+					<div class="text-xs">Dialog Class</div>
+					<input
+						class="mb-1 border border-base-300 w-full"
+						bind:value={
+							pageContext.selectedLayout.actions[event]
+								.class
+						}
+					/>
+					<div class="text-xs">Layout</div>
+					<input
+						class="mb-1 border border-base-300 w-full"
+						bind:value={
+							pageContext.selectedLayout.actions[event].layout
+						}
+					/>
+				{/if}
 				{#if pageContext.selectedLayout.actions[event].type === "setProperty"}
 					<div class="text-xs">named object</div>
 					<select
-						class="border border-gray-300 rounded"
+						class="border border-base-300 rounded"
 						bind:value={
 							pageContext.selectedLayout.actions[event].objectName
 						}
@@ -188,7 +213,7 @@
 					{#if pageContext.namedPageObjects[pageContext.selectedLayout.actions[event].objectName]?.getProps}
 						<div class="text-xs">property</div>
 						<select
-							class="border border-gray-300 rounded"
+							class="border border-base-300 rounded"
 							bind:value={
 								pageContext.selectedLayout.actions[event]
 									.property
@@ -205,7 +230,7 @@
 					{/if}
 					<div class="text-xs">value</div>
 					<input
-						class="mb-1 border w-full"
+						class="mb-1 border border-base-300 w-full"
 						bind:value={
 							pageContext.selectedLayout.actions[event].value
 						}
@@ -214,9 +239,10 @@
 				{#if pageContext.selectedLayout.actions[event].type === "setGlobal"}
 					<div class="text-xs">variable name</div>
 					<select
-						class="border border-gray-300 rounded"
+						class="border border-base-300 rounded"
 						bind:value={
-							pageContext.selectedLayout.actions[event].variableName
+							pageContext.selectedLayout.actions[event]
+								.variableName
 						}
 					>
 						{#each Object.keys(pageContext.data).filter((key) => typeof pageContext.data[key] !== "object") as variableName}
@@ -230,7 +256,7 @@
 					</select>
 					<div class="text-xs">value</div>
 					<input
-						class="mb-1 border w-full"
+						class="mb-1 border border-base-300 w-full"
 						bind:value={
 							pageContext.selectedLayout.actions[event].value
 						}
@@ -241,22 +267,23 @@
 			<div class="flex flex-row items-baseline">
 				{event}:
 				<select
-					class="border border-gray-300 rounded"
+					class="border border-base-300 rounded"
 					onchange={(domEvent) => handleTypeChange(domEvent, event)}
 				>
 					<option value="doNothing">Do Nothing</option>
-					<option value="clientScript">Script</option>
 					<option value="navigate">Navigate</option>
-					<option value="setProperty">Set Property</option>
+					<option value="clientScript">Script</option>
 					<option value="setGlobal">Set Global</option>
+					<option value="setProperty">Set Property</option>
+					<option value="showDialog">Show Dialog</option>
 				</select>
 			</div>
 		{/if}
 	{/each}
 {/if}
 
-{#if showModal}
-	<Modal bind:showModal>
+{#if showModalScriptEditor}
+	<Modal bind:showModal={showModalScriptEditor}>
 		{#snippet header()}
 			Scripts have access to "page", "data", and "self" objects
 		{/snippet}
@@ -268,7 +295,7 @@
 		<div class="flex w-full">
 			<button
 				class="btn btn-sm btn-primary ml-auto"
-				onclick={() => (showModal = false)}>Save</button
+				onclick={() => (showModalScriptEditor = false)}>Save</button
 			>
 		</div>
 	</Modal>

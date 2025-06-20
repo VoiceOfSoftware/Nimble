@@ -79,6 +79,12 @@ export function performAction(actionDefinition, context, dataValues) {
 		case 'setGlobal':
 			context.page.data[actionDefinition.variableName] = macroReplace(actionDefinition.value, context, dataValues, false);
 			break;
+		case 'showDialog':
+			context.page.modalDialog.layout = JSON.parse(actionDefinition.layout);
+			context.page.modalDialog.class = actionDefinition.class;
+			context.page.modalDialog.context = context;
+			context.page.modalDialog.show = true;
+			break;
 	}
 }
 
@@ -115,9 +121,10 @@ export function macroReplace(stringToExpand, context, dataValues, showStructure)
 				}
 
 				if (transformName && transformName in transformations) {
-					return macroName.substring(5) in dataValues
-						? transformations[transformName](theDataValue)
-						: match;
+					return transformations[transformName](theDataValue)
+					// return macroName.substring(5) in dataValues
+					// 	? transformations[transformName](theDataValue)
+					// 	: match;
 				}
 
 				return theDataValue ? theDataValue : match;
@@ -171,6 +178,11 @@ const transformations = {
 	monthName: (value) => {
 		return new Date(value).toLocaleDateString("en-US", {
 			month: "long",
+		});
+	},
+	monthNameShort: (value) => {
+		return new Date(value).toLocaleDateString("en-US", {
+			month: "short",
 		});
 	},
 	year: (value) => {

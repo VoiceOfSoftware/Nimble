@@ -42,6 +42,7 @@
 </script>
 
 <img
+	loading="lazy"
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,

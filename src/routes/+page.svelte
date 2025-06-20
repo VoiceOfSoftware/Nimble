@@ -28,7 +28,7 @@
 	import Input from "$lib/components/Input.svelte";
 	import PDFViewer from "$lib/components/PDFViewer.svelte";
 	import ScriptEditor from "$lib/components/ScriptEditor.svelte";
-	import TabGroup from "$lib/components/TabGroup.svelte";
+	import TabGroup from "$lib/components/TabSet.svelte";
 	import Text from "$lib/components/Text.svelte";
 	import Timeline from "$lib/components/Timeline.svelte";
 	import Named from "$lib/components/Named.svelte";
@@ -49,6 +49,7 @@
 	import EditorRegion from "$lib/components/EditorRegion.svelte";
 	import MyRemoteComponent from "$lib/components/MyRemoteComponent.svelte";
 	import { page } from "$app/state";
+	import Modal from "$lib/components/Modal.svelte";
 
 	registerComponent("named", Named);
 	registerComponent("3D", ThrelteCanvas);
@@ -81,6 +82,7 @@
 		selectedLayout: null,
 		selectedComponent: {},
 		namedPageObjects: {},
+		modalDialog: { show: false, class: "", layout: {} },
 		data: {
 			searchParams: Object.fromEntries(page.url.searchParams),
 			endpoint1: "/blog",
@@ -414,4 +416,26 @@
 			</Pane>
 		</PaneGroup>
 	</div>
+{/if}
+
+{#if pageContext.modalDialog.show}
+	<Modal
+		bind:showModal={pageContext.modalDialog.show}
+		dialogClass={pageContext.modalDialog.class}
+	>
+		{#snippet header()}{/snippet}
+		<EditorRegion editMode={false}>
+			<Layout
+				layoutStructure={pageContext.modalDialog.layout}
+				dataValues={pageContext.modalDialog.context.data}
+			/>
+		</EditorRegion>
+		<div class="flex w-full">
+			<button
+				class="btn btn-sm btn-primary ml-auto"
+				onclick={() => (pageContext.modalDialog.show = false)}
+				>Close</button
+			>
+		</div>
+	</Modal>
 {/if}
