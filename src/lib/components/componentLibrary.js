@@ -74,11 +74,11 @@ export const listOfComponents = [
 			alternates: {
 				editable: '{"type": "button","props": {"class": "btn btn-xs btn-accent","label": "Button"}}',
 				readOnly: '{"type": "image","props": {"class": "w-32","src":"https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png"}}'
+			},
+			props: {
+				choiceProperty: 'type'
 			}
 		},
-		props: {
-			choiceProperty: 'type'
-		}
 	},
 	{
 		Name: 'Button',
@@ -107,7 +107,10 @@ export const listOfComponents = [
 				startTimeField: "startDateTime",
 				endTimeField: "endDateTime",
 				titleField: "Title",
-				idField: "UniqueID"
+				idField: "UniqueID",
+				toolbarStart: "today prev,next",
+				toolbarCenter:"title",
+				toolbarEnd:"timeGridDay,timeGridWeek,dayGridMonth",
 			}
 		}
 	},
@@ -241,7 +244,7 @@ export const listOfComponents = [
 				zoom: 2,
 				rasterLayer: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				tileLayer: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-				center: [-117.165975, 33.088782],
+				center: "[-117.165975, 33.088782]",
 				markerIcon: 'mdi:location',
 				markerColor: 'blue',
 				popup: "{\"componentType\":\"text\",\"type\":\"component\",\"id\":\"\",\"props\":{\"content\":\"{lngLat}: {label}\"},\"class\":\"text-base-content\"}",
@@ -409,7 +412,7 @@ export const listOfComponents = [
 		Definition: {
 			type: "table",
 			props: {
-				dataSource: "{page.searchParams.dataSource}",
+				dataSource: "calendarEvents",
 				editable: true
 			},
 		}

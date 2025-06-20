@@ -1,38 +1,48 @@
 <script>
-	import Calendar from "@event-calendar/core";
-	import TimeGrid from "@event-calendar/time-grid";
-	import DayGrid from "@event-calendar/day-grid";
+	import { Calendar, TimeGrid, DayGrid } from "@event-calendar/core";
+	import { performAction } from "./dataPillMacros";
 	import { getContext } from "svelte";
 
-	let { layoutStructure } = $props();
+	let { layoutStructure, dataValues, myself } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
 		return layoutStructure;
 	}
 	export function getEvents() {
-		return ["onclick"];
+		return ["onclick", "eventClicked"];
 	}
 	export function getProps() {
-		return [{ name: "dataSource", type: "dataSource" }];
+		return [
+			{ name: "dataSource", type: "dataSource" },
+			{ name: "idField", type: "string" },
+			{ name: "startTimeField", type: "string" },
+			{ name: "endTimeField", type: "string" },
+			{ name: "titleField", type: "string" },
+			{ name: "toolbarStart", type: "string" },
+			{ name: "toolbarCenter", type: "string" },
+			{ name: "toolbarEnd", type: "string" },
+		];
 	}
 
 	function eventClicked(info) {
-		alert(info.event.title + "\n\n" + info.event.titleHTML);
+		layoutStructure.props.value = info.event;
+		performAction(
+			layoutStructure.actions["eventClicked"],
+			{ page: pageContext, data: info.event, self: myself.getLayout() },
+			dataValues,
+		);
 	}
 
-	export function getOptions() {
-		return options;
-	}
-
-	let plugins = [TimeGrid, DayGrid];
 	let options = $state({
 		view: "dayGridMonth",
 		height: "50vh",
 		headerToolbar: {
-			start: "today prev,next",
-			center: "title",
-			end: "timeGridDay,timeGridWeek,dayGridMonth",
+			start: layoutStructure.props.toolbarStart || "today prev,next",
+			center: layoutStructure.props.toolbarCenter || "title",
+			end:
+				layoutStructure.props.toolbarEnd ||
+				"timeGridDay,timeGridWeek,dayGridMonth",
 		},
 		scrollTime: "09:00:00",
 		eventClick: eventClicked,
@@ -118,6 +128,9 @@
 					title:
 						element[titleField] ??
 						`<< titleField '${titleField}' not found in data>>`, // Fallback title if none provided
+					extendedProps: {
+						...element,
+					},
 				};
 			})
 			.filter((event) => event !== null); // Remove any invalid events
@@ -126,13 +139,24 @@
 	}
 
 	$effect(() => {
+		options.headerToolbar.start = layoutStructure.props.toolbarStart;
+	});
+
+	$effect(() => {
+		options.headerToolbar.center = layoutStructure.props.toolbarCenter;
+	});
+
+	$effect(() => {
+		options.headerToolbar.end = layoutStructure.props.toolbarEnd;
+	});
+
+	$effect(() => {
 		options.events = transformEvents(
 			pageContext.data[layoutStructure.props?.dataSource],
 		);
-		$inspect(options.events);
 	});
 </script>
 
 <div class={layoutStructure.props?.class}>
-	<Calendar {plugins} {options} />
+	<Calendar plugins={[TimeGrid, DayGrid]} {options} />
 </div>

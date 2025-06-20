@@ -1,7 +1,7 @@
 <script>
 	import { onMount, onDestroy } from "svelte";
 	import { createGrid } from "ag-grid-community";
-	import { createColumnsFromFirstRow } from "$lib/components/AGGridHelpers";
+	import { createColumnsFromFirstRow } from "./AGGridHelpers";
 	import "ag-grid-community/styles/ag-grid.css"; // Core CSS
 	import "ag-grid-community/styles/ag-theme-alpine.css"; // Theme CSS
 
