@@ -19,6 +19,7 @@
 			{ name: "placeholder", type: "string" },
 			{ name: "disabled", type: "boolean" },
 			{ name: "value", type: "string" },
+			{ name: "type", type: "string" },
 		];
 	}
 
@@ -37,6 +38,7 @@
 
 <input
 	class={theClass}
+	type={layoutStructure.props?.type||'input'}
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,
@@ -52,7 +54,6 @@
 	)}
 	draggable={layoutStructure.props?.draggable}
 	disabled={layoutStructure.props?.disabled}
-	type="text"
 	placeholder={macroReplace(
 		layoutStructure.props?.placeholder,
 		pageContext,

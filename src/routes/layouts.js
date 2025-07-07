@@ -30,6 +30,7 @@ export const oneOfEachPageData = {
 	type: 'container',
 	props: {},
 	children: [
+		{ "type": "container", "props": { "class": "flex flex-col gap-2", "disabled": false, "draggable": false }, "children": [{ "type": "container", "props": { "class": "lg:flex gap-2", "disabled": false }, "children": [{ "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "Username", "draggable": false, "disabled": false }, "id": "username" }, { "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "Password", "disabled": false, "type": "password" }, "id": "password" }] }, { "type": "container", "props": { "class": "lg:flex gap-2", "disabled": false }, "children": [{ "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "First Name" }, "id": "first name" }, { "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "Last Name" }, "id": "lastname" }, { "type": "choice", "props": { "optionValueField": "", "optionTitleField": "", "value": "", "class": "border border-gray-300 rounded", "dataSource": "__none__", "disabled": false }, "actions": { "onchange": { "type": "clientScript", "script": "alert(\"choice changed: \"+self.props.value})" } }, "id": "secondmember" }] }, { "type": "input", "props": { "class": "input input-bordered w-full", "value": "", "placeholder": "Email", "disabled": false, "type": "email" }, "id": "email" }, { "type": "container", "props": { "class": "flex gap-2", "disabled": false }, "children": [{ "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "Dues Paid", "type": "date", "draggable": false, "disabled": false }, "id": "duespaid" }, { "type": "input", "props": { "class": "input input-bordered w-full lg:w-1/2", "value": "", "placeholder": "Dues Expire", "type": "date" }, "id": "dues expire" }] }, { "type": "container", "props": { "class": "" }, "children": [{ "type": "input", "props": { "class": "input input-bordered w-full", "value": "", "placeholder": "Website", "disabled": false, "type": "url" }, "id": "website" }] }] },
 		{ "type": "repeater", "props": { "class": "grid grid-cols-3 gap-2", "dataSource": "NCPS galleries" }, "children": [{ "type": "container", "props": { "class": "mb-5", "disabled": false }, "children": [{ "type": "text", "props": { "class": "text-base-content text-xl text-center", "value": "{data.galleryName}" } }, { "type": "image", "props": { "src": "https://nc-photo.org/gallery/{data.firstName}%20{data.lastName}/{data.galleryName}/slides/{data.fileName}", "class": "rounded-xl shadow aspect-video object-cover" } }, { "type": "text", "props": { "class": "text-base-content", "value": "{data.galleryDesc:hideEmpty}" } }] }] },
 		{
 			type: "container",
@@ -336,6 +337,7 @@ export const oneOfEachPageData = {
 		// },
 		{
 			type: 'map',
+			id: 'map',
 			props: {
 				class: 'relative aspect-[9/16] max-h-[70vh] w-full sm:aspect-video sm:max-h-full',
 				dataSource: 'mapMarkers',

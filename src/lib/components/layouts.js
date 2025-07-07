@@ -339,6 +339,7 @@ export const oneOfEachPageData = {
 		// },
 		{
 			type: 'map',
+			id: 'map',
 			props: {
 				class: 'relative aspect-[9/16] max-h-[70vh] w-full sm:aspect-video sm:max-h-full',
 				dataSource: 'mapMarkers',

@@ -1,7 +1,8 @@
 <script>
 	import { getContext } from "svelte";
-	import { commonProperties } from "./componentRegistry";
 	import ColorPicker from "svelte-awesome-color-picker";
+	import { commonProperties } from "./componentRegistry";
+	import DataPillDragSource from "./DataPillDragSource.svelte";
 
 	const pageContext = getContext("pageContext");
 
@@ -13,6 +14,31 @@
 		if (id) {
 			pageContext.selectedLayout.id = id;
 		}
+	}
+
+	//	User dropped JSON text onto an property text field
+	function handleDrop(event, propName) {
+		event.preventDefault();
+		event.stopPropagation();
+		const field = event.dataTransfer.getData("text");
+		pageContext.selectedLayout.props[propName] = field; //	This updates the reactive layout value
+	}
+
+	const schema = $derived(extractArraySchema(pageContext.selectedLayout.props.dataSource));
+
+	function extractArraySchema(dataSourceName) {
+		const dataSources = pageContext.data;
+		const schema = {};
+
+		// Iterate through each key in the JSON object
+		for (const key in dataSources) {
+			// Check if the value is an array and has at least one element
+			if (Array.isArray(dataSources[key]) && dataSources[key].length > 0) {
+				// Extract the keys from the first element of the array
+				schema[key] = Object.keys(dataSources[key][0]);
+			}
+		}
+		return schema[dataSourceName];
 	}
 </script>
 
@@ -85,6 +111,7 @@
 				{/if}
 			{/each}
 		</select>
+		<DataPillDragSource fields={schema} />
 	{/if}
 {/snippet}
 

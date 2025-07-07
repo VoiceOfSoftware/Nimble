@@ -82,6 +82,8 @@
 		selectedLayout: null,
 		selectedComponent: {},
 		namedPageObjects: {},
+		isEditingNestedComponent: false,
+		dataValuesForLayoutBeingEdited: {},
 		modalDialog: { show: false, class: "", layout: {} },
 		data: {
 			searchParams: Object.fromEntries(page.url.searchParams),

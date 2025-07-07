@@ -4,7 +4,7 @@
 	import Layout from "./Layout.svelte";
 	import InsertionTarget from "./InsertionTarget.svelte";
 
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, ondragstart } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -14,9 +14,7 @@
 		return ["onclick"];
 	}
 	export function getProps() {
-		return [
-			{ name: "disabled", type: "boolean" },
-		];
+		return [{ name: "disabled", type: "boolean" }];
 	}
 
 	const theClass = $derived(
@@ -36,7 +34,11 @@
 	}
 </script>
 
-<div class={theClass} draggable={layoutStructure.props?.draggable}>
+<div
+	class={theClass}
+	draggable={layoutStructure.props?.draggable}
+	{ondragstart}
+>
 	{#each layoutStructure.children as child, index (child)}
 		{#if pageContext.editMode}
 			<InsertionTarget
