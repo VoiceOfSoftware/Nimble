@@ -109,8 +109,8 @@ export const listOfComponents = [
 				titleField: "Title",
 				idField: "UniqueID",
 				toolbarStart: "today prev,next",
-				toolbarCenter:"title",
-				toolbarEnd:"timeGridDay,timeGridWeek,dayGridMonth",
+				toolbarCenter: "title",
+				toolbarEnd: "timeGridDay,timeGridWeek,dayGridMonth",
 			}
 		}
 	},

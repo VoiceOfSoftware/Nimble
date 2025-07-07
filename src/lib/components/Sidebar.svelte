@@ -34,7 +34,8 @@
 		<ul class="menu w-full p-2">
 			{#if pageContext.selectedLayout}
 				<div class="text-xs underline text-center">
-					{pageContext.selectedLayout.type}
+					{pageContext.selectedLayout.type}/
+					{pageContext.isEditingNestedComponent}/
 				</div>
 				<Tabs items={tabs} />
 
@@ -53,8 +54,8 @@
 				<div class="bordered shadow p-2 text-center text-xl font-bold">
 					Properties Panel
 				</div>
-				To configure a component, please {#if !pageContext.editMode}switch to
-					Edit Mode, then
+				To configure a component, please {#if !pageContext.editMode}switch
+					to Edit Mode, then
 				{/if} click a component's ⛭ gear icon
 				<label
 					use:tooltip={{

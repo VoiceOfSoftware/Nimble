@@ -15,6 +15,12 @@
 	function editComponent() {
 		pageContext.selectedLayout = layoutStructure;
 		pageContext.selectedComponent = myself;
+		if (dataValues != {}) {
+			pageContext.isEditingNestedComponent = true;
+			pageContext.dataValuesForLayoutBeingEdited = dataValues;
+		} else {
+			pageContext.isEditingNestedComponent = false;
+		}
 	}
 
 	function deleteComponent() {
@@ -35,6 +41,7 @@
 
 	//	For dragging of user-defined <Layout> objects, using their dragData prop as the payload
 	function dragCustomLayout(event: DragEvent) {
+		debugger;
 		event.stopPropagation();
 		if (!layoutStructure.props?.draggable) {
 			return;
@@ -121,14 +128,13 @@
 				/>
 			</div>
 		{:else}
-			<div ondragstart={(e) => dragCustomLayout(e)}>
-				<DynamicComponent
-					bind:this={myself}
-					{layoutStructure}
-					{dataValues}
-					{myself}
-				/>
-			</div>
+			<DynamicComponent
+				bind:this={myself}
+				{layoutStructure}
+				{dataValues}
+				{myself}
+				ondragstart={(e) => dragCustomLayout(e)}
+			/>
 		{/if}
 	{/if}
 

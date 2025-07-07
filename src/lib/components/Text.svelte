@@ -3,7 +3,7 @@
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
 
-	let { layoutStructure, dataValues, myself } = $props();
+	let { layoutStructure, dataValues, myself, parent } = $props();
 
 	const pageContext = getContext("pageContext");
 

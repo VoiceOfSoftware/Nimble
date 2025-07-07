@@ -42,9 +42,9 @@
 				break;
 			case "showDialog":
 				newAction.layout =
-					'{"type":"text","props":{"value":"Replace Me!"}}';
+					'{"type":"container","props":{"class":"","disabled":false},"children":[{"type":"text","props":{"class":"p-2 text-base-content bg-gray-500 mb-2 text-2xl text-white font-thin","value":"Agenda & Directions","draggable":false}},{"type":"image","props":{"src":"https://nc-photo.org/images/1594238925.9011-thumbnail01.jpg","class":"shadow-lg","draggable":false}},{"type":"text","props":{"class":"text-base-content text-center","value":"<I>©2011 Andrew Szikla</I><br><br><b>In-person Meetings<br>The Carlsbad Senior Center, Rm. 111<br>799 Pine St., Carlsbad, CA 92008. <a>Map</a><br>Meetings are the 4th Wednesday of the month from 6:30-8:45 PM.</b>"}}]}';
 				newAction.class =
-					"modal-box p-4 w-[90vw] max-w-[90%] max-h-[90vh] mx-auto fixed inset-0 rounded-md border-none animate-zoom";
+					"modal-box mx-auto rounded-md border-none animate-zoom";
 				break;
 		}
 		if (!pageContext.selectedLayout.actions) {
