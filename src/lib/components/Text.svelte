@@ -3,7 +3,8 @@
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
 
-	let { layoutStructure, dataValues, myself, parent } = $props();
+	let { layoutStructure, dataValues, myself, parent, dataSourceName } =
+		$props();
 
 	const pageContext = getContext("pageContext");
 
@@ -15,6 +16,9 @@
 	}
 	export function getProps() {
 		return [{ name: "value", type: "string" }];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

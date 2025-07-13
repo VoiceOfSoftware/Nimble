@@ -29,6 +29,7 @@
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,
+			pageContext,
 			dataValues,
 			false,
 		),

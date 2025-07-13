@@ -4,7 +4,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
 
-	let { layoutStructure, dataValues, myself } = $props();
+	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -19,6 +19,9 @@
 			{ name: "disabled", type: "boolean" },
 			{ name: "label", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(
@@ -43,10 +46,11 @@
 </script>
 
 <button
-class={theClass}
+	class={theClass}
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,
+			pageContext,
 			dataValues,
 			false,
 		),

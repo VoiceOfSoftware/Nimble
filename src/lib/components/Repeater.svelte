@@ -3,6 +3,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
 	import InsertionTarget from "./InsertionTarget.svelte";
+
 	let { layoutStructure, dataValues } = $props();
 
 	const pageContext = getContext("pageContext");
@@ -42,7 +43,7 @@
 				notifyDropped={(index, newObject) =>
 					insertSiblingAbove(newObject, index)}
 			/>
-			<Layout layoutStructure={child} dataValues={{}} parent={layoutStructure} {index}/>
+			<Layout layoutStructure={child} dataValues={{}} parent={layoutStructure} {index} dataSourceName={layoutStructure.props.dataSource}/>
 		{/each}
 		<InsertionTarget
 			index={layoutStructure.children?.length}

@@ -13,7 +13,7 @@
 	} from "svelte-maplibre";
 	import DynamicIcon from "./DynamicIcon.svelte";
 
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -34,6 +34,9 @@
 			{ name: "markerIcon", type: "string" },
 			{ name: "markerSize", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

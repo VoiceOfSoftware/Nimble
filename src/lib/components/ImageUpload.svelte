@@ -4,7 +4,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import { performAction } from "./dataPillMacros";
 
-	let { layoutStructure, dataValues, myself } = $props();
+	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -20,6 +20,9 @@
 			{ name: "cloudinaryPreset", type: "string" },
 			{ name: "cloudinaryFolder", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

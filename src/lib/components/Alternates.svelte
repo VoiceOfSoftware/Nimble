@@ -3,7 +3,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
 	import type { Snippet } from "svelte";
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -14,6 +14,9 @@
 	}
 	export function getProps() {
 		return [{ name: "choiceProperty", type: "string" }];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 	export { getAlternates };
 
@@ -49,6 +52,7 @@
 				layoutStructure={JSON.parse(
 					layoutStructure.alternates[alternateName],
 				)}
+				{dataSourceName}
 			/>
 		{/if}
 	{/each}
@@ -60,5 +64,6 @@
 				dataValues[layoutStructure.props.choiceProperty]
 			],
 		)}
+		{dataSourceName}
 	/>
 {/if}

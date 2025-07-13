@@ -5,7 +5,7 @@
 
 	import Icon from "@iconify/svelte";
 
-	let { layoutStructure, dataValues, parent, index } = $props();
+	let { layoutStructure, dataValues, parent, index, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	let myself = $state();
@@ -125,6 +125,7 @@
 					{layoutStructure}
 					{dataValues}
 					{myself}
+					{dataSourceName}
 				/>
 			</div>
 		{:else}

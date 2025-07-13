@@ -4,7 +4,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
 
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -23,6 +23,9 @@
 			{ name: "timeField", type: "string" },
 			{ name: "itemLayout", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	let nodeWidth = $derived(layoutStructure.props?.nodeWidth || 64);

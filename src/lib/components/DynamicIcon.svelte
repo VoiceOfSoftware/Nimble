@@ -2,7 +2,8 @@
 	import Icon from "@iconify/svelte";
 	import { getContext } from "svelte";
 	import { macroReplace } from "./dataPillMacros.js";
-	let { layoutStructure, dataValues } = $props();
+
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -17,6 +18,9 @@
 			{ name: "color", type: "color" },
 			{ name: "size", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

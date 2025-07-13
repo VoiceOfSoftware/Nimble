@@ -4,7 +4,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import AgGrid from "./AGGrid.svelte";
 
-	let { layoutStructure, dataValues, myself } = $props();
+	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -18,6 +18,9 @@
 			{ name: "dataSource", type: "dataSource" },
 			{ name: "value", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const dataSource = $derived(
