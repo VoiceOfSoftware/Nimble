@@ -3,7 +3,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import Layout from "./Layout.svelte";
 
-	let { layoutStructure, dataValues } = $props();
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -20,6 +20,9 @@
 				choices: layoutStructure.children.map((item) => item.id),
 			},
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

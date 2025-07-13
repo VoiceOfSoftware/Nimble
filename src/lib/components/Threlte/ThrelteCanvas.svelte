@@ -3,7 +3,7 @@
 	import Scene from "./Scene.svelte";
 	import { VRButton } from "@threlte/xr";
 
-	let { layoutStructure } = $props();
+	let { layoutStructure, dataSourceName } = $props();
 
 	export function getLayout() {
 		return layoutStructure;
@@ -17,6 +17,9 @@
 			{ name: "rotation", type: "string" },
 			{ name: "scale", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 </script>
 

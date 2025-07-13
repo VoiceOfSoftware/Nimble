@@ -4,7 +4,7 @@
 	import Layout from "./Layout.svelte";
 	import InsertionTarget from "./InsertionTarget.svelte";
 
-	let { layoutStructure, dataValues, ondragstart } = $props();
+	let { layoutStructure, dataValues, ondragstart, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -15,6 +15,9 @@
 	}
 	export function getProps() {
 		return [{ name: "disabled", type: "boolean" }];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(
@@ -53,6 +56,7 @@
 			{dataValues}
 			parent={layoutStructure}
 			{index}
+			{dataSourceName}
 		/>
 	{/each}
 	{#if pageContext.editMode}

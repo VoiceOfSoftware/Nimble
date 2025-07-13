@@ -3,6 +3,7 @@
 	import ColorPicker from "svelte-awesome-color-picker";
 	import { commonProperties } from "./componentRegistry";
 	import DataPillDragSource from "./DataPillDragSource.svelte";
+	import { page } from "$app/state";
 
 	const pageContext = getContext("pageContext");
 
@@ -24,7 +25,13 @@
 		pageContext.selectedLayout.props[propName] = field; //	This updates the reactive layout value
 	}
 
-	const schema = $derived(extractArraySchema(pageContext.selectedLayout.props.dataSource));
+	const schema = $derived(
+		extractArraySchema(pageContext.selectedLayout.props.dataSource),
+	);
+
+	const schemaOfChild = $derived(
+		extractArraySchema(pageContext.selectedComponent?.getDataSourceName()),
+	);
 
 	function extractArraySchema(dataSourceName) {
 		const dataSources = pageContext.data;
@@ -33,7 +40,10 @@
 		// Iterate through each key in the JSON object
 		for (const key in dataSources) {
 			// Check if the value is an array and has at least one element
-			if (Array.isArray(dataSources[key]) && dataSources[key].length > 0) {
+			if (
+				Array.isArray(dataSources[key]) &&
+				dataSources[key].length > 0
+			) {
 				// Extract the keys from the first element of the array
 				schema[key] = Object.keys(dataSources[key][0]);
 			}
@@ -118,6 +128,13 @@
 {#each commonProperties as prop}
 	{@render propertyEditor(prop)}
 {/each}
+
+{#if pageContext.selectedComponent?.getDataSourceName && pageContext.selectedComponent?.getDataSourceName()}
+	<div class="text-xs">
+		Data (from {pageContext.selectedComponent?.getDataSourceName()})
+	</div>
+	<DataPillDragSource fields={schemaOfChild} />
+{/if}
 
 {#if pageContext.selectedComponent?.getProps}
 	<b class="mt-2">{pageContext.selectedLayout.type} Properties:</b>

@@ -2,7 +2,8 @@
 	import { getContext } from "svelte";
 	import { macroReplace } from "./dataPillMacros.js";
 	import TipTap from "./TipTap.svelte";
-	let { layoutStructure, dataValues } = $props();
+
+	let { layoutStructure, dataValues, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 	export function getLayout() {
@@ -13,6 +14,9 @@
 	}
 	export function getProps() {
 		return [{ name: "value", type: "string" }];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(

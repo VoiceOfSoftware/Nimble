@@ -4,7 +4,7 @@
 	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
 
-	let { layoutStructure, dataValues, myself } = $props();
+	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -22,6 +22,9 @@
 			{ name: "type", type: "string" },
 		];
 	}
+	export function getDataSourceName() {
+		return dataSourceName;
+	}
 
 	const theClass = $derived(
 		macroReplace(
@@ -38,15 +41,15 @@
 
 <input
 	class={theClass}
-	type={layoutStructure.props?.type||'input'}
+	type={layoutStructure.props?.type || "input"}
 	use:tooltip={{
 		content: macroReplace(
 			layoutStructure.props?.tooltip,
+			pageContext,
 			dataValues,
 			false,
 		),
 	}}
-
 	{...createEventHandlers(
 		layoutStructure.actions,
 		{ page: pageContext, data: dataValues, self: myself?.getLayout() },

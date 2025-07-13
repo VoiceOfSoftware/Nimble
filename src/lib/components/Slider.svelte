@@ -2,7 +2,8 @@
 	import { getContext } from "svelte";
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
-	let { layoutStructure, dataValues, myself } = $props();
+
+	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
 
 	const pageContext = getContext("pageContext");
 
@@ -19,6 +20,9 @@
 			{ name: "value", type: "string" },
 			{ name: "step", type: "string" },
 		];
+	}
+	export function getDataSourceName() {
+		return dataSourceName;
 	}
 
 	const theClass = $derived(
