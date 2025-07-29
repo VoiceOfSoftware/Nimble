@@ -36,9 +36,9 @@
 	import Slider from "$lib/components/Slider.svelte";
 	import NimbleTipTap from "$lib/components/NimbleTipTap.svelte";
 	import ThrelteCanvas from "$lib/components/Threlte/ThrelteCanvas.svelte";
+	import Cerebras from "$lib/components/Cerebras.svelte";
 
 	import {
-		headerLayout,
 		oneOfEachPageData,
 		oneOfEachRepeaterData,
 		horizontalIcons,
@@ -75,6 +75,8 @@
 	registerComponent("text", Text);
 	registerComponent("timeline", Timeline);
 	registerComponent("remote", MyRemoteComponent);
+
+	registerComponent("cerebras", Cerebras);
 
 	let pageContext = $state({
 		editMode: false,
