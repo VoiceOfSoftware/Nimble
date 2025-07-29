@@ -2,6 +2,7 @@
 	import Icon from "@iconify/svelte";
 	import { getContext } from "svelte";
 	import { macroReplace } from "./dataPillMacros.js";
+	import { tooltip } from "./Tippy";
 
 	let { layoutStructure, dataValues, dataSourceName } = $props();
 
@@ -44,25 +45,36 @@
 	);
 </script>
 
-<Icon
+<span
 	class={theClass}
-	color={macroReplace(
-		layoutStructure.props?.color,
-		pageContext,
-		dataValues,
-		false,
-	)}
-	icon={content}
-	width={macroReplace(
-		layoutStructure.props?.size + "",
-		pageContext,
-		dataValues,
-		false,
-	)}
-	height={macroReplace(
-		layoutStructure.props?.size + "",
-		pageContext,
-		dataValues,
-		false,
-	)}
-/>
+	use:tooltip={{
+		content: macroReplace(
+			layoutStructure.props?.tooltip,
+			pageContext,
+			dataValues,
+			false,
+		),
+	}}
+>
+	<Icon
+		color={macroReplace(
+			layoutStructure.props?.color,
+			pageContext,
+			dataValues,
+			false,
+		)}
+		icon={content}
+		width={macroReplace(
+			layoutStructure.props?.size + "",
+			pageContext,
+			dataValues,
+			false,
+		)}
+		height={macroReplace(
+			layoutStructure.props?.size + "",
+			pageContext,
+			dataValues,
+			false,
+		)}
+	/>
+</span>
