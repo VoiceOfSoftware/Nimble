@@ -31,8 +31,8 @@
 				: ""),
 	);
 
-	let container: HTMLDivElement;
-	let error: string | null = null;
+	let container = $state<HTMLDivElement>();
+	let error = $state<string | null>(null);
 
 	onMount(async () => {
 		const loadRemote = async (retries = 3, delay = 1000): Promise<void> => {

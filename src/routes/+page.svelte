@@ -338,7 +338,7 @@
 	let reactiveF1 = $state(f1);
 	let reactiveRepeater = $state(repeater);
 	let reactiveOneOfEachPageData = $state(oneOfEachPageData);
-	let renderPreview = false; //	To hide all editing panels, so you can preview the website, set to true
+	let renderPreview = $state(false); //	To hide all editing panels, so you can preview the website, set to true
 	if (page.url.searchParams.get("appJSON")) {
 		reactiveOneOfEachPageData = JSON.parse(
 			page.url.searchParams.get("appJSON"),

@@ -11,7 +11,7 @@
 		return layoutStructure;
 	}
 	export function getEvents() {
-		["onclick"];
+		return ["onclick"];
 	}
 	export function getProps() {
 		return [

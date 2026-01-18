@@ -17,6 +17,8 @@
 		event.stopPropagation();
 		dragEntered = false;
 
+		if (!event.dataTransfer) return;
+
 		const availableTypes = event.dataTransfer.types;
 		console.log("Available data types:", availableTypes);
 

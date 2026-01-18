@@ -118,8 +118,8 @@
 
 <div
 	class="editor-wrapper w-full"
-	on:drop={handleDrop}
-	on:dragover={handleDragOver}
+	ondrop={handleDrop}
+	ondragover={handleDragOver}
 	role="textbox"
 	tabindex="0"
 >

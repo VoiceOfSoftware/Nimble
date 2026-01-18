@@ -45,21 +45,6 @@ export const oneOfEachPageData = {
 						cloudinaryPreset: "Bleth_preset",
 					}
 				},
-				{
-					type: "button",
-					props: {
-						class: "btn btn-sm btn-primary",
-						tooltip: "Show this when user hovers",
-						label: "Query Cloudinary",
-						disabled: false
-					},
-					actions: {
-						onclick: {
-							type: "clientScript",
-							script: "// Construct the API URL\n const apiUrl = 'https://voiceofsoftware.com/hello.php';\n  \n  fetch(apiUrl, {\n    method: 'GET',\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  })\n    .then(response => {\n      if (!response.ok) {\n        throw new Error(`HTTP error! status: ${response.status}`);\n      }\n      return response.json();\n    })\n    .then(data => {\n      console.log(data);\n      data.resources.forEach((item)=>{item.url=('https://res.cloudinary.com/dzoumeu1e/image/upload/'+'q_auto,w_200/'+item.secure_url.split('https://res.cloudinary.com/dzoumeu1e/image/upload/')[1])});\n      page.data.cloudinary = data.resources;\n      return data;\n    })\n    .catch(error => {\n      console.error('Error fetching Cloudinary images:', error);\n      throw error;\n    });"
-						}
-					}
-				}
 			]
 		},
 		{

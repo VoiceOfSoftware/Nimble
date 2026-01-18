@@ -11,7 +11,7 @@
 		<div
 			class="badge badge-ghost mb-1 mr-1"
 			draggable="true"
-			on:dragstart={(e) => handleDragStart(e, field)}
+			ondragstart={(e) => handleDragStart(e, field)}
 			role="button"
 			tabindex={key}
 		>

@@ -4,6 +4,7 @@
 	import { createEventHandlers } from "./eventHandlers.js";
 	import { macroReplace } from "./dataPillMacros.js";
 	import { tooltip } from "./Tippy";
+	import { PUBLIC_CEREBRAS_API_KEY } from "$env/static/public";
 	import Cerebras from "@cerebras/cerebras_cloud_sdk";
 
 	let { layoutStructure, dataValues, myself, dataSourceName } = $props();
@@ -43,7 +44,7 @@
 	let cerebrasClient;
 	onMount(async () => {
 		cerebrasClient = new Cerebras({
-			apiKey: "csk-2yp632j3xvcwfvywc5t23ry864emv9eyj54wck2kcer8ek6m",
+			apiKey: PUBLIC_CEREBRAS_API_KEY,
 		});
 	});
 	async function callCerebras() {

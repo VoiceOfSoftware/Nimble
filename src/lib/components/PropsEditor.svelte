@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 	import { getContext } from "svelte";
 	import ColorPicker from "svelte-awesome-color-picker";
 	import { commonProperties } from "./componentRegistry";
 	import DataPillDragSource from "./DataPillDragSource.svelte";
 	import { page } from "$app/state";
 
-	const pageContext = getContext("pageContext");
+	const pageContext = getContext("pageContext") as any;
 
-	function setComponentID(id) {
+	function setComponentID(id: string) {
 		//	If component already has an id, rename it by first removing from the global list of named objects
 		if (pageContext.selectedLayout.id) {
 			delete pageContext.namedPageObjects[pageContext.selectedLayout.id];
@@ -18,9 +18,10 @@
 	}
 
 	//	User dropped JSON text onto an property text field
-	function handleDrop(event, propName) {
+	function handleDrop(event: DragEvent, propName: string) {
 		event.preventDefault();
 		event.stopPropagation();
+		if (!event.dataTransfer) return;
 		const field = event.dataTransfer.getData("text");
 		pageContext.selectedLayout.props[propName] = field; //	This updates the reactive layout value
 	}
@@ -33,9 +34,9 @@
 		extractArraySchema(pageContext.selectedComponent?.getDataSourceName()),
 	);
 
-	function extractArraySchema(dataSourceName) {
+	function extractArraySchema(dataSourceName: string) {
 		const dataSources = pageContext.data;
-		const schema = {};
+		const schema: Record<string, string[]> = {};
 
 		// Iterate through each key in the JSON object
 		for (const key in dataSources) {
@@ -58,10 +59,10 @@
 <input
 	class="mb-1 border border-base-300 w-full"
 	value={pageContext.selectedLayout.id}
-	onblur={(event) => setComponentID(event.target.value)}
+	onblur={(event: Event) => setComponentID((event.target as HTMLInputElement).value)}
 />
 
-{#snippet propertyEditor(prop)}
+{#snippet propertyEditor(prop: any)}
 	{#if prop.type === "string"}
 		<div class="text-xs">{prop.name}</div>
 		<input

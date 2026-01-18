@@ -68,7 +68,9 @@ export function evalWithContext(code, context) {
 export function performAction(actionDefinition, context, dataValues) {
 	switch (actionDefinition?.type) {
 		case 'navigate':
-			window.open(macroReplace(actionDefinition.URL, context, dataValues, false), actionDefinition.newTab ? '_blank' : '_self');
+			if (typeof window !== 'undefined') {
+				window.open(macroReplace(actionDefinition.URL, context, dataValues, false), actionDefinition.newTab ? '_blank' : '_self');
+			}
 			break;
 		case 'clientScript':
 			evalWithContext(actionDefinition.script, context)
