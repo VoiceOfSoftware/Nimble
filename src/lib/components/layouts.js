@@ -32,34 +32,6 @@ export const oneOfEachPageData = {
 	children: [
 		{ type: "repeater", props: { class: "grid grid-cols-3 gap-2", "dataSource": "NCPS galleries" }, "children": [{ "type": "container", "props": { "class": "mb-5", "disabled": false }, "children": [{ "type": "text", "props": { "class": "text-base-content text-xl text-center", "value": "{data.galleryName}" } }, { "type": "image", "props": { "src": "https://nc-photo.org/gallery/{data.firstName}%20{data.lastName}/{data.galleryName}/slides/{data.fileName}", "class": "rounded-xl shadow aspect-video object-cover" } }, { "type": "text", "props": { "class": "text-base-content", "value": "{data.galleryDesc:hideEmpty}" } }] }] },
 		{
-			type: "container",
-			props:
-				{ class: "flex flex-wrap gap-2" },
-			children: [
-				{
-					type: "imageupload",
-					props: {
-						class: "btn btn-sm btn-primary",
-						label: "Upload to Cloudinary",
-						cloudinaryFolder: "samples",
-						cloudinaryPreset: "Bleth_preset",
-					}
-				},
-			]
-		},
-		{
-			type: "repeater",
-			props: {
-				class: "flex flex-wrap",
-				dataSource: "cloudinary",
-				draggable: false
-			},
-			children: [{
-				type: "image",
-				props: { "src": "{data.url}", "class": "w-32" }
-			}]
-		},
-		{
 			type: 'container',
 			props: {
 				class: 'mockup-phone scale-90',
@@ -298,15 +270,6 @@ export const oneOfEachPageData = {
 				class: 'w-96',
 				background: 'https://media.formula1.com/image/upload/content/dam/fom-website/2018-redesign-assets/Flags%2016x9/united-kingdom-flag.png',
 				src: 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png'
-			}
-		},
-		{
-			type: 'imageupload',
-			props: {
-				class: 'btn btn-sm btn-primary',
-				label: 'Upload to Cloudinary',
-				cloudinaryFolder: 'test',
-				cloudinaryPreset: 'Bleth_preset'
 			}
 		},
 		{

@@ -443,19 +443,6 @@ export const listOfComponents = [
 			},
 		}
 	},
-	{
-		Name: 'Upload Image',
-		IconifyIcon: 'material-symbols:cloud-upload',
-		Definition: {
-			type: 'imageupload',
-			props: {
-				class: 'btn btn-sm btn-primary',
-				label: 'Upload to Cloudinary',
-				cloudinaryFolder: 'test',
-				cloudinaryPreset: 'Bleth_preset'
-			}
-		}
-	}
 ]
 
 //	To simulate how a database retrieves Definitions, convert native JSON to stringified text.
